@@ -9,8 +9,8 @@ interface AnnouncementBannerProps {
 
 export default function AnnouncementBanner({
   messages = [],
-  backgroundColor = "bg-[#58a605]",
-  textColor = "text-white",
+  backgroundColor = "bg-[var(--olive-green)]",
+  textColor = "text-[var(--cream-white)]",
 }: AnnouncementBannerProps) {
 
   // Don't render if no messages or if banner is closed

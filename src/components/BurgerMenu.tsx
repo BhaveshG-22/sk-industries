@@ -25,17 +25,17 @@ export default function BurgerMenu() {
       zIndex: '50'
     },
     bmBurgerBars: {
-      background: '#373a47'
+      background: 'var(--dark-forest)'
     },
     bmBurgerBarsHover: {
-      background: '#a90000'
+      background: 'var(--burnt-orange)'
     },
     bmCrossButton: {
       height: '24px',
       width: '24px'
     },
     bmCross: {
-      background: '#bdc3c7'
+      background: 'var(--cream-white)'
     },
     bmMenuWrap: {
       position: 'fixed',
@@ -44,22 +44,22 @@ export default function BurgerMenu() {
       left: '0'
     },
     bmMenu: {
-      background: '#373a47',
+      background: 'var(--dark-forest)',
       padding: '2.5em 1.5em 0',
       fontSize: '1.15em'
     },
     bmItemList: {
-      color: '#b8b7ad',
+      color: 'var(--cream-white)',
       padding: '0.8em'
     },
     bmItem: {
       display: 'block',
       padding: '10px 0',
       textDecoration: 'none',
-      color: '#b8b7ad'
+      color: 'var(--cream-white)'
     },
     bmOverlay: {
-      background: 'rgba(0, 0, 0, 0.3)'
+      background: 'rgba(40, 54, 24, 0.6)'
     }
   };
 
@@ -91,7 +91,7 @@ export default function BurgerMenu() {
         <Link href="/contact" className="menu-item" onClick={closeMenu}>
           CONTACT US
         </Link>
-        <hr style={{borderColor: '#b8b7ad', margin: '20px 0'}} />
+        <hr style={{borderColor: 'var(--warm-tan)', margin: '20px 0'}} />
         <Link href="/account" className="menu-item" onClick={closeMenu}>
           Account
         </Link>

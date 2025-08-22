@@ -71,7 +71,7 @@ export default function ProductPreviewModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="!max-w-none !w-[95vw] !max-h-[95vh] overflow-y-auto p-0" style={{width: '95vw', maxWidth: 'none'}}>
+      <DialogContent className="!max-w-none !w-[95vw] !max-h-[85vh] sm:!max-h-[95vh] overflow-y-auto p-0" style={{width: '95vw', maxWidth: 'none'}}>
         <DialogHeader className="sr-only">
           <DialogTitle>{product.title}</DialogTitle>
         </DialogHeader>

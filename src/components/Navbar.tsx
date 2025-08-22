@@ -6,15 +6,15 @@ import { Search, ShoppingCart } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <nav className="w-full bg-white sticky top-0 z-40">
+    <nav className="w-full bg-[#FEFAE0] sticky top-0 z-40">
 
       {/* Top Section */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-[#DDA15E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-28">
             {/* Left side text */}
             <div className="flex-1">
-              <span className="text-2xl font-bold tracking-wide font-arimo" style={{color: '#2D4730'}}>
+              <span className="text-2xl font-bold tracking-wide font-arimo text-[#283618]">
                 GAVALI GROUP
               </span>
             </div>
@@ -34,16 +34,16 @@ export default function Navbar() {
 
             {/* Right Navigation - Hidden on screens where burger menu is visible */}
             <div className="xl:flex items-center space-x-8 flex-1 justify-end hidden">
-              <Link href="/account" className="text-gray-600 hover:text-gray-900 transition-colors">
+              <Link href="/account" className="text-[#606C38] hover:text-[#283618] transition-colors">
                 Account
               </Link>
-              <button className="text-gray-600 hover:text-gray-900 transition-colors">
+              <button className="text-[#606C38] hover:text-[#283618] transition-colors">
                 <Search className="w-5 h-5" />
               </button>
-              <Link href="/track-order" className="text-gray-600 hover:text-gray-900 transition-colors">
+              <Link href="/track-order" className="text-[#606C38] hover:text-[#283618] transition-colors">
                 Track Order
               </Link>
-              <Link href="/cart" className="flex items-center space-x-1 text-gray-600 hover:text-gray-900 transition-colors">
+              <Link href="/cart" className="flex items-center space-x-1 text-[#606C38] hover:text-[#283618] transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 <span>(0)</span>
               </Link>
@@ -53,28 +53,28 @@ export default function Navbar() {
       </div>
 
       {/* Bottom Navigation - Hidden when burger menu is active */}
-      <div className="bg-amber-800 hidden xl:block">
+      <div className="bg-[#BC6C25] hidden xl:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center justify-center space-x-12 h-12">
-            <Link href="/" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               HOME
             </Link>
-            <Link href="/categories" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/categories" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               CATEGORIES
             </Link>
-            <Link href="/products" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/products" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               PRODUCTS
             </Link>
-            <Link href="/blogs" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/blogs" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               BLOGS
             </Link>
-            <Link href="/about" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/about" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               ABOUT US
             </Link>
-            <Link href="/founders-story" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/founders-story" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               FOUNDER&apos;S STORY
             </Link>
-            <Link href="/contact" className="text-white hover:text-amber-200 transition-colors font-medium">
+            <Link href="/contact" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               CONTACT US
             </Link>
           </nav>

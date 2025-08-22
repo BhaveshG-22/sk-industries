@@ -372,8 +372,8 @@ export default function CategorySection() {
             onClick={() => setActiveFirstSection(activeFirstSection === "personal-hygiene" ? "both" : "personal-hygiene")}
             className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
               activeFirstSection === "personal-hygiene"
-                ? "text-amber-800 border-amber-800"
-                : "text-gray-900 border-amber-800 hover:text-amber-700"
+                ? "text-[var(--burnt-orange)] border-[var(--burnt-orange)]"
+                : "text-[var(--dark-forest)] border-[var(--burnt-orange)] hover:text-[var(--olive-green)]"
             }`}
           >
             {categories[0]?.name}
@@ -382,8 +382,8 @@ export default function CategorySection() {
             onClick={() => setActiveFirstSection(activeFirstSection === "food-wrapping" ? "both" : "food-wrapping")}
             className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
               activeFirstSection === "food-wrapping"
-                ? "text-amber-800 border-amber-800"
-                : "text-gray-900 border-amber-800 hover:text-amber-700"
+                ? "text-[var(--burnt-orange)] border-[var(--burnt-orange)]"
+                : "text-[var(--dark-forest)] border-[var(--burnt-orange)] hover:text-[var(--olive-green)]"
             }`}
           >
             {categories[1]?.name}
@@ -411,13 +411,13 @@ export default function CategorySection() {
                 return productsToShow.map((product) => (
                 <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="p-2 h-full">
-                    <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
+                    <Card className="group relative overflow-hidden border-[var(--warm-tan)] hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
                       <CardContent className="p-0 flex flex-col h-full">
                         {/* Product Image */}
-                        <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
+                        <div className="relative bg-[var(--cream-white)] p-6 h-64 flex items-center justify-center">
                           {product.badge && (
                             <div className="absolute top-3 right-3 z-10">
-                              <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                              <span className="bg-[var(--olive-green)] text-[var(--cream-white)] text-xs font-bold px-2 py-1 rounded-full">
                                 {product.badge}
                               </span>
                             </div>
@@ -435,23 +435,23 @@ export default function CategorySection() {
 
                         {/* Product Info */}
                         <div className="p-4 flex flex-col flex-1">
-                          <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                          <h3 className="text-sm font-medium text-[var(--dark-forest)] mb-2 line-clamp-2 min-h-[2.5rem]">
                             {product.title}
                           </h3>
                           
                           {/* Price */}
                           <div className="mb-3 flex-1">
                             {product.status === "sold_out" ? (
-                              <span className="text-red-600 font-semibold text-sm">
+                              <span className="text-[var(--burnt-orange)] font-semibold text-sm">
                                 Sold Out
                               </span>
                             ) : (
                               <div className="flex items-center gap-2">
-                                <span className="text-lg font-bold text-gray-900">
+                                <span className="text-lg font-bold text-[var(--dark-forest)]">
                                   Rs. {product.salePrice}
                                 </span>
                                 {product.originalPrice && (
-                                  <span className="text-sm text-gray-500 line-through">
+                                  <span className="text-sm text-[var(--olive-green)] line-through">
                                     Rs. {product.originalPrice}
                                   </span>
                                 )}
@@ -463,8 +463,8 @@ export default function CategorySection() {
                           <Button 
                             className={`w-full mt-auto ${
                               product.status === "sold_out"
-                                ? "bg-gray-400 cursor-not-allowed"
-                                : "bg-amber-800 hover:bg-amber-900"
+                                ? "bg-[var(--olive-green)] opacity-50 cursor-not-allowed"
+                                : "bg-[var(--burnt-orange)] hover:bg-[var(--dark-forest)]"
                             }`}
                             disabled={product.status === "sold_out"}
                           >
@@ -492,8 +492,8 @@ export default function CategorySection() {
             onClick={() => setActiveSecondSection(activeSecondSection === "kitchen-hygiene" ? "both" : "kitchen-hygiene")}
             className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
               activeSecondSection === "kitchen-hygiene"
-                ? "text-amber-800 border-amber-800"
-                : "text-gray-900 border-amber-800 hover:text-amber-700"
+                ? "text-[var(--burnt-orange)] border-[var(--burnt-orange)]"
+                : "text-[var(--dark-forest)] border-[var(--burnt-orange)] hover:text-[var(--olive-green)]"
             }`}
           >
             {categories[2]?.name}
@@ -502,8 +502,8 @@ export default function CategorySection() {
             onClick={() => setActiveSecondSection(activeSecondSection === "household-cleaner" ? "both" : "household-cleaner")}
             className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
               activeSecondSection === "household-cleaner"
-                ? "text-amber-800 border-amber-800"
-                : "text-gray-900 border-amber-800 hover:text-amber-700"
+                ? "text-[var(--burnt-orange)] border-[var(--burnt-orange)]"
+                : "text-[var(--dark-forest)] border-[var(--burnt-orange)] hover:text-[var(--olive-green)]"
             }`}
           >
             {categories[3]?.name}
@@ -531,13 +531,13 @@ export default function CategorySection() {
                 return productsToShow.map((product) => (
                 <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <div className="p-2 h-full">
-                    <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
+                    <Card className="group relative overflow-hidden border-[var(--warm-tan)] hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
                       <CardContent className="p-0 flex flex-col h-full">
                         {/* Product Image */}
-                        <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
+                        <div className="relative bg-[var(--cream-white)] p-6 h-64 flex items-center justify-center">
                           {product.badge && (
                             <div className="absolute top-3 right-3 z-10">
-                              <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                              <span className="bg-[var(--olive-green)] text-[var(--cream-white)] text-xs font-bold px-2 py-1 rounded-full">
                                 {product.badge}
                               </span>
                             </div>
@@ -555,23 +555,23 @@ export default function CategorySection() {
 
                         {/* Product Info */}
                         <div className="p-4 flex flex-col flex-1">
-                          <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                          <h3 className="text-sm font-medium text-[var(--dark-forest)] mb-2 line-clamp-2 min-h-[2.5rem]">
                             {product.title}
                           </h3>
                           
                           {/* Price */}
                           <div className="mb-3 flex-1">
                             {product.status === "sold_out" ? (
-                              <span className="text-red-600 font-semibold text-sm">
+                              <span className="text-[var(--burnt-orange)] font-semibold text-sm">
                                 Sold Out
                               </span>
                             ) : (
                               <div className="flex items-center gap-2">
-                                <span className="text-lg font-bold text-gray-900">
+                                <span className="text-lg font-bold text-[var(--dark-forest)]">
                                   Rs. {product.salePrice}
                                 </span>
                                 {product.originalPrice && (
-                                  <span className="text-sm text-gray-500 line-through">
+                                  <span className="text-sm text-[var(--olive-green)] line-through">
                                     Rs. {product.originalPrice}
                                   </span>
                                 )}
@@ -583,8 +583,8 @@ export default function CategorySection() {
                           <Button 
                             className={`w-full mt-auto ${
                               product.status === "sold_out"
-                                ? "bg-gray-400 cursor-not-allowed"
-                                : "bg-amber-800 hover:bg-amber-900"
+                                ? "bg-[var(--olive-green)] opacity-50 cursor-not-allowed"
+                                : "bg-[var(--burnt-orange)] hover:bg-[var(--dark-forest)]"
                             }`}
                             disabled={product.status === "sold_out"}
                           >
