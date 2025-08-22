@@ -32,8 +32,8 @@ export default function Navbar() {
               </Link>
             </div>
 
-            {/* Right Navigation */}
-            <div className="flex items-center space-x-8 flex-1 justify-end">
+            {/* Right Navigation - Hidden on screens where burger menu is visible */}
+            <div className="xl:flex items-center space-x-8 flex-1 justify-end hidden">
               <Link href="/account" className="text-gray-600 hover:text-gray-900 transition-colors">
                 Account
               </Link>

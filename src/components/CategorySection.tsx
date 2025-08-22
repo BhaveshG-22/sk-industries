@@ -468,7 +468,7 @@ export default function CategorySection() {
                             }`}
                             disabled={product.status === "sold_out"}
                           >
-                            {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
+                            {product.status === "sold_out" ? "SOLD OUT" : "PREVIEW"}
                           </Button>
                         </div>
                       </CardContent>
@@ -588,7 +588,7 @@ export default function CategorySection() {
                             }`}
                             disabled={product.status === "sold_out"}
                           >
-                            {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
+                            {product.status === "sold_out" ? "SOLD OUT" : "PREVIEW"}
                           </Button>
                         </div>
                       </CardContent>

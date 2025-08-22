@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
+import ProductPreviewModal from "@/components/ProductPreviewModal";
 
 interface CategoryProduct {
   id: string;
@@ -210,6 +211,18 @@ const categories: Category[] = [
 
 export default function CategorySection2() {
   const [activeSection, setActiveSection] = useState("kitchen-hygiene"); // "both", "kitchen-hygiene", "household-cleaner"
+  const [selectedProduct, setSelectedProduct] = useState<CategoryProduct | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePreviewClick = (product: CategoryProduct) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-12">
@@ -315,8 +328,9 @@ export default function CategorySection2() {
                               : "bg-amber-800 hover:bg-amber-900"
                           }`}
                           disabled={product.status === "sold_out"}
+                          onClick={() => product.status === "available" && handlePreviewClick(product)}
                         >
-                          {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
+                          {product.status === "sold_out" ? "SOLD OUT" : "PREVIEW"}
                         </Button>
                       </div>
                     </CardContent>
@@ -330,6 +344,13 @@ export default function CategorySection2() {
           <CarouselNext />
         </Carousel>
       </div>
+
+      {/* Product Preview Modal */}
+      <ProductPreviewModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        product={selectedProduct}
+      />
     </div>
   );
 }
