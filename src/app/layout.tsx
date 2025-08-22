@@ -1,6 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
+import HeroSection from "@/components/HeroSection";
+import BurgerMenu from "@/components/BurgerMenu";
+import CategorySection from "@/components/CategorySection";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +32,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <BurgerMenu />
+        <AnnouncementBanner
+          messages={[
+            "Free shipping over ₹499 | Additional 15% discount on purchases above ₹1000",
+            "Limited time offer: Buy 2 Get 1 Free on selected items",
+            "New arrivals: Explore our latest home collection"
+          ]}
+         />
+        <Navbar />
+        <HeroSection />
+        <CategorySection />
+        <div className="pt-20">
+          {children}
+        </div>
       </body>
     </html>
   );
