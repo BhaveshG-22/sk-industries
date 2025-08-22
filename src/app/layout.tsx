@@ -5,7 +5,8 @@ import Navbar from "@/components/Navbar";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import HeroSection from "@/components/HeroSection";
 import BurgerMenu from "@/components/BurgerMenu";
-import CategorySection from "@/components/CategorySection";
+import CategorySection1 from "@/components/CategorySection1";
+import CategorySection2 from "@/components/CategorySection2";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,7 +54,8 @@ export default function RootLayout({
          />
         <Navbar />
         <HeroSection />
-        <CategorySection />
+        <CategorySection1 />
+        <CategorySection2 />
         <div className="pt-20">
           {children}
         </div>

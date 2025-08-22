@@ -358,116 +358,333 @@ const categories: Category[] = [
 ];
 
 export default function CategorySection() {
-  const [activeCategory, setActiveCategory] = useState("personal-hygiene");
+  const [activeFirstSection, setActiveFirstSection] = useState("both"); // "both", "personal-hygiene", "food-wrapping"
+  const [activeSecondSection, setActiveSecondSection] = useState("both"); // "both", "kitchen-hygiene", "household-cleaner"
 
-  const currentCategory = categories.find(cat => cat.id === activeCategory);
+  const renderCategorySlider = (category: Category) => (
+    <Carousel
+      key={category.id}
+      opts={{
+        align: "start",
+      }}
+      className="w-full"
+    >
+      <CarouselContent>
+        {category.products.map((product) => (
+          <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+            <div className="p-2 h-full">
+              <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
+                <CardContent className="p-0 flex flex-col h-full">
+                  {/* Product Image */}
+                  <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
+                    {product.badge && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                          {product.badge}
+                        </span>
+                      </div>
+                    )}
+                    <Image
+                      src={product.image}
+                      alt={product.title}
+                      fill
+                      className="object-contain group-hover:scale-105 transition-transform"
+                      onError={(e) => {
+                        e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
+                      }}
+                    />
+                  </div>
+
+                  {/* Product Info */}
+                  <div className="p-4 flex flex-col flex-1">
+                    <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                      {product.title}
+                    </h3>
+                    
+                    {/* Price */}
+                    <div className="mb-3 flex-1">
+                      {product.status === "sold_out" ? (
+                        <span className="text-red-600 font-semibold text-sm">
+                          Sold Out
+                        </span>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-bold text-gray-900">
+                            Rs. {product.salePrice}
+                          </span>
+                          {product.originalPrice && (
+                            <span className="text-sm text-gray-500 line-through">
+                              Rs. {product.originalPrice}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Action Button */}
+                    <Button 
+                      className={`w-full mt-auto ${
+                        product.status === "sold_out"
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-amber-800 hover:bg-amber-900"
+                      }`}
+                      disabled={product.status === "sold_out"}
+                    >
+                      {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  );
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 py-12">
-      {/* Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-900 mb-8">
-          Shop By Category
-        </h2>
+      {/* First Section - First 2 Categories */}
+      <div className="mb-16">
+        {/* First Row Headers */}
+        <div className="flex justify-center gap-8 mb-8">
+          <button
+            onClick={() => setActiveFirstSection(activeFirstSection === "personal-hygiene" ? "both" : "personal-hygiene")}
+            className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
+              activeFirstSection === "personal-hygiene"
+                ? "text-amber-800 border-amber-800"
+                : "text-gray-900 border-amber-800 hover:text-amber-700"
+            }`}
+          >
+            {categories[0]?.name}
+          </button>
+          <button
+            onClick={() => setActiveFirstSection(activeFirstSection === "food-wrapping" ? "both" : "food-wrapping")}
+            className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
+              activeFirstSection === "food-wrapping"
+                ? "text-amber-800 border-amber-800"
+                : "text-gray-900 border-amber-800 hover:text-amber-700"
+            }`}
+          >
+            {categories[1]?.name}
+          </button>
+        </div>
         
-        {/* Category Tabs */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setActiveCategory(category.id)}
-              className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
-                activeCategory === category.id
-                  ? "border-amber-800 text-amber-800"
-                  : "border-transparent text-gray-600 hover:text-gray-900"
-              }`}
-            >
-              {category.name}
-            </button>
-          ))}
+        {/* Combined First Two Categories Slider */}
+        <div className="mb-12">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {(() => {
+                let productsToShow = [];
+                if (activeFirstSection === "personal-hygiene") {
+                  productsToShow = categories[0]?.products || [];
+                } else if (activeFirstSection === "food-wrapping") {
+                  productsToShow = categories[1]?.products || [];
+                } else {
+                  productsToShow = [...categories[0]?.products || [], ...categories[1]?.products || []];
+                }
+                return productsToShow.map((product) => (
+                <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <div className="p-2 h-full">
+                    <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
+                      <CardContent className="p-0 flex flex-col h-full">
+                        {/* Product Image */}
+                        <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
+                          {product.badge && (
+                            <div className="absolute top-3 right-3 z-10">
+                              <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                {product.badge}
+                              </span>
+                            </div>
+                          )}
+                          <Image
+                            src={product.image}
+                            alt={product.title}
+                            fill
+                            className="object-contain group-hover:scale-105 transition-transform"
+                            onError={(e) => {
+                              e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
+                            }}
+                          />
+                        </div>
+
+                        {/* Product Info */}
+                        <div className="p-4 flex flex-col flex-1">
+                          <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                            {product.title}
+                          </h3>
+                          
+                          {/* Price */}
+                          <div className="mb-3 flex-1">
+                            {product.status === "sold_out" ? (
+                              <span className="text-red-600 font-semibold text-sm">
+                                Sold Out
+                              </span>
+                            ) : (
+                              <div className="flex items-center gap-2">
+                                <span className="text-lg font-bold text-gray-900">
+                                  Rs. {product.salePrice}
+                                </span>
+                                {product.originalPrice && (
+                                  <span className="text-sm text-gray-500 line-through">
+                                    Rs. {product.originalPrice}
+                                  </span>
+                                )}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Action Button */}
+                          <Button 
+                            className={`w-full mt-auto ${
+                              product.status === "sold_out"
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-amber-800 hover:bg-amber-900"
+                            }`}
+                            disabled={product.status === "sold_out"}
+                          >
+                            {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                ));
+              })()}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </div>
 
-      {/* Products Carousel */}
-      <Carousel
-        opts={{
-          align: "start",
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {currentCategory?.products.map((product) => (
-            <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-              <div className="p-2 h-full">
-                <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
-                  <CardContent className="p-0 flex flex-col h-full">
-                    {/* Product Image */}
-                    <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
-                      {product.badge && (
-                        <div className="absolute top-3 right-3 z-10">
-                          <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            {product.badge}
-                          </span>
-                        </div>
-                      )}
-                      <Image
-                        src={product.image}
-                        alt={product.title}
-                        fill
-                        className="object-contain group-hover:scale-105 transition-transform"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
-                        }}
-                      />
-                    </div>
-
-                    {/* Product Info */}
-                    <div className="p-4 flex flex-col flex-1">
-                      <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
-                        {product.title}
-                      </h3>
-                      
-                      {/* Price */}
-                      <div className="mb-3 flex-1">
-                        {product.status === "sold_out" ? (
-                          <span className="text-red-600 font-semibold text-sm">
-                            Sold Out
-                          </span>
-                        ) : (
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold text-gray-900">
-                              Rs. {product.salePrice}
-                            </span>
-                            {product.originalPrice && (
-                              <span className="text-sm text-gray-500 line-through">
-                                Rs. {product.originalPrice}
+      {/* Second Section - Last 2 Categories */}
+      <div>
+        {/* Second Row Headers */}
+        <div className="flex justify-center gap-8 mb-8">
+          <button
+            onClick={() => setActiveSecondSection(activeSecondSection === "kitchen-hygiene" ? "both" : "kitchen-hygiene")}
+            className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
+              activeSecondSection === "kitchen-hygiene"
+                ? "text-amber-800 border-amber-800"
+                : "text-gray-900 border-amber-800 hover:text-amber-700"
+            }`}
+          >
+            {categories[2]?.name}
+          </button>
+          <button
+            onClick={() => setActiveSecondSection(activeSecondSection === "household-cleaner" ? "both" : "household-cleaner")}
+            className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
+              activeSecondSection === "household-cleaner"
+                ? "text-amber-800 border-amber-800"
+                : "text-gray-900 border-amber-800 hover:text-amber-700"
+            }`}
+          >
+            {categories[3]?.name}
+          </button>
+        </div>
+        
+        {/* Combined Last Two Categories Slider */}
+        <div className="mb-12">
+          <Carousel
+            opts={{
+              align: "start",
+            }}
+            className="w-full"
+          >
+            <CarouselContent>
+              {(() => {
+                let productsToShow = [];
+                if (activeSecondSection === "kitchen-hygiene") {
+                  productsToShow = categories[2]?.products || [];
+                } else if (activeSecondSection === "household-cleaner") {
+                  productsToShow = categories[3]?.products || [];
+                } else {
+                  productsToShow = [...categories[2]?.products || [], ...categories[3]?.products || []];
+                }
+                return productsToShow.map((product) => (
+                <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                  <div className="p-2 h-full">
+                    <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
+                      <CardContent className="p-0 flex flex-col h-full">
+                        {/* Product Image */}
+                        <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
+                          {product.badge && (
+                            <div className="absolute top-3 right-3 z-10">
+                              <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
+                                {product.badge}
                               </span>
+                            </div>
+                          )}
+                          <Image
+                            src={product.image}
+                            alt={product.title}
+                            fill
+                            className="object-contain group-hover:scale-105 transition-transform"
+                            onError={(e) => {
+                              e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
+                            }}
+                          />
+                        </div>
+
+                        {/* Product Info */}
+                        <div className="p-4 flex flex-col flex-1">
+                          <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
+                            {product.title}
+                          </h3>
+                          
+                          {/* Price */}
+                          <div className="mb-3 flex-1">
+                            {product.status === "sold_out" ? (
+                              <span className="text-red-600 font-semibold text-sm">
+                                Sold Out
+                              </span>
+                            ) : (
+                              <div className="flex items-center gap-2">
+                                <span className="text-lg font-bold text-gray-900">
+                                  Rs. {product.salePrice}
+                                </span>
+                                {product.originalPrice && (
+                                  <span className="text-sm text-gray-500 line-through">
+                                    Rs. {product.originalPrice}
+                                  </span>
+                                )}
+                              </div>
                             )}
                           </div>
-                        )}
-                      </div>
 
-                      {/* Action Button */}
-                      <Button 
-                        className={`w-full mt-auto ${
-                          product.status === "sold_out"
-                            ? "bg-gray-400 cursor-not-allowed"
-                            : "bg-amber-800 hover:bg-amber-900"
-                        }`}
-                        disabled={product.status === "sold_out"}
-                      >
-                        {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel>
+                          {/* Action Button */}
+                          <Button 
+                            className={`w-full mt-auto ${
+                              product.status === "sold_out"
+                                ? "bg-gray-400 cursor-not-allowed"
+                                : "bg-amber-800 hover:bg-amber-900"
+                            }`}
+                            disabled={product.status === "sold_out"}
+                          >
+                            {product.status === "sold_out" ? "SOLD OUT" : "ADD TO CART"}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </CarouselItem>
+                ));
+              })()}
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
+        </div>
+      </div>
     </div>
   );
 }

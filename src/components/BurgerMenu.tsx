@@ -21,7 +21,7 @@ export default function BurgerMenu() {
       width: '36px',
       height: '30px',
       left: '20px',
-      top: '90px',
+      top: '140px',
       zIndex: '50'
     },
     bmBurgerBars: {
