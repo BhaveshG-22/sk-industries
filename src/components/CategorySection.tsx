@@ -56,6 +56,48 @@ const categories: Category[] = [
         status: "available",
         image: "https://prd.place/400?id=6",
         badge: "500ML"
+      },
+      {
+        id: "13",
+        title: "Moisturizing Body Lotion 200ml",
+        originalPrice: 180,
+        salePrice: 149,
+        status: "available",
+        image: "https://prd.place/400?id=13",
+        badge: "ORGANIC"
+      },
+      {
+        id: "14",
+        title: "Anti-Bacterial Soap Bar Set",
+        salePrice: 89,
+        status: "available",
+        image: "https://prd.place/400?id=14",
+        badge: "PACK OF 4"
+      },
+      {
+        id: "15",
+        title: "Dental Care Kit Complete",
+        originalPrice: 299,
+        salePrice: 249,
+        status: "sold_out",
+        image: "https://prd.place/400?id=15"
+      },
+      {
+        id: "16",
+        title: "Shampoo & Conditioner Bundle",
+        salePrice: 399,
+        status: "available",
+        image: "https://prd.place/400?id=16",
+        badge: "COMBO"
+      },
+      {
+        id: "17",
+        title: "Face Mask Sheet Pack",
+        originalPrice: 120,
+        salePrice: 89,
+        status: "available",
+        image: "https://prd.place/400?id=17",
+        badge: "10 SHEETS"
       }
     ]
   },
@@ -86,6 +128,54 @@ const categories: Category[] = [
         salePrice: 180,
         status: "available",
         image: "https://prd.place/400?id=8"
+      },
+      {
+        id: "18",
+        title: "Cling Film Wrap 100m",
+        originalPrice: 99,
+        salePrice: 79,
+        status: "available",
+        image: "https://prd.place/400?id=18"
+      },
+      {
+        id: "19",
+        title: "Parchment Paper Sheets",
+        salePrice: 149,
+        status: "available",
+        image: "https://prd.place/400?id=19",
+        badge: "50 SHEETS"
+      },
+      {
+        id: "20",
+        title: "Vacuum Seal Bags Pack",
+        salePrice: 299,
+        status: "sold_out",
+        image: "https://prd.place/400?id=20",
+        badge: "PACK OF 20"
+      },
+      {
+        id: "21",
+        title: "Food Wrap Paper Eco",
+        originalPrice: 159,
+        salePrice: 129,
+        status: "available",
+        image: "https://prd.place/400?id=21",
+        badge: "ECO-FRIENDLY"
+      },
+      {
+        id: "22",
+        title: "Ziplock Bags Assorted",
+        salePrice: 199,
+        status: "available",
+        image: "https://prd.place/400?id=22",
+        badge: "MULTI-SIZE"
+      },
+      {
+        id: "23",
+        title: "Freezer Bags Heavy Duty",
+        salePrice: 249,
+        status: "available",
+        image: "https://prd.place/400?id=23"
       }
     ]
   },
@@ -116,6 +206,53 @@ const categories: Category[] = [
         salePrice: 145,
         status: "available",
         image: "https://prd.place/400?id=10"
+      },
+      {
+        id: "24",
+        title: "Scrub Sponges Multi-Pack",
+        salePrice: 89,
+        status: "available",
+        image: "https://prd.place/400?id=24",
+        badge: "PACK OF 12"
+      },
+      {
+        id: "25",
+        title: "Degreaser Spray Kitchen",
+        originalPrice: 179,
+        salePrice: 149,
+        status: "available",
+        image: "https://prd.place/400?id=25"
+      },
+      {
+        id: "26",
+        title: "Microfiber Cleaning Cloths",
+        salePrice: 199,
+        status: "sold_out",
+        image: "https://prd.place/400?id=26",
+        badge: "SET OF 6"
+      },
+      {
+        id: "27",
+        title: "Oven Cleaner Gel Strong",
+        salePrice: 229,
+        status: "available",
+        image: "https://prd.place/400?id=27"
+      },
+      {
+        id: "28",
+        title: "Dishwasher Tablets Pack",
+        originalPrice: 299,
+        salePrice: 249,
+        status: "available",
+        image: "https://prd.place/400?id=28",
+        badge: "30 TABLETS"
+      },
+      {
+        id: "29",
+        title: "Cutting Board Sanitizer",
+        salePrice: 129,
+        status: "available",
+        image: "https://prd.place/400?id=29"
       }
     ]
   },
@@ -137,7 +274,7 @@ const categories: Category[] = [
         originalPrice: 199,
         salePrice: 159,
         status: "available",
-        image: "https://prd.place/400?id=1",
+        image: "https://prd.place/400?id=11",
         badge: "750ML"
       },
       {
@@ -145,7 +282,76 @@ const categories: Category[] = [
         title: "Floor Cleaner Concentrate",
         salePrice: 220,
         status: "sold_out",
-        image: "https://prd.place/400?id=2"
+        image: "https://prd.place/400?id=12"
+      },
+      {
+        id: "30",
+        title: "Glass Cleaner Streak-Free",
+        salePrice: 149,
+        status: "available",
+        image: "https://prd.place/400?id=30"
+      },
+      {
+        id: "31",
+        title: "Bathroom Cleaner Disinfectant",
+        originalPrice: 189,
+        salePrice: 159,
+        status: "available",
+        image: "https://prd.place/400?id=31"
+      },
+      {
+        id: "32",
+        title: "Laundry Detergent Pods",
+        salePrice: 399,
+        status: "available",
+        image: "https://prd.place/400?id=32",
+        badge: "40 PODS"
+      },
+      {
+        id: "33",
+        title: "Fabric Softener Liquid",
+        originalPrice: 179,
+        salePrice: 149,
+        status: "sold_out",
+        image: "https://prd.place/400?id=33"
+      },
+      {
+        id: "34",
+        title: "Air Freshener Spray Pack",
+        salePrice: 199,
+        status: "available",
+        image: "https://prd.place/400?id=34",
+        badge: "PACK OF 3"
+      },
+      {
+        id: "35",
+        title: "Carpet Cleaner Foam",
+        salePrice: 279,
+        status: "available",
+        image: "https://prd.place/400?id=35"
+      },
+      {
+        id: "36",
+        title: "Wood Polish Spray",
+        originalPrice: 149,
+        salePrice: 119,
+        status: "available",
+        image: "https://prd.place/400?id=36"
+      },
+      {
+        id: "37",
+        title: "Stain Remover Pen Set",
+        salePrice: 89,
+        status: "available",
+        image: "https://prd.place/400?id=37",
+        badge: "SET OF 3"
+      },
+      {
+        id: "38",
+        title: "Drain Cleaner Gel",
+        salePrice: 199,
+        status: "sold_out",
+        image: "https://prd.place/400?id=38"
       }
     ]
   }
