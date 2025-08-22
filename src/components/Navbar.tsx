@@ -12,15 +12,19 @@ export default function Navbar() {
       <div className="border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-28">
-            {/* Empty left space */}
-            <div className="flex-1"></div>
+            {/* Left side text */}
+            <div className="flex-1">
+              <span className="text-2xl font-bold tracking-wide font-arimo" style={{color: '#2D4730'}}>
+                GAVALI GROUP
+              </span>
+            </div>
             
             {/* Centered Logo */}
             <div className="flex items-center justify-center">
-              <Link href="/" className="flex items-center space-x-2">
+              <Link href="/" className="flex items-center">
                 <Image
-                  src="https://honesthome.in/cdn/shop/files/THHClogo_100x@2x.png?v=1730980282"
-                  alt="The Honest Home Company"
+                  src="/images/gavali-group-logo.png"
+                  alt="Gavali Group"
                   width={80}
                   height={80}
                   className="w-20 h-20 object-contain"

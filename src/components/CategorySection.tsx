@@ -398,8 +398,8 @@ export default function CategorySection() {
         <CarouselContent>
           {currentCategory?.products.map((product) => (
             <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-              <div className="p-2">
-                <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col">
+              <div className="p-2 h-full">
+                <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
                   <CardContent className="p-0 flex flex-col h-full">
                     {/* Product Image */}
                     <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
@@ -423,7 +423,7 @@ export default function CategorySection() {
 
                     {/* Product Info */}
                     <div className="p-4 flex flex-col flex-1">
-                      <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2">
+                      <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
                         {product.title}
                       </h3>
                       
