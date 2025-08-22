@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { Search, ShoppingCart, User } from "lucide-react";
+import Image from "next/image";
+import { Search, ShoppingCart } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -17,9 +18,11 @@ export default function Navbar() {
             {/* Centered Logo */}
             <div className="flex items-center justify-center">
               <Link href="/" className="flex items-center space-x-2">
-                <img
+                <Image
                   src="https://honesthome.in/cdn/shop/files/THHClogo_100x@2x.png?v=1730980282"
                   alt="The Honest Home Company"
+                  width={80}
+                  height={80}
                   className="w-20 h-20 object-contain"
                 />
               </Link>

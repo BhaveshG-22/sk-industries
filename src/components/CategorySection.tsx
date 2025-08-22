@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
@@ -203,10 +204,11 @@ export default function CategorySection() {
                           </span>
                         </div>
                       )}
-                      <img
+                      <Image
                         src={product.image}
                         alt={product.title}
-                        className="w-full h-full object-contain group-hover:scale-105 transition-transform"
+                        fill
+                        className="object-contain group-hover:scale-105 transition-transform"
                         onError={(e) => {
                           e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
                         }}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
 const carouselImages = [
@@ -70,11 +71,12 @@ export default function HeroSection() {
                   : "opacity-0 scale-110 translate-x-0 z-0"
               }`}
             >
-              <img
+              <Image
                 src={image}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
                 alt={`Slide ${index + 1}`}
-                loading={index === 0 ? "eager" : "lazy"}
+                priority={index === 0}
               />
               <div className="absolute inset-0 bg-black/20"></div>
             </div>

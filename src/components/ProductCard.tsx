@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 
 const DEFAULT_IMAGE_URL =
@@ -79,9 +80,11 @@ function ProductCard({
         <div className="absolute -bottom-10 left-1/2 h-40 w-40 -translate-x-1/2 transform rounded-full bg-teal-500/20 blur-3xl"></div>
 
         <div className="transition-transform duration-500 group-hover:scale-105">
-          <img
+          <Image
             src={imageUrl}
             alt={title}
+            width={300}
+            height={200}
             className="rounded-lg object-contain h-[200px] mx-auto"
           />
         </div>

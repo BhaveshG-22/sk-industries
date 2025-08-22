@@ -7,7 +7,7 @@ import { slide as Menu } from 'react-burger-menu';
 export default function BurgerMenu() {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleStateChange = (state: any) => {
+  const handleStateChange = (state: { isOpen: boolean }) => {
     setMenuOpen(state.isOpen);
   };
 
@@ -22,7 +22,7 @@ export default function BurgerMenu() {
       height: '30px',
       left: '20px',
       top: '90px',
-      zIndex: 50
+      zIndex: '50'
     },
     bmBurgerBars: {
       background: '#373a47'
@@ -40,8 +40,8 @@ export default function BurgerMenu() {
     bmMenuWrap: {
       position: 'fixed',
       height: '100%',
-      top: 0,
-      left: 0
+      top: '0',
+      left: '0'
     },
     bmMenu: {
       background: '#373a47',
@@ -86,7 +86,7 @@ export default function BurgerMenu() {
           ABOUT US
         </Link>
         <Link href="/founders-story" className="menu-item" onClick={closeMenu}>
-          FOUNDER'S STORY
+          FOUNDER&apos;S STORY
         </Link>
         <Link href="/contact" className="menu-item" onClick={closeMenu}>
           CONTACT US
