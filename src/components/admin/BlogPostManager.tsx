@@ -43,7 +43,6 @@ export default function BlogPostManager() {
   })
 
   const [imageUploading, setImageUploading] = useState(false)
-  const [selectedImageFile, setSelectedImageFile] = useState<File | null>(null)
 
   useEffect(() => {
     fetchPosts()
@@ -168,7 +167,6 @@ export default function BlogPostManager() {
     })
     setEditingPost(null)
     setShowForm(false)
-    setSelectedImageFile(null)
   }
 
   const generateSlug = (title: string) => {
@@ -230,7 +228,6 @@ export default function BlogPostManager() {
 
       // Update form data with the image URL
       setFormData(prev => ({ ...prev, featuredImage: imageUrl }))
-      setSelectedImageFile(file)
     } catch (error) {
       console.error('Error uploading image:', error)
       alert('Failed to upload image. Please try again.')
