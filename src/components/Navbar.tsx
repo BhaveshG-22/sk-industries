@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import { ProductSearchBar } from "@/components/ProductSearchBar";
+import { scrollToContact } from "@/lib/scroll";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -92,9 +93,12 @@ export default function Navbar() {
             <Link href="/founders-story" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               FOUNDER&apos;S STORY
             </Link>
-            <Link href="/contact" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
+            <button 
+              onClick={scrollToContact} 
+              className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium cursor-pointer"
+            >
               CONTACT US
-            </Link>
+            </button>
           </nav>
         </div>
       </div>
@@ -149,10 +153,12 @@ export default function Navbar() {
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
                   FOUNDER&apos;S STORY
                 </Link>
-                <Link href="/contact" onClick={closeMobileMenu}
-                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                <button 
+                  onClick={() => { closeMobileMenu(); scrollToContact(); }}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium w-full text-left cursor-pointer"
+                >
                   CONTACT US
-                </Link>
+                </button>
               </nav>
 
               <hr className="border-[var(--warm-tan)] my-8" />

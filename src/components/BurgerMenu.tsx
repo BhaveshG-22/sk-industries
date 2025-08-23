@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { slide as Menu } from 'react-burger-menu';
+import { scrollToContact } from "@/lib/scroll";
 
 export default function BurgerMenu() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -88,9 +89,12 @@ export default function BurgerMenu() {
         <Link href="/founders-story" className="menu-item" onClick={closeMenu}>
           FOUNDER&apos;S STORY
         </Link>
-        <Link href="/contact" className="menu-item" onClick={closeMenu}>
+        <button 
+          className="menu-item w-full text-left" 
+          onClick={() => { closeMenu(); scrollToContact(); }}
+        >
           CONTACT US
-        </Link>
+        </button>
         <hr style={{borderColor: 'var(--warm-tan)', margin: '20px 0'}} />
         <Link href="/account" className="menu-item" onClick={closeMenu}>
           Account

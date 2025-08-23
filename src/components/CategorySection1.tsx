@@ -10,7 +10,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ProductPreviewModal from "@/components/ProductPreviewModal";
 
 interface CategoryProduct {
@@ -26,193 +26,47 @@ interface CategoryProduct {
 interface Category {
   id: string;
   name: string;
+  slug: string;
   products: CategoryProduct[];
 }
 
-const categories: Category[] = [
-  {
-    id: "personal-hygiene",
-    name: "PERSONAL HYGIENE",
-    products: [
-      {
-        id: "1",
-        title: "2Ply Facial Tissue Box 100 Pulls - (Pack of 3)",
-        salePrice: 299,
-        status: "sold_out",
-        image: "https://prd.place/400?id=1",
-        badge: "3 BOXES"
-      },
-      {
-        id: "2", 
-        title: "Premium Face Wash Set",
-        salePrice: 199,
-        status: "available",
-        image: "https://prd.place/400?id=2"
-      },
-      {
-        id: "3",
-        title: "Hand Sanitizer Gel 500ml",
-        originalPrice: 150,
-        salePrice: 120,
-        status: "available",
-        image: "https://prd.place/400?id=6",
-        badge: "500ML"
-      },
-      {
-        id: "4",
-        title: "Moisturizing Body Lotion 200ml",
-        originalPrice: 180,
-        salePrice: 149,
-        status: "available",
-        image: "https://prd.place/400?id=13",
-        badge: "ORGANIC"
-      },
-      {
-        id: "5",
-        title: "Toothbrush Set Electric",
-        salePrice: 899,
-        status: "available",
-        image: "https://prd.place/400?id=18",
-        badge: "RECHARGEABLE"
-      },
-      {
-        id: "6",
-        title: "Body Wash Antibacterial",
-        originalPrice: 249,
-        salePrice: 199,
-        status: "available",
-        image: "https://prd.place/400?id=19"
-      },
-      {
-        id: "7",
-        title: "Hand Cream Moisturizing",
-        salePrice: 129,
-        status: "sold_out",
-        image: "https://prd.place/400?id=20",
-        badge: "VITAMIN E"
-      },
-      {
-        id: "8",
-        title: "Nail Care Kit Complete",
-        originalPrice: 399,
-        salePrice: 299,
-        status: "available",
-        image: "https://prd.place/400?id=21",
-        badge: "12 PIECES"
-      },
-      {
-        id: "9",
-        title: "Deodorant Spray Set",
-        salePrice: 449,
-        status: "available",
-        image: "https://prd.place/400?id=22",
-        badge: "PACK OF 3"
-      },
-      {
-        id: "10",
-        title: "Lip Balm Collection",
-        originalPrice: 199,
-        salePrice: 149,
-        status: "available",
-        image: "https://prd.place/400?id=23",
-        badge: "6 FLAVORS"
-      }
-    ]
-  },
-  {
-    id: "food-wrapping",
-    name: "FOOD WRAPPING",
-    products: [
-      {
-        id: "11",
-        title: "Food Wrapping Paper 21 Meters - (Pack of 2)",
-        salePrice: 245,
-        status: "sold_out",
-        image: "https://prd.place/400?id=24",
-        badge: "21 METERS"
-      },
-      {
-        id: "12",
-        title: "Aluminium Foil 9 Meters - (Pack of 2)",
-        salePrice: 199,
-        status: "sold_out",
-        image: "https://prd.place/400?id=25"
-      },
-      {
-        id: "13",
-        title: "Baking Paper Sheets 10.25*10.25 Inches - 100 Sheets",
-        originalPrice: 299,
-        salePrice: 245,
-        status: "available",
-        image: "https://prd.place/400?id=26",
-        badge: "100 SHEETS"
-      },
-      {
-        id: "14",
-        title: "2Ply Facial Tissue Box 200 Pulls - (Pack of 3)",
-        originalPrice: 525,
-        salePrice: 299,
-        status: "available",
-        image: "https://prd.place/400?id=27",
-        badge: "3 BOXES"
-      },
-      {
-        id: "15",
-        title: "Plastic Wrap Heavy Duty",
-        salePrice: 179,
-        status: "available",
-        image: "https://prd.place/400?id=28",
-        badge: "500M"
-      },
-      {
-        id: "16",
-        title: "Vacuum Seal Bags Pack",
-        originalPrice: 399,
-        salePrice: 299,
-        status: "available",
-        image: "https://prd.place/400?id=29",
-        badge: "PACK OF 50"
-      },
-      {
-        id: "17",
-        title: "Food Storage Containers",
-        salePrice: 699,
-        status: "available",
-        image: "https://prd.place/400?id=30",
-        badge: "SET OF 10"
-      },
-      {
-        id: "18",
-        title: "Freezer Bags Assorted",
-        salePrice: 249,
-        status: "sold_out",
-        image: "https://prd.place/400?id=31",
-        badge: "MULTI-SIZE"
-      },
-      {
-        id: "19",
-        title: "Wax Paper Roll",
-        originalPrice: 149,
-        salePrice: 119,
-        status: "available",
-        image: "https://prd.place/400?id=32"
-      },
-      {
-        id: "20",
-        title: "Ziplock Bags Premium",
-        salePrice: 329,
-        status: "available",
-        image: "https://prd.place/400?id=33",
-        badge: "LEAK-PROOF"
-      }
-    ]
-  }
-];
-
 export default function CategorySection1() {
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("personal-hygiene"); // "both", "personal-hygiene", "food-wrapping"
   const [selectedProduct, setSelectedProduct] = useState<CategoryProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  const fetchCategories = async () => {
+    try {
+      const response = await fetch('/api/categories');
+      if (response.ok) {
+        const data = await response.json();
+        setCategories(data);
+      } else {
+        console.error('Failed to fetch categories');
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="w-full max-w-7xl mx-auto px-4 py-12">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-800 mx-auto"></div>
+          <p className="mt-4 text-gray-900">Loading categories...</p>
+        </div>
+      </div>
+    );
+  }
 
   const handlePreviewClick = (product: CategoryProduct) => {
     setSelectedProduct(product);

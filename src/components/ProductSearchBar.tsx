@@ -315,7 +315,7 @@ export function ProductSearchBar({
         <Command className="bg-[#FEFAE0]">
           <CommandInput 
             placeholder={placeholder}
-            className="h-9 border-b border-[#DDA15E] text-[#283618] placeholder:text-[#606C38]"
+            className="h-9 border-b border-[#DDA15E] text-[#283618] placeholder:text-[#8B7355] font-medium"
           />
           <CommandList className="bg-[#FEFAE0]">
             <CommandEmpty className="text-[#606C38]">No products found.</CommandEmpty>
@@ -325,22 +325,22 @@ export function ProductSearchBar({
                   key={product.id}
                   value={product.title}
                   onSelect={() => handleSelect(product.id)}
-                  className="cursor-pointer hover:bg-[#DDA15E] text-[#283618] aria-selected:bg-[#BC6C25] aria-selected:text-[#FEFAE0]"
+                  className="cursor-pointer hover:bg-[#DDA15E] text-[#283618] hover:text-[#FEFAE0] aria-selected:bg-[#BC6C25] aria-selected:text-[#FEFAE0] font-medium"
                 >
                   <div className="flex items-center justify-between w-full">
                     <div className="flex-1 min-w-0">
-                      <div className="truncate">{product.title}</div>
+                      <div className="truncate font-semibold text-[#283618]">{product.title}</div>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-sm font-semibold text-[#283618]">
+                        <span className="text-sm font-bold text-[#BC6C25]">
                           Rs. {product.salePrice}
                         </span>
                         {product.originalPrice && (
-                          <span className="text-xs text-[#606C38] line-through">
+                          <span className="text-xs text-[#8B7355] line-through font-medium">
                             Rs. {product.originalPrice}
                           </span>
                         )}
                         {product.status === "sold_out" && (
-                          <span className="text-xs text-red-600 font-medium">
+                          <span className="text-xs text-red-700 font-bold">
                             Sold Out
                           </span>
                         )}

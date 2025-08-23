@@ -441,7 +441,7 @@ export default function CategorySection() {
                           
                           {/* Price */}
                           <div className="mb-3 flex-1">
-                            {product.status === "sold_out" ? (
+                            {product.status === "SOLD_OUT" ? (
                               <span className="text-[var(--burnt-orange)] font-semibold text-sm">
                                 Sold Out
                               </span>
@@ -462,13 +462,13 @@ export default function CategorySection() {
                           {/* Action Button */}
                           <Button 
                             className={`w-full mt-auto ${
-                              product.status === "sold_out"
+                              product.status === "SOLD_OUT"
                                 ? "bg-[var(--olive-green)] opacity-50 cursor-not-allowed"
                                 : "bg-[var(--burnt-orange)] hover:bg-[var(--dark-forest)]"
                             }`}
-                            disabled={product.status === "sold_out"}
+                            disabled={product.status === "SOLD_OUT"}
                           >
-                            {product.status === "sold_out" ? "SOLD OUT" : "PREVIEW"}
+                            {product.status === "SOLD_OUT" ? "SOLD OUT" : "PREVIEW"}
                           </Button>
                         </div>
                       </CardContent>
@@ -561,7 +561,7 @@ export default function CategorySection() {
                           
                           {/* Price */}
                           <div className="mb-3 flex-1">
-                            {product.status === "sold_out" ? (
+                            {product.status === "SOLD_OUT" ? (
                               <span className="text-[var(--burnt-orange)] font-semibold text-sm">
                                 Sold Out
                               </span>
@@ -582,13 +582,13 @@ export default function CategorySection() {
                           {/* Action Button */}
                           <Button 
                             className={`w-full mt-auto ${
-                              product.status === "sold_out"
+                              product.status === "SOLD_OUT"
                                 ? "bg-[var(--olive-green)] opacity-50 cursor-not-allowed"
                                 : "bg-[var(--burnt-orange)] hover:bg-[var(--dark-forest)]"
                             }`}
-                            disabled={product.status === "sold_out"}
+                            disabled={product.status === "SOLD_OUT"}
                           >
-                            {product.status === "sold_out" ? "SOLD OUT" : "PREVIEW"}
+                            {product.status === "SOLD_OUT" ? "SOLD OUT" : "PREVIEW"}
                           </Button>
                         </div>
                       </CardContent>
