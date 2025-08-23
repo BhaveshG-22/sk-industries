@@ -2,9 +2,21 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Search, ShoppingCart } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import { useState } from "react";
+import { ProductSearchBar } from "@/components/ProductSearchBar";
 
 export default function Navbar() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
     <nav className="w-full bg-[#FEFAE0] sticky top-0 z-40">
 
@@ -12,9 +24,21 @@ export default function Navbar() {
       <div className="border-b border-[#DDA15E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-28">
-            {/* Left side text */}
-            <div className="flex-1">
-              <span className="text-2xl font-bold tracking-wide font-arimo text-[#283618]">
+            {/* Left side - Burger Menu (mobile) + Brand */}
+            <div className="flex-1 flex items-center">
+              {/* Mobile Menu Button */}
+              <button
+                onClick={toggleMobileMenu}
+                className="xl:hidden p-2 text-[var(--dark-forest)] hover:text-[var(--burnt-orange)] transition-colors"
+              >
+                {mobileMenuOpen ? (
+                  <X className="w-8 h-8" strokeWidth={2} />
+                ) : (
+                  <Menu className="w-8 h-8" strokeWidth={2} />
+                )}
+              </button>
+              
+              <span className="text-2xl font-bold tracking-wide font-arimo text-[#283618] ml-2">
                 GAVALI GROUP
               </span>
             </div>
@@ -34,19 +58,13 @@ export default function Navbar() {
 
             {/* Right Navigation - Hidden on screens where burger menu is visible */}
             <div className="xl:flex items-center space-x-8 flex-1 justify-end hidden">
-              <Link href="/account" className="text-[#606C38] hover:text-[#283618] transition-colors">
-                Account
-              </Link>
-              <button className="text-[#606C38] hover:text-[#283618] transition-colors">
-                <Search className="w-5 h-5" />
-              </button>
-              <Link href="/track-order" className="text-[#606C38] hover:text-[#283618] transition-colors">
-                Track Order
-              </Link>
-              <Link href="/cart" className="flex items-center space-x-1 text-[#606C38] hover:text-[#283618] transition-colors">
-                <ShoppingCart className="w-5 h-5" />
-                <span>(0)</span>
-              </Link>
+              <ProductSearchBar 
+                onProductSelect={(product) => {
+                  console.log('Selected product:', product);
+                }}
+                placeholder="Search products..."
+                className="w-[300px]"
+              />
             </div>
           </div>
         </div>
@@ -80,6 +98,79 @@ export default function Navbar() {
           </nav>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-[var(--dark-forest)]/75 z-50 xl:hidden"
+            onClick={closeMobileMenu}
+          />
+
+          {/* Fullscreen drawer; content is an inner column */}
+          <div className="fixed inset-0 bg-[var(--dark-forest)] z-50 xl:hidden">
+            {/* Inner column that defines the grid for BOTH the X and links */}
+            <div className="px-6 pt-6 max-w-xs w-full">
+              {/* Close button aligned with this column */}
+              <div className="flex justify-end">
+                <button
+                  onClick={closeMobileMenu}
+                  className="text-[var(--cream-white)] hover:text-[var(--warm-tan)]"
+                  aria-label="Close menu"
+                >
+                  <X className="w-7 h-7" strokeWidth={2.5} />
+                </button>
+              </div>
+
+              {/* Main Navigation */}
+              <nav className="mt-6 space-y-4">
+                <Link href="/" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  HOME
+                </Link>
+                <Link href="/categories" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  CATEGORIES
+                </Link>
+                <Link href="/products" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  PRODUCTS
+                </Link>
+                <Link href="/blogs" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  BLOGS
+                </Link>
+                <Link href="/about" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  ABOUT US
+                </Link>
+                <Link href="/founders-story" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  FOUNDER&apos;S STORY
+                </Link>
+                <Link href="/contact" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  CONTACT US
+                </Link>
+              </nav>
+
+              <hr className="border-[var(--warm-tan)] my-8" />
+
+              <div className="space-y-4">
+                <ProductSearchBar 
+                  onProductSelect={(product) => {
+                    console.log('Selected product:', product);
+                    closeMobileMenu();
+                  }}
+                  placeholder="Search products..."
+                  className="w-full"
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </nav>
   );
 }

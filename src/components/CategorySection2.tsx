@@ -340,8 +340,8 @@ export default function CategorySection2() {
               ));
             })()}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden md:flex" />
+          <CarouselNext className="hidden md:flex" />
         </Carousel>
       </div>
 

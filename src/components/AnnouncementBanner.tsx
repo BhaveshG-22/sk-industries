@@ -1,27 +1,25 @@
 "use client";
 
 interface AnnouncementBannerProps {
-  messages?: string[];
   backgroundColor?: string;
   textColor?: string;
   closeable?: boolean;
 }
 
 export default function AnnouncementBanner({
-  messages = [],
   backgroundColor = "bg-[var(--olive-green)]",
   textColor = "text-[var(--cream-white)]",
 }: AnnouncementBannerProps) {
 
-  // Don't render if no messages or if banner is closed
+  // Internal array of announcements
+  const messages = [
+    "Free shipping over ₹499 | Additional 15% discount on purchases above ₹1000"
+  ];
+
+  // Don't render if no messages
   if (!messages.length) {
     return null;
   }
-
-
-
-  // Join all messages with separator for continuous scroll
-  const combinedMessage = messages.join(" • ");
 
   return (
     <div className={`${textColor} ${backgroundColor} py-2 px-4 relative overflow-hidden`}>
@@ -29,8 +27,16 @@ export default function AnnouncementBanner({
         {/* Scrolling Message Container */}
         <div className="flex-1 overflow-hidden">
           <div className="whitespace-nowrap">
-            <div className="inline-block text-xs font-medium animate-scroll">
-              {combinedMessage} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {combinedMessage} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {combinedMessage}
+            <div className="inline-flex items-center space-x-40 text-xs font-medium animate-scroll">
+              {messages.map((message, index) => (
+                <span key={index} className="flex-shrink-0">{message}</span>
+              ))}
+              {messages.map((message, index) => (
+                <span key={`repeat-${index}`} className="flex-shrink-0">{message}</span>
+              ))}
+              {messages.map((message, index) => (
+                <span key={`repeat2-${index}`} className="flex-shrink-0">{message}</span>
+              ))}
             </div>
           </div>
         </div>
@@ -40,7 +46,7 @@ export default function AnnouncementBanner({
       <style jsx global>{`
         @keyframes scroll {
           0% {
-            transform: translateX(100%);
+            transform: translateX(20%);
           }
           100% {
             transform: translateX(-100%);
@@ -48,7 +54,7 @@ export default function AnnouncementBanner({
         }
         
         .animate-scroll {
-          animation: scroll 240s linear infinite;
+          animation: scroll 90s linear infinite;
           animation-play-state: running;
           will-change: transform;
         }

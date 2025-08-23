@@ -4,9 +4,9 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import AnnouncementBanner from "@/components/AnnouncementBanner";
 import HeroSection from "@/components/HeroSection";
-import BurgerMenu from "@/components/BurgerMenu";
 import CategorySection1 from "@/components/CategorySection1";
 import CategorySection2 from "@/components/CategorySection2";
+import Footer from "@/components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,14 +44,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${robotoFlex.variable} ${arimo.variable} antialiased`}
       >
-        <BurgerMenu />
-        <AnnouncementBanner
-          messages={[
-            "Free shipping over ₹499 | Additional 15% discount on purchases above ₹1000",
-            "Limited time offer: Buy 2 Get 1 Free on selected items",
-            "New arrivals: Explore our latest home collection"
-          ]}
-         />
+        <AnnouncementBanner />
         <Navbar />
         <HeroSection />
         <CategorySection1 />
@@ -59,6 +52,7 @@ export default function RootLayout({
         <div className="pt-20">
           {children}
         </div>
+        <Footer />
       </body>
     </html>
   );
