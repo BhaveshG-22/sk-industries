@@ -10,16 +10,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-
-interface CategoryProduct {
-  id: string;
-  title: string;
-  originalPrice?: number;
-  salePrice: number;
-  status: "available" | "sold_out";
-  image: string;
-  badge?: string;
-}
+import { CategoryProduct } from "@/types/shared";
 
 interface ProductPreviewModalProps {
   isOpen: boolean;
@@ -34,15 +25,20 @@ export default function ProductPreviewModal({
 }: ProductPreviewModalProps) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
-  if (!product) return null;
+  // Use actual product images if available, otherwise just show the main image
+  const productImages = React.useMemo(() => {
+    if (!product) return [];
+    if (product.images && product.images.length > 0) {
+      // Sort images by sequence and return URLs
+      return product.images
+        .sort((a, b) => a.sequence - b.sequence)
+        .map(img => img.url);
+    }
+    // Fallback to just the main image
+    return [product.image || "https://via.placeholder.com/400x400?text=Product+Image"];
+  }, [product, product?.images, product?.image]);
 
-  // Generate multiple images for the product (simulating multiple product photos)
-  const productImages = [
-    product.image,
-    `${product.image}?v=2`, // Different variations
-    `${product.image}?v=3`,
-    `${product.image}?v=4`,
-  ];
+  if (!product) return null;
 
   const handleAddToCart = () => {
     console.log("Add to cart:", product.title);
@@ -105,7 +101,7 @@ export default function ProductPreviewModal({
                     }`}
                   >
                     <Image
-                      src={image}
+                      src={image || "https://via.placeholder.com/400x400?text=Product+Image"}
                       alt={`${product.title} - Image ${index + 1}`}
                       fill
                       className="object-contain p-4"
@@ -117,24 +113,29 @@ export default function ProductPreviewModal({
                 ))}
               </div>
 
-              {/* Navigation Arrows */}
-              <button
-                onClick={prevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              >
-                <ChevronLeft className="w-5 h-5 text-gray-700" />
-              </button>
-              
-              <button
-                onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
-              >
-                <ChevronRight className="w-5 h-5 text-gray-700" />
-              </button>
+              {/* Navigation Arrows - Only show if multiple images */}
+              {productImages.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  >
+                    <ChevronLeft className="w-5 h-5 text-gray-700" />
+                  </button>
+                  
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-white/80 hover:bg-white shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+                  >
+                    <ChevronRight className="w-5 h-5 text-gray-700" />
+                  </button>
+                </>
+              )}
 
-              {/* Image Indicators */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
-                {productImages.map((_, index) => (
+              {/* Image Indicators - Only show if multiple images */}
+              {productImages.length > 1 && (
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+                  {productImages.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentImageIndex(index)}
@@ -145,24 +146,28 @@ export default function ProductPreviewModal({
                     }`}
                   />
                 ))}
-              </div>
+                </div>
+              )}
 
-              {/* Image Counter */}
-              <div className="absolute bottom-2 right-2 z-20 bg-black/60 text-white text-xs px-2 py-1 rounded">
-                {currentImageIndex + 1} / {productImages.length}
-              </div>
+              {/* Image Counter - Only show if multiple images */}
+              {productImages.length > 1 && (
+                <div className="absolute bottom-2 right-2 z-20 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                  {currentImageIndex + 1} / {productImages.length}
+                </div>
+              )}
             </div>
 
-            {/* Thumbnail Row */}
-            <div className="flex gap-2 mt-4 overflow-x-auto">
+            {/* Thumbnail Row - Only show if multiple images */}
+            {productImages.length > 1 && (
+              <div className="flex gap-2 mt-4 overflow-x-auto">
               {productImages.map((image, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentImageIndex(index)}
-                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-300 transform ${
+                  className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 transform ${
                     index === currentImageIndex 
-                      ? 'border-amber-800 scale-105 shadow-lg' 
-                      : 'border-gray-200 hover:border-gray-300 hover:scale-102'
+                      ? 'border-2 border-[var(--burnt-orange)] scale-105 shadow-md' 
+                      : 'border border-gray-200 hover:border-gray-300 hover:scale-102'
                   }`}
                 >
                   <Image
@@ -171,12 +176,13 @@ export default function ProductPreviewModal({
                     width={64}
                     height={64}
                     className={`w-full h-full object-contain bg-gray-50 transition-opacity duration-300 ${
-                      index === currentImageIndex ? 'opacity-100' : 'opacity-70 hover:opacity-90'
+                      index === currentImageIndex ? 'opacity-100 p-2' : 'opacity-70 hover:opacity-90 p-2'
                     }`}
                   />
                 </button>
               ))}
-            </div>
+              </div>
+            )}
           </div>
 
           <div className="col-span-4 flex flex-col gap-6 md:col-span-2">
@@ -199,12 +205,14 @@ export default function ProductPreviewModal({
             </div>
 
             <div className="flex flex-col gap-2">
-              {product.status === "available" ? (
+              {product.status === "AVAILABLE" ? (
                 <div className="flex flex-row items-center gap-2">
                   <div className="w-fit rounded-lg border border-green-500 bg-green-500/30 px-2 py-1 text-sm font-semibold text-green-500 uppercase dark:border-green-300 dark:text-green-300">
                     In Stock
                   </div>
-                  <p className="text-muted-foreground">+50 in stocks</p>
+                  {product.showStockCount && product.stock !== undefined && product.stock > 0 && (
+                    <p className="text-muted-foreground">+{product.stock} in stocks</p>
+                  )}
                 </div>
               ) : (
                 <div className="w-fit rounded-lg border border-red-500 bg-red-500/30 px-2 py-1 text-sm font-semibold text-red-500 uppercase dark:border-red-300 dark:text-red-300">
@@ -242,7 +250,7 @@ export default function ProductPreviewModal({
                 size="lg"
                 className="w-full md:w-fit"
                 onClick={handleAddToCart}
-                disabled={product.status === "sold_out"}
+                disabled={product.status === "SOLD_OUT"}
               >
                 Add to cart
               </Button>
@@ -250,7 +258,7 @@ export default function ProductPreviewModal({
                 size="lg" 
                 className="w-full md:w-fit bg-amber-800 hover:bg-amber-900" 
                 onClick={handleBuyNow}
-                disabled={product.status === "sold_out"}
+                disabled={product.status === "SOLD_OUT"}
               >
                 Buy now
               </Button>

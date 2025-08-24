@@ -15,14 +15,16 @@ export async function POST(request: Request) {
   try {
     const { fileName, fileType, uploadType = 'products' } = await request.json()
     
+    console.log('📤 Upload request:', { fileName, fileType, uploadType })
+    
     if (!fileName || !fileType) {
       return NextResponse.json({ error: 'fileName and fileType are required' }, { status: 400 })
     }
 
     // Validate uploadType
-    const validUploadTypes = ['products', 'blog-images']
+    const validUploadTypes = ['products', 'blog-images', 'product-images']
     if (!validUploadTypes.includes(uploadType)) {
-      return NextResponse.json({ error: 'Invalid uploadType. Must be "products" or "blog-images"' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid uploadType. Must be "products", "blog-images", or "product-images"' }, { status: 400 })
     }
 
     // Generate unique filename with appropriate folder
@@ -48,9 +50,15 @@ export async function POST(request: Request) {
       fileName: uniqueFileName,
     })
   } catch (error) {
-    console.error('Error generating presigned URL:', error)
+    console.error('❌ Error generating presigned URL:', error)
+    console.error('❌ Environment check:', {
+      hasRegion: !!process.env.AWS_REGION,
+      hasAccessKey: !!process.env.AWS_ACCESS_KEY_ID,
+      hasSecretKey: !!process.env.AWS_SECRET_ACCESS_KEY,
+      hasBucket: !!process.env.AWS_S3_BUCKET_NAME
+    })
     return NextResponse.json(
-      { error: 'Failed to generate upload URL' },
+      { error: 'Failed to generate upload URL', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }

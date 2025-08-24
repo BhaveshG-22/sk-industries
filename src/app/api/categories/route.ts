@@ -12,6 +12,16 @@ export async function GET() {
           where: {
             isActive: true
           },
+          include: {
+            images: {
+              where: {
+                isActive: true
+              },
+              orderBy: {
+                sequence: 'asc'
+              }
+            }
+          },
           orderBy: {
             createdAt: 'desc'
           }

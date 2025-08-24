@@ -10,63 +10,18 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProductPreviewModal from "@/components/ProductPreviewModal";
+import { Category, CategoryProduct } from "@/types/shared";
 
-interface CategoryProduct {
-  id: string;
-  title: string;
-  originalPrice?: number;
-  salePrice: number;
-  status: "available" | "sold_out";
-  image: string;
-  badge?: string;
+interface CategorySection1Props {
+  categories: Category[];
 }
 
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  products: CategoryProduct[];
-}
-
-export default function CategorySection1() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function CategorySection1({ categories }: CategorySection1Props) {
   const [activeSection, setActiveSection] = useState("personal-hygiene"); // "both", "personal-hygiene", "food-wrapping"
   const [selectedProduct, setSelectedProduct] = useState<CategoryProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('/api/categories');
-      if (response.ok) {
-        const data = await response.json();
-        setCategories(data);
-      } else {
-        console.error('Failed to fetch categories');
-      }
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="w-full max-w-7xl mx-auto px-4 py-12">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-800 mx-auto"></div>
-          <p className="mt-4 text-gray-900">Loading categories...</p>
-        </div>
-      </div>
-    );
-  }
 
   const handlePreviewClick = (product: CategoryProduct) => {
     setSelectedProduct(product);
@@ -145,7 +100,7 @@ export default function CategorySection1() {
                           </div>
                         )}
                         <Image
-                          src={product.image}
+                          src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                           alt={product.title}
                           fill
                           className="object-contain group-hover:scale-105 transition-transform"
@@ -163,7 +118,7 @@ export default function CategorySection1() {
                         
                         {/* Price */}
                         <div className="mb-3 flex-1">
-                          {product.status === "sold_out" ? (
+                          {product.status === "SOLD_OUT" ? (
                             <span className="text-red-600 font-semibold text-sm">
                               Sold Out
                             </span>
@@ -184,14 +139,14 @@ export default function CategorySection1() {
                         {/* Action Button */}
                         <Button 
                           className={`w-full mt-auto ${
-                            product.status === "sold_out"
+                            product.status === "SOLD_OUT"
                               ? "bg-gray-400 cursor-not-allowed"
                               : "bg-amber-800 hover:bg-amber-900"
                           }`}
-                          disabled={product.status === "sold_out"}
-                          onClick={() => product.status === "available" && handlePreviewClick(product)}
+                          disabled={product.status === "SOLD_OUT"}
+                          onClick={() => product.status === "AVAILABLE" && handlePreviewClick(product)}
                         >
-                          {product.status === "sold_out" ? "SOLD OUT" : "PREVIEW"}
+                          {product.status === "SOLD_OUT" ? "SOLD OUT" : "PREVIEW"}
                         </Button>
                       </div>
                     </CardContent>

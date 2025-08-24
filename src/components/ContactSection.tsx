@@ -71,9 +71,9 @@ export default function ContactSection() {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
-          <div className="space-y-8">
+          <div className="bg-[var(--warm-tan)] p-8 rounded-lg shadow-lg space-y-8">
             <div>
-              <h3 className="text-2xl font-semibold text-[var(--dark-forest)] mb-6">
+              <h3 className="text-2xl font-semibold text-[var(--cream-white)] mb-6">
                 Contact Information
               </h3>
               <div className="space-y-6">
@@ -84,11 +84,11 @@ export default function ContactSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-[var(--dark-forest)] mb-1">
+                    <h4 className="text-lg font-medium text-[var(--cream-white)] mb-1">
                       Phone
                     </h4>
-                    <p className="text-[var(--olive-green)]">
-                      <a href="tel:+1-555-123-4567" className="hover:text-[var(--burnt-orange)] transition-colors">
+                    <p className="text-[var(--cream-white)]/80">
+                      <a href="tel:+1-555-123-4567" className="hover:text-[var(--cream-white)] transition-colors">
                         +1 (555) 123-4567
                       </a>
                     </p>
@@ -102,11 +102,11 @@ export default function ContactSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-[var(--dark-forest)] mb-1">
+                    <h4 className="text-lg font-medium text-[var(--cream-white)] mb-1">
                       Email
                     </h4>
-                    <p className="text-[var(--olive-green)]">
-                      <a href="mailto:info@gavaligroup.com" className="hover:text-[var(--burnt-orange)] transition-colors">
+                    <p className="text-[var(--cream-white)]/80">
+                      <a href="mailto:info@gavaligroup.com" className="hover:text-[var(--cream-white)] transition-colors">
                         info@gavaligroup.com
                       </a>
                     </p>
@@ -120,10 +120,10 @@ export default function ContactSection() {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-lg font-medium text-[var(--dark-forest)] mb-1">
+                    <h4 className="text-lg font-medium text-[var(--cream-white)] mb-1">
                       Address
                     </h4>
-                    <p className="text-[var(--olive-green)]">
+                    <p className="text-[var(--cream-white)]/80">
                       123 Business Street<br />
                       City, State 12345
                     </p>
@@ -132,22 +132,22 @@ export default function ContactSection() {
               </div>
             </div>
 
-            <div className="bg-[var(--warm-tan)] p-6 rounded-lg">
+            <div className="bg-[var(--cream-white)]/90 backdrop-blur-sm p-6 rounded-lg border border-[var(--dark-forest)]/20 shadow-lg">
               <h4 className="text-lg font-medium text-[var(--dark-forest)] mb-3">
                 Business Hours
               </h4>
               <div className="space-y-2 text-[var(--olive-green)]">
                 <div className="flex justify-between">
                   <span>Monday - Friday:</span>
-                  <span>9:00 AM - 6:00 PM</span>
+                  <span className="font-medium text-[var(--dark-forest)]">9:00 AM - 6:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Saturday:</span>
-                  <span>10:00 AM - 4:00 PM</span>
+                  <span className="font-medium text-[var(--dark-forest)]">10:00 AM - 4:00 PM</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sunday:</span>
-                  <span>Closed</span>
+                  <span className="font-medium text-red-600">Closed</span>
                 </div>
               </div>
             </div>

@@ -6,7 +6,10 @@ export async function GET() {
     const products = await prisma.product.findMany({
       include: {
         category: true,
-        variants: true
+        variants: true,
+        images: {
+          orderBy: { sequence: 'asc' }
+        }
       },
       orderBy: [
         { isFeatured: 'desc' },
@@ -27,6 +30,12 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const data = await request.json()
+    
+    console.log('📤 Creating product with data:', {
+      title: data.title,
+      hasImage: !!data.image,
+      imageCount: data.productImages?.length || 0
+    })
 
     const product = await prisma.product.create({
       data: {
@@ -36,11 +45,11 @@ export async function POST(request: Request) {
         originalPrice: data.originalPrice,
         salePrice: data.salePrice,
         status: data.status,
-        image: data.image,
-        images: data.images || [],
+        image: data.image || null,
         badge: data.badge,
         sku: data.sku,
         stock: data.stock,
+        showStockCount: data.showStockCount,
         isActive: data.isActive,
         isFeatured: data.isFeatured,
         categoryId: data.categoryId,
@@ -49,15 +58,49 @@ export async function POST(request: Request) {
         tags: data.tags || [],
       },
       include: {
-        category: true
+        category: true,
+        images: true
+      }
+    })
+    
+    console.log('✅ Product created successfully:', product.id)
+
+    // Create ProductImage records if provided
+    if (data.productImages && data.productImages.length > 0) {
+      await prisma.productImage.createMany({
+        data: data.productImages.map((img: any) => ({
+          productId: product.id,
+          url: img.url,
+          altText: img.altText,
+          sequence: img.sequence,
+          isActive: img.isActive
+        }))
+      })
+    }
+
+    // Fetch the complete product with images
+    const productWithImages = await prisma.product.findUnique({
+      where: { id: product.id },
+      include: {
+        category: true,
+        images: {
+          orderBy: { sequence: 'asc' }
+        }
       }
     })
 
-    return NextResponse.json(product)
+    return NextResponse.json(productWithImages)
   } catch (error) {
-    console.error('Error creating product:', error)
+    console.error('❌ Error creating product:', error)
+    console.error('❌ Error details:', {
+      message: error instanceof Error ? error.message : 'Unknown error',
+      stack: error instanceof Error ? error.stack : 'No stack trace'
+    })
     return NextResponse.json(
-      { error: 'Failed to create product' },
+      { 
+        error: 'Failed to create product',
+        details: error instanceof Error ? error.message : 'Unknown error'
+      },
       { status: 500 }
     )
   }

@@ -17,11 +17,11 @@ export async function PUT(
         originalPrice: data.originalPrice,
         salePrice: data.salePrice,
         status: data.status,
-        image: data.image,
-        images: data.images || [],
+        image: data.image || null,
         badge: data.badge,
         sku: data.sku,
         stock: data.stock,
+        showStockCount: data.showStockCount,
         isActive: data.isActive,
         isFeatured: data.isFeatured,
         categoryId: data.categoryId,
@@ -30,11 +30,44 @@ export async function PUT(
         tags: data.tags || [],
       },
       include: {
-        category: true
+        category: true,
+        images: true
       }
     })
 
-    return NextResponse.json(product)
+    // Handle ProductImages update
+    if (data.productImages) {
+      // Delete existing images for this product
+      await prisma.productImage.deleteMany({
+        where: { productId: params.id }
+      })
+
+      // Create new images if provided
+      if (data.productImages.length > 0) {
+        await prisma.productImage.createMany({
+          data: data.productImages.map((img: any) => ({
+            productId: params.id,
+            url: img.url,
+            altText: img.altText,
+            sequence: img.sequence,
+            isActive: img.isActive
+          }))
+        })
+      }
+    }
+
+    // Fetch the complete updated product with images
+    const productWithImages = await prisma.product.findUnique({
+      where: { id: params.id },
+      include: {
+        category: true,
+        images: {
+          orderBy: { sequence: 'asc' }
+        }
+      }
+    })
+
+    return NextResponse.json(productWithImages)
   } catch (error) {
     console.error('Error updating product:', error)
     return NextResponse.json(

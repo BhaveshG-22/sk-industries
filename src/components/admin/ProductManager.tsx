@@ -1,8 +1,9 @@
 "use client"
 
 import { useState, useEffect } from 'react'
-import { Plus, Edit, Trash2, Eye, EyeOff, Package, Tags } from 'lucide-react'
+import { Plus, Edit, Trash2, Eye, EyeOff, Package, Tags, Upload, X, GripVertical } from 'lucide-react'
 import { ImageUpload } from './ImageUpload'
+import Image from 'next/image'
 
 interface Category {
   id: string
@@ -19,10 +20,11 @@ interface Product {
   salePrice: number
   status: string
   image: string
-  images: string[]
+  images: ProductImage[]
   badge: string | null
   sku: string | null
   stock: number
+  showStockCount: boolean
   isActive: boolean
   isFeatured: boolean
   categoryId: string
@@ -31,6 +33,14 @@ interface Product {
   metaDescription: string | null
   tags: string[]
   createdAt: string
+}
+
+interface ProductImage {
+  id: string
+  url: string
+  altText?: string
+  sequence: number
+  isActive: boolean
 }
 
 export default function ProductManager() {
@@ -53,6 +63,7 @@ export default function ProductManager() {
     badge: '',
     sku: '',
     stock: 0,
+    showStockCount: false,
     isActive: true,
     isFeatured: false,
     categoryId: '',
@@ -66,6 +77,10 @@ export default function ProductManager() {
     slug: '',
     description: ''
   })
+  
+  const [productImages, setProductImages] = useState<ProductImage[]>([])
+  const [uploadingImages, setUploadingImages] = useState(false)
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null)
 
   useEffect(() => {
     fetchProducts()
@@ -151,27 +166,46 @@ export default function ProductManager() {
       : '/api/admin/products'
     
     const method = editingProduct ? 'PUT' : 'POST'
+    
+    const payload = {
+      ...formData,
+      originalPrice: formData.originalPrice || null,
+      badge: formData.badge || null,
+      sku: formData.sku || null,
+      metaTitle: formData.metaTitle || null,
+      metaDescription: formData.metaDescription || null,
+      // Include productImages for database connection
+      productImages: productImages.map(img => ({
+        url: img.url,
+        altText: img.altText || '',
+        sequence: img.sequence,
+        isActive: img.isActive
+      }))
+    }
+    
+    console.log('📤 Sending data:', payload)
+    console.log('🖼️ Product images:', productImages)
+    console.log('🔗 URL:', url, 'Method:', method)
 
     try {
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formData,
-          originalPrice: formData.originalPrice || null,
-          badge: formData.badge || null,
-          sku: formData.sku || null,
-          metaTitle: formData.metaTitle || null,
-          metaDescription: formData.metaDescription || null,
-        })
+        body: JSON.stringify(payload)
       })
 
       if (response.ok) {
+        console.log('✅ Product saved successfully')
         fetchProducts()
         resetForm()
+      } else {
+        const errorData = await response.text()
+        console.error('❌ Server error:', response.status, response.statusText, errorData)
+        alert(`Failed to save product: ${response.status} ${response.statusText}`)
       }
     } catch (error) {
-      console.error('Error saving product:', error)
+      console.error('❌ Network error saving product:', error)
+      alert('Network error occurred while saving product')
     }
   }
 
@@ -193,6 +227,13 @@ export default function ProductManager() {
 
   const handleEdit = (product: Product) => {
     setEditingProduct(product)
+    // Load existing product images into the image manager
+    if (product.images && product.images.length > 0) {
+      setProductImages(product.images)
+    } else {
+      setProductImages([])
+    }
+    
     setFormData({
       title: product.title,
       slug: product.slug,
@@ -201,10 +242,11 @@ export default function ProductManager() {
       salePrice: product.salePrice,
       status: product.status,
       image: product.image,
-      images: product.images,
+      images: product.images?.map(img => img.url) || [],
       badge: product.badge || '',
       sku: product.sku || '',
       stock: product.stock,
+      showStockCount: product.showStockCount || false,
       isActive: product.isActive,
       isFeatured: product.isFeatured,
       categoryId: product.categoryId,
@@ -218,6 +260,8 @@ export default function ProductManager() {
   const resetForm = () => {
     setShowForm(false)
     setEditingProduct(null)
+    setProductImages([])
+    setDraggedIndex(null)
     setFormData({
       title: '',
       slug: '',
@@ -230,12 +274,146 @@ export default function ProductManager() {
       badge: '',
       sku: '',
       stock: 0,
+      showStockCount: false,
       isActive: true,
       isFeatured: false,
       categoryId: '',
       metaTitle: '',
       metaDescription: '',
       tags: []
+    })
+  }
+
+  const handleMultipleImageUpload = async (files: FileList) => {
+    if (files.length === 0) return
+    
+    setUploadingImages(true)
+    
+    try {
+      // Process each file individually with its own presigned URL
+      const newImages: ProductImage[] = []
+      
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i]
+        
+        if (!file.type.startsWith('image/')) {
+          console.warn(`${file.name} is not an image file, skipping`)
+          continue
+        }
+
+        // Get individual pre-signed URL for each file
+        const presignedResponse = await fetch('/api/admin/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            fileName: file.name,
+            fileType: file.type,
+            uploadType: 'product-images'
+          }),
+        })
+
+        if (!presignedResponse.ok) {
+          const errorText = await presignedResponse.text()
+          console.error('❌ Presigned URL error:', {
+            status: presignedResponse.status,
+            statusText: presignedResponse.statusText,
+            error: errorText,
+            fileName: file.name
+          })
+          throw new Error(`Failed to get upload URL for ${file.name}: ${presignedResponse.status} ${errorText}`)
+        }
+
+        const { uploadUrl, imageUrl } = await presignedResponse.json()
+
+        // Upload to S3 with individual presigned URL
+        const uploadResponse = await fetch(uploadUrl, {
+          method: 'PUT',
+          body: file,
+          headers: { 'Content-Type': file.type },
+        })
+
+        if (!uploadResponse.ok) {
+          throw new Error(`Failed to upload ${file.name}`)
+        }
+
+        const newImage: ProductImage = {
+          id: `temp-${Date.now()}-${i}`,
+          url: imageUrl,
+          altText: file.name.replace(/\.[^/.]+$/, ''),
+          sequence: productImages.length + i,
+          isActive: true
+        }
+        
+        newImages.push(newImage)
+      }
+
+      // Update productImages state
+      const updatedImages = [...productImages, ...newImages]
+      console.log('🖼️ Before update - existing images:', productImages.length, 'new images:', newImages.length)
+      console.log('🖼️ After update - total images:', updatedImages.length)
+      
+      setProductImages(updatedImages)
+      
+      // Auto-set first image as primary image in formData
+      if (updatedImages.length > 0) {
+        setFormData(prev => ({ ...prev, image: updatedImages[0].url }))
+      }
+      
+    } catch (error) {
+      console.error('Upload error:', error)
+      alert(`Upload failed: ${error instanceof Error ? error.message : 'Unknown error'}`)
+    } finally {
+      setUploadingImages(false)
+    }
+  }
+
+  const handleRemoveImage = (imageId: string) => {
+    setProductImages(prev => {
+      const updated = prev.filter(img => img.id !== imageId)
+      const resequenced = updated.map((img, index) => ({ ...img, sequence: index }))
+      
+      // Update primary image if the first image was removed
+      if (resequenced.length > 0) {
+        setFormData(current => ({ ...current, image: resequenced[0].url }))
+      } else {
+        setFormData(current => ({ ...current, image: '' }))
+      }
+      
+      return resequenced
+    })
+  }
+
+  const handleUpdateImageAltText = (imageId: string, altText: string) => {
+    setProductImages(prev => 
+      prev.map(img => img.id === imageId ? { ...img, altText } : img)
+    )
+  }
+
+  const handleMoveImage = (fromIndex: number, toIndex: number) => {
+    if (fromIndex === toIndex) return // No move needed
+    
+    setProductImages(prev => {
+      // Ensure indices are valid
+      if (fromIndex < 0 || fromIndex >= prev.length || toIndex < 0 || toIndex >= prev.length) {
+        console.warn('Invalid drag indices:', { fromIndex, toIndex, length: prev.length })
+        return prev
+      }
+      
+      console.log('🔄 Moving image from', fromIndex, 'to', toIndex, 'Total images:', prev.length)
+      
+      const updated = [...prev]
+      const [moved] = updated.splice(fromIndex, 1)
+      updated.splice(toIndex, 0, moved)
+      const resequenced = updated.map((img, index) => ({ ...img, sequence: index }))
+      
+      console.log('✅ Resequenced images:', resequenced.length, 'Primary will be:', resequenced[0]?.url?.slice(-20))
+      
+      // Update primary image if first position changed
+      if (resequenced.length > 0) {
+        setFormData(current => ({ ...current, image: resequenced[0].url }))
+      }
+      
+      return resequenced
     })
   }
 
@@ -430,8 +608,8 @@ export default function ProductManager() {
                   <input
                     type="number"
                     min="0"
-                    value={formData.stock}
-                    onChange={(e) => setFormData({ ...formData, stock: parseInt(e.target.value) })}
+                    value={formData.stock || ''}
+                    onChange={(e) => setFormData({ ...formData, stock: parseInt(e.target.value) || 0 })}
                     className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
                   />
                 </div>
@@ -479,22 +657,152 @@ export default function ProductManager() {
                 </div>
               </div>
 
-              {/* Image Upload & Badge */}
-              <div className="grid grid-cols-2 gap-4">
-                <ImageUpload
-                  onImageUpload={(imageUrl) => setFormData({ ...formData, image: imageUrl })}
-                  currentImage={formData.image}
+              {/* Badge Field */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Badge</label>
+                <input
+                  type="text"
+                  value={formData.badge}
+                  onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
+                  placeholder="e.g., Sale, New, Best Seller"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
                 />
+              </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Badge</label>
-                  <input
-                    type="text"
-                    value={formData.badge}
-                    onChange={(e) => setFormData({ ...formData, badge: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
-                  />
+              {/* Product Images */}
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Product Images
+                  </label>
+                  <span className="text-xs text-gray-500">
+                    First image = Primary • Drag to reorder
+                  </span>
                 </div>
+
+                {/* Upload Area */}
+                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-gray-400 transition-colors">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => e.target.files && handleMultipleImageUpload(e.target.files)}
+                    className="hidden"
+                    id="multiple-images-upload"
+                    disabled={uploadingImages}
+                  />
+                  
+                  <label
+                    htmlFor="multiple-images-upload"
+                    className="cursor-pointer flex flex-col items-center space-y-2"
+                  >
+                    {uploadingImages ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600"></div>
+                        <span className="text-sm text-gray-600">Uploading...</span>
+                      </div>
+                    ) : (
+                      <>
+                        <Upload className="h-8 w-8 text-gray-400" />
+                        <div className="text-sm text-gray-600">
+                          <span className="font-medium text-blue-600">Click to upload</span>
+                          {' '}or drag and drop
+                        </div>
+                        <div className="text-xs text-gray-400">
+                          PNG, JPG, GIF (multiple files allowed)
+                        </div>
+                      </>
+                    )}
+                  </label>
+                </div>
+
+                {/* Images List */}
+                {productImages.length > 0 && (
+                  <div className="space-y-3">
+                    {productImages
+                      .sort((a, b) => a.sequence - b.sequence)
+                      .map((image, index) => (
+                        <div
+                          key={image.id}
+                          className={`flex items-center gap-3 p-3 bg-white border border-gray-200 rounded-lg shadow-sm ${
+                            draggedIndex === index ? 'opacity-50' : ''
+                          }`}
+                          draggable
+                          onDragStart={(e) => {
+                            e.stopPropagation()
+                            setDraggedIndex(index)
+                            e.dataTransfer.setData('text/plain', index.toString())
+                            e.dataTransfer.effectAllowed = 'move'
+                          }}
+                          onDragEnd={() => {
+                            setDraggedIndex(null)
+                          }}
+                          onDragOver={(e) => {
+                            e.preventDefault()
+                            e.dataTransfer.dropEffect = 'move'
+                          }}
+                          onDrop={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            const fromIndex = parseInt(e.dataTransfer.getData('text/plain'))
+                            if (fromIndex !== index && !isNaN(fromIndex)) {
+                              handleMoveImage(fromIndex, index)
+                            }
+                            setDraggedIndex(null)
+                          }}
+                        >
+                          <div className="cursor-move text-gray-400 hover:text-gray-600">
+                            <GripVertical className="h-5 w-5" />
+                          </div>
+                          
+                          <div className="relative w-16 h-16 flex-shrink-0">
+                            <Image
+                              src={image.url}
+                              alt={image.altText || 'Product image'}
+                              fill
+                              className="object-cover rounded"
+                            />
+                          </div>
+
+                          <div className="flex-1 min-w-0">
+                            <input
+                              type="text"
+                              placeholder="Alt text (optional)"
+                              value={image.altText || ''}
+                              onChange={(e) => handleUpdateImageAltText(image.id, e.target.value)}
+                              className="w-full text-sm border border-gray-300 rounded px-2 py-1"
+                            />
+                            <p className="text-xs text-gray-500 mt-1">
+                              Position: {index + 1}
+                            </p>
+                          </div>
+
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => window.open(image.url, '_blank')}
+                              className="p-2 text-gray-400 hover:text-blue-600 rounded"
+                            >
+                              <Eye className="h-4 w-4" />
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveImage(image.id)}
+                              className="p-2 text-gray-400 hover:text-red-600 rounded"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    
+                    {productImages.length > 1 && (
+                      <p className="text-xs text-gray-500 text-center">
+                        These images will appear in the product gallery modal
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Toggles */}
@@ -516,6 +824,15 @@ export default function ProductManager() {
                     className="mr-2"
                   />
                   Featured
+                </label>
+                <label className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={formData.showStockCount}
+                    onChange={(e) => setFormData({ ...formData, showStockCount: e.target.checked })}
+                    className="mr-2"
+                  />
+                  Show Stock Count
                 </label>
               </div>
 

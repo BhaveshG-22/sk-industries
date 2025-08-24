@@ -19,6 +19,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'raw.githubusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'gavali-group-products.s3.us-east-1.amazonaws.com',
+      },
     ],
   },
 };

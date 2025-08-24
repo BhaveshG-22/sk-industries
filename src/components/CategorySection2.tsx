@@ -10,68 +10,24 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ProductPreviewModal from "@/components/ProductPreviewModal";
+import { Category, CategoryProduct } from "@/types/shared";
 
-interface CategoryProduct {
-  id: string;
-  title: string;
-  originalPrice?: number;
-  salePrice: number;
-  status: string;
-  image: string;
-  badge?: string;
+
+interface CategorySection2Props {
+  categories: Category[];
 }
 
-interface Category {
-  id: string;
-  name: string;
-  slug: string;
-  products: CategoryProduct[];
-}
-
-
-export default function CategorySection2() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
+export default function CategorySection2({ categories }: CategorySection2Props) {
   const [activeSection, setActiveSection] = useState("kitchen-hygiene"); // "both", "kitchen-hygiene", "household-cleaner"
   const [selectedProduct, setSelectedProduct] = useState<CategoryProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await fetch('/api/categories');
-      if (response.ok) {
-        const data = await response.json();
-        // Filter to show only kitchen-hygiene and household-cleaner categories
-        const filteredCategories = data.filter((cat: Category) => 
-          cat.slug === 'kitchen-hygiene' || cat.slug === 'household-cleaner'
-        );
-        setCategories(filteredCategories);
-      } else {
-        console.error('Failed to fetch categories');
-      }
-    } catch (error) {
-      console.error('Error fetching categories:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="w-full max-w-7xl mx-auto px-4 py-12">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-800 mx-auto"></div>
-          <p className="mt-4 text-gray-900">Loading categories...</p>
-        </div>
-      </div>
-    );
-  }
+  // Filter to show only kitchen-hygiene and household-cleaner categories
+  const filteredCategories = categories.filter(cat => 
+    cat.slug === 'kitchen-hygiene' || cat.slug === 'household-cleaner'
+  );
 
   const handlePreviewClick = (product: CategoryProduct) => {
     setSelectedProduct(product);
@@ -95,7 +51,7 @@ export default function CategorySection2() {
               : "border-transparent text-gray-600 hover:text-gray-900"
           }`}
         >
-          {categories.find(cat => cat.slug === 'kitchen-hygiene')?.name || 'KITCHEN HYGIENE'}
+          {filteredCategories.find(cat => cat.slug === 'kitchen-hygiene')?.name || 'KITCHEN HYGIENE'}
         </button>
         <button
           onClick={() => setActiveSection(activeSection === "household-cleaner" ? "both" : "household-cleaner")}
@@ -105,7 +61,7 @@ export default function CategorySection2() {
               : "border-transparent text-gray-600 hover:text-gray-900"
           }`}
         >
-          {categories.find(cat => cat.slug === 'household-cleaner')?.name || 'HOUSEHOLD CLEANER'}
+          {filteredCategories.find(cat => cat.slug === 'household-cleaner')?.name || 'HOUSEHOLD CLEANER'}
         </button>
       </div>
       
@@ -122,11 +78,11 @@ export default function CategorySection2() {
             {(() => {
               let productsToShow = [];
               if (activeSection === "kitchen-hygiene") {
-                productsToShow = categories.find(cat => cat.slug === 'kitchen-hygiene')?.products || [];
+                productsToShow = filteredCategories.find(cat => cat.slug === 'kitchen-hygiene')?.products || [];
               } else if (activeSection === "household-cleaner") {
-                productsToShow = categories.find(cat => cat.slug === 'household-cleaner')?.products || [];
+                productsToShow = filteredCategories.find(cat => cat.slug === 'household-cleaner')?.products || [];
               } else {
-                productsToShow = categories.flatMap(cat => cat.products);
+                productsToShow = filteredCategories.flatMap(cat => cat.products);
               }
               return productsToShow.map((product) => (
               <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
@@ -143,7 +99,7 @@ export default function CategorySection2() {
                           </div>
                         )}
                         <Image
-                          src={product.image}
+                          src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                           alt={product.title}
                           fill
                           className="object-contain group-hover:scale-105 transition-transform"

@@ -1,6 +1,5 @@
 "use client"
 
-import { useState, useEffect } from 'react'
 import { ArrowRight, Calendar, User } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -11,50 +10,13 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import Link from 'next/link'
+import { BlogPost } from "@/types/shared";
 
-interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  content: string
-  excerpt: string | null
-  featuredImage: string | null
-  isPublished: boolean
-  publishedAt: string | null
-  metaTitle: string | null
-  metaDescription: string | null
-  tags: string[]
-  authorName: string | null
-  authorEmail: string | null
-  createdAt: string
-  updatedAt: string
+interface BlogSectionProps {
+  posts: BlogPost[];
 }
 
-export default function BlogSection() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    fetchBlogPosts()
-  }, [])
-
-  const fetchBlogPosts = async () => {
-    try {
-      const response = await fetch('/api/blog')
-      if (response.ok) {
-        const data = await response.json()
-        // Only show first 3 published posts
-        const publishedPosts = data.filter((post: BlogPost) => post.isPublished).slice(0, 3)
-        setPosts(publishedPosts)
-      } else {
-        console.error('Failed to fetch blog posts')
-      }
-    } catch (error) {
-      console.error('Error fetching blog posts:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
+export default function BlogSection({ posts }: BlogSectionProps) {
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -68,25 +30,6 @@ export default function BlogSection() {
     return tags.length > 0 ? tags[0] : 'Article'
   }
 
-  if (loading) {
-    return (
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="animate-pulse">
-              <div className="h-8 bg-gray-200 rounded w-64 mx-auto mb-4"></div>
-              <div className="h-4 bg-gray-200 rounded w-96 mx-auto mb-8"></div>
-              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="bg-gray-200 rounded-lg h-80"></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    )
-  }
 
   // Don't render the section if no posts are available
   if (posts.length === 0) {
@@ -170,7 +113,7 @@ export default function BlogSection() {
                   {post.publishedAt && (
                     <div className="flex items-center gap-1">
                       <Calendar className="w-3 h-3" />
-                      <span>{formatDate(post.publishedAt)}</span>
+                      <span>{formatDate(post.publishedAt?.toISOString() || post.createdAt.toISOString())}</span>
                     </div>
                   )}
                 </div>

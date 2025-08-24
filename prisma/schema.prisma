@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -17,45 +14,141 @@ model Category {
   slug        String    @unique
   description String?
   isActive    Boolean   @default(true)
-  products    Product[]
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  products    Product[]
 
   @@map("categories")
 }
 
 model Product {
-  id            String        @id @default(cuid())
-  title         String
-  slug          String        @unique
-  description   String?
-  originalPrice Decimal?      @db.Decimal(10, 2)
-  salePrice     Decimal       @db.Decimal(10, 2)
-  status        ProductStatus @default(AVAILABLE)
-  image         String
-  images        String[]      @default([])
-  badge         String?
-  sku           String?       @unique
-  stock         Int           @default(0)
-  isActive      Boolean       @default(true)
-  isFeatured    Boolean       @default(false)
-  
-  // Category relationship
-  categoryId    String
-  category      Category      @relation(fields: [categoryId], references: [id])
-  
-  // Product variants relationship
-  variants      ProductVariant[]
-  
-  // SEO and metadata
-  metaTitle     String?
+  id              String           @id @default(cuid())
+  title           String
+  slug            String           @unique
+  description     String?
+  originalPrice   Decimal?         @db.Decimal(10, 2)
+  salePrice       Decimal          @db.Decimal(10, 2)
+  status          ProductStatus    @default(AVAILABLE)
+  image           String?
+  badge           String?
+  sku             String?          @unique
+  stock           Int              @default(0)
+  isActive        Boolean          @default(true)
+  isFeatured      Boolean          @default(false)
+  categoryId      String
+  metaTitle       String?
   metaDescription String?
-  tags          String[]      @default([])
-  
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  tags            String[]         @default([])
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  showStockCount  Boolean          @default(false)
+  images          ProductImage[]
+  variants        ProductVariant[]
+  category        Category         @relation(fields: [categoryId], references: [id])
 
   @@map("products")
+}
+
+model Announcement {
+  id              String             @id @default(cuid())
+  title           String
+  message         String
+  type            AnnouncementType   @default(GENERAL)
+  status          AnnouncementStatus @default(ACTIVE)
+  priority        Int                @default(1)
+  backgroundColor String?
+  textColor       String?
+  iconName        String?
+  isScrolling     Boolean            @default(false)
+  showCloseButton Boolean            @default(true)
+  autoHide        Boolean            @default(false)
+  autoHideDelay   Int?
+  startDate       DateTime?
+  endDate         DateTime?
+  linkUrl         String?
+  linkText        String?
+  createdAt       DateTime           @default(now())
+  updatedAt       DateTime           @updatedAt
+  isVisible       Boolean            @default(true)
+
+  @@map("announcements")
+}
+
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String
+  altText   String?
+  sequence  Int      @default(0)
+  isActive  Boolean  @default(true)
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("product_images")
+}
+
+model ProductVariant {
+  id        String   @id @default(cuid())
+  name      String
+  value     String
+  price     Decimal  @db.Decimal(10, 2)
+  stock     Int      @default(0)
+  sku       String?  @unique
+  productId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("product_variants")
+}
+
+model SiteSetting {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  value       String
+  description String?
+  category    String?
+  type        String   @default("text")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+model BlogPost {
+  id              String    @id @default(cuid())
+  title           String
+  slug            String    @unique
+  content         String
+  excerpt         String?
+  featuredImage   String?
+  isPublished     Boolean   @default(false)
+  publishedAt     DateTime?
+  metaTitle       String?
+  metaDescription String?
+  tags            String[]  @default([])
+  authorName      String?
+  authorEmail     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@map("blog_posts")
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String?
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("contact_submissions")
 }
 
 enum ProductStatus {
@@ -78,114 +171,3 @@ enum AnnouncementStatus {
   INACTIVE
   SCHEDULED
 }
-
-// Announcements for the announcement banner
-model Announcement {
-  id          String             @id @default(cuid())
-  title       String
-  message     String
-  type        AnnouncementType   @default(GENERAL)
-  status      AnnouncementStatus @default(ACTIVE)
-  priority    Int                @default(1) // Higher number = higher priority
-  
-  // Styling options
-  backgroundColor String? // Hex color for background
-  textColor      String? // Hex color for text
-  iconName       String? // Icon name (lucide-react icons)
-  
-  // Display options
-  isVisible      Boolean  @default(true) // Master toggle to show/hide announcement
-  isScrolling    Boolean  @default(false)
-  showCloseButton Boolean @default(true)
-  autoHide       Boolean  @default(false)
-  autoHideDelay  Int?     // In seconds
-  
-  // Scheduling
-  startDate      DateTime?
-  endDate        DateTime?
-  
-  // Links
-  linkUrl        String?
-  linkText       String?
-  
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-
-  @@map("announcements")
-}
-
-// Optional: If you want to track product variants (sizes, colors, etc.)
-model ProductVariant {
-  id        String  @id @default(cuid())
-  name      String
-  value     String
-  price     Decimal @db.Decimal(10, 2)
-  stock     Int     @default(0)
-  sku       String? @unique
-  
-  productId String
-  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("product_variants")
-}
-
-// Website settings and configurations
-model SiteSetting {
-  id          String  @id @default(cuid())
-  key         String  @unique
-  value       String
-  description String?
-  category    String? // e.g., "general", "seo", "appearance"
-  type        String  @default("text") // "text", "number", "boolean", "json"
-  
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-
-  @@map("site_settings")
-}
-
-// Blog posts for the blog section
-model BlogPost {
-  id           String    @id @default(cuid())
-  title        String
-  slug         String    @unique
-  content      String
-  excerpt      String?
-  featuredImage String?
-  isPublished  Boolean   @default(false)
-  publishedAt  DateTime?
-  
-  // SEO
-  metaTitle       String?
-  metaDescription String?
-  tags            String[] @default([])
-  
-  // Author info (you can create separate Author model later if needed)
-  authorName      String?
-  authorEmail     String?
-  
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
-
-  @@map("blog_posts")
-}
-
-// Contact form submissions
-model ContactSubmission {
-  id        String  @id @default(cuid())
-  name      String
-  email     String
-  phone     String?
-  subject   String?
-  message   String
-  isRead    Boolean @default(false)
-  
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@map("contact_submissions")
-}
-

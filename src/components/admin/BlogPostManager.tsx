@@ -197,6 +197,7 @@ export default function BlogPostManager() {
     setImageUploading(true)
     try {
       // Get presigned URL
+      console.log('Getting presigned URL for:', { fileName: file.name, fileType: file.type, uploadType: 'blog-images' })
       const uploadResponse = await fetch('/api/admin/upload', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -208,12 +209,17 @@ export default function BlogPostManager() {
       })
 
       if (!uploadResponse.ok) {
-        throw new Error('Failed to get upload URL')
+        const errorText = await uploadResponse.text()
+        console.error('Failed to get upload URL:', { status: uploadResponse.status, statusText: uploadResponse.statusText, body: errorText })
+        throw new Error(`Failed to get upload URL: ${uploadResponse.status} ${uploadResponse.statusText}`)
       }
 
-      const { uploadUrl, imageUrl } = await uploadResponse.json()
+      const uploadData = await uploadResponse.json()
+      console.log('Received upload data:', uploadData)
+      const { uploadUrl, imageUrl } = uploadData
 
       // Upload file to S3
+      console.log('Uploading to S3:', { uploadUrl, fileSize: file.size, fileType: file.type })
       const s3Response = await fetch(uploadUrl, {
         method: 'PUT',
         body: file,
@@ -222,15 +228,25 @@ export default function BlogPostManager() {
         },
       })
 
+      console.log('S3 response:', { status: s3Response.status, statusText: s3Response.statusText })
       if (!s3Response.ok) {
-        throw new Error('Failed to upload image')
+        const s3ErrorText = await s3Response.text()
+        console.error('S3 upload failed:', { status: s3Response.status, statusText: s3Response.statusText, body: s3ErrorText })
+        throw new Error(`Failed to upload image to S3: ${s3Response.status} ${s3Response.statusText}`)
       }
 
       // Update form data with the image URL
       setFormData(prev => ({ ...prev, featuredImage: imageUrl }))
     } catch (error) {
       console.error('Error uploading image:', error)
-      alert('Failed to upload image. Please try again.')
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        console.error('Network error - possible CORS or connectivity issue')
+        alert('Network error: Unable to connect to upload service. Please check your internet connection and try again.')
+      } else if (error instanceof Error) {
+        alert(`Failed to upload image: ${error.message}`)
+      } else {
+        alert('Failed to upload image. Please try again.')
+      }
     } finally {
       setImageUploading(false)
     }
@@ -350,37 +366,74 @@ export default function BlogPostManager() {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Featured Image
                 </label>
-                <div className="space-y-2">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={handleImageFileChange}
-                    disabled={imageUploading}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
-                  />
+                <div className="space-y-3">
+                  {/* Custom file upload area */}
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageFileChange}
+                      disabled={imageUploading}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                      id="featured-image-upload"
+                    />
+                    <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
+                      imageUploading 
+                        ? 'border-[#BC6C25] bg-[#BC6C25]/5' 
+                        : 'border-gray-300 hover:border-[#BC6C25] hover:bg-gray-50'
+                    }`}>
+                      <div className="space-y-2">
+                        <div className="w-12 h-12 mx-auto bg-[#BC6C25]/10 rounded-lg flex items-center justify-center">
+                          <svg className="w-6 h-6 text-[#BC6C25]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-sm font-medium text-gray-700">
+                            Click to upload featured image
+                          </p>
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, JPEG up to 5MB
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                   {imageUploading && (
-                    <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <div className="flex items-center justify-center gap-2 text-sm text-[#BC6C25] bg-[#BC6C25]/5 p-3 rounded-md">
                       <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#BC6C25]"></div>
-                      Uploading image...
+                      Uploading image to S3...
                     </div>
                   )}
+
                   {formData.featuredImage && (
-                    <div className="mt-2">
-                      <img
-                        src={formData.featuredImage}
-                        alt="Featured image preview"
-                        className="w-32 h-20 object-cover rounded-md border border-gray-200"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/128x80/DDA15E/283618?text=IMG"
-                        }}
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setFormData(prev => ({ ...prev, featuredImage: '' }))}
-                        className="mt-1 text-xs text-red-600 hover:text-red-800"
-                      >
-                        Remove image
-                      </button>
+                    <div className="bg-gray-50 p-4 rounded-lg border">
+                      <div className="flex items-start gap-3">
+                        <img
+                          src={formData.featuredImage}
+                          alt="Featured image preview"
+                          className="w-20 h-20 object-cover rounded-md border border-gray-200 flex-shrink-0"
+                          onError={(e) => {
+                            e.currentTarget.src = "https://via.placeholder.com/80x80/DDA15E/283618?text=IMG"
+                          }}
+                        />
+                        <div className="flex-1 min-w-0">
+                          <p className="text-sm font-medium text-gray-700 mb-1">
+                            Featured image uploaded successfully
+                          </p>
+                          <p className="text-xs text-gray-500 truncate">
+                            {formData.featuredImage}
+                          </p>
+                          <button
+                            type="button"
+                            onClick={() => setFormData(prev => ({ ...prev, featuredImage: '' }))}
+                            className="mt-2 text-xs text-red-600 hover:text-red-800 hover:underline"
+                          >
+                            Remove image
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   )}
                 </div>

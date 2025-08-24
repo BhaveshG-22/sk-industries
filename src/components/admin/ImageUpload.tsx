@@ -7,9 +7,10 @@ interface ImageUploadProps {
   onImageUpload: (imageUrl: string) => void
   currentImage?: string
   className?: string
+  uploadType?: 'products' | 'blog-images'
 }
 
-export function ImageUpload({ onImageUpload, currentImage, className = '' }: ImageUploadProps) {
+export function ImageUpload({ onImageUpload, currentImage, className = '', uploadType = 'blog-images' }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [preview, setPreview] = useState<string | null>(currentImage || null)
   const [dragOver, setDragOver] = useState(false)
@@ -24,6 +25,7 @@ export function ImageUpload({ onImageUpload, currentImage, className = '' }: Ima
     
     try {
       // Step 1: Get pre-signed URL
+      console.log('Getting presigned URL for:', { fileName: file.name, fileType: file.type, uploadType })
       const presignedResponse = await fetch('/api/admin/upload', {
         method: 'POST',
         headers: {
@@ -32,16 +34,22 @@ export function ImageUpload({ onImageUpload, currentImage, className = '' }: Ima
         body: JSON.stringify({
           fileName: file.name,
           fileType: file.type,
+          uploadType: uploadType,
         }),
       })
 
       if (!presignedResponse.ok) {
-        throw new Error('Failed to get upload URL')
+        const errorText = await presignedResponse.text()
+        console.error('Failed to get upload URL:', { status: presignedResponse.status, statusText: presignedResponse.statusText, body: errorText })
+        throw new Error(`Failed to get upload URL: ${presignedResponse.status} ${presignedResponse.statusText}`)
       }
 
-      const { uploadUrl, imageUrl } = await presignedResponse.json()
+      const uploadData = await presignedResponse.json()
+      console.log('Received upload data:', uploadData)
+      const { uploadUrl, imageUrl } = uploadData
 
       // Step 2: Upload file directly to S3 using pre-signed URL
+      console.log('Uploading to S3:', { uploadUrl, fileSize: file.size, fileType: file.type })
       const uploadResponse = await fetch(uploadUrl, {
         method: 'PUT',
         body: file,
@@ -50,8 +58,11 @@ export function ImageUpload({ onImageUpload, currentImage, className = '' }: Ima
         },
       })
 
+      console.log('S3 response:', { status: uploadResponse.status, statusText: uploadResponse.statusText })
       if (!uploadResponse.ok) {
-        throw new Error('Failed to upload file to S3')
+        const s3ErrorText = await uploadResponse.text()
+        console.error('S3 upload failed:', { status: uploadResponse.status, statusText: uploadResponse.statusText, body: s3ErrorText })
+        throw new Error(`Failed to upload file to S3: ${uploadResponse.status} ${uploadResponse.statusText}`)
       }
 
       // Step 3: Set the public URL for the image
@@ -59,7 +70,14 @@ export function ImageUpload({ onImageUpload, currentImage, className = '' }: Ima
       onImageUpload(imageUrl)
     } catch (error) {
       console.error('Upload error:', error)
-      alert('Failed to upload image. Please try again.')
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        console.error('Network error - possible CORS or connectivity issue')
+        alert('Network error: Unable to connect to upload service. Please check your internet connection and try again.')
+      } else if (error instanceof Error) {
+        alert(`Failed to upload image: ${error.message}`)
+      } else {
+        alert('Failed to upload image. Please try again.')
+      }
     } finally {
       setUploading(false)
     }
