@@ -4,18 +4,43 @@ import { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, Play, Pause } from "lucide-react";
 
-const carouselImages = [
-  "/images/carousel-1.jpg",
-  "/images/carousel-2.jpg", 
-  "/images/carousel-3.jpg",
-  // "/images/carousel-4.jpg",
-  // "/images/carousel-5.jpg"
-];
+interface CarouselImage {
+  id: string;
+  imageUrl: string;
+  sequence: number;
+}
 
 export default function HeroSection() {
+  const [carouselImages, setCarouselImages] = useState<CarouselImage[]>([]);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchCarouselImages = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/hero-carousel');
+        if (!response.ok) {
+          throw new Error('Failed to fetch carousel images');
+        }
+        const images = await response.json();
+        setCarouselImages(images);
+        setCurrentSlide(0);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching carousel images:', err);
+        setError('Failed to load images');
+        setCarouselImages([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCarouselImages();
+  }, []);
 
   const goToSlide = useCallback((index: number) => {
     if (isTransitioning) return;
@@ -25,30 +50,46 @@ export default function HeroSection() {
   }, [isTransitioning]);
 
   const goToPrevious = useCallback(() => {
-    if (isTransitioning) return;
+    if (isTransitioning || carouselImages.length === 0) return;
     const newSlide = (currentSlide - 1 + carouselImages.length) % carouselImages.length;
     goToSlide(newSlide);
-  }, [currentSlide, goToSlide, isTransitioning]);
+  }, [currentSlide, goToSlide, isTransitioning, carouselImages.length]);
 
   const goToNext = useCallback(() => {
-    if (isTransitioning) return;
+    if (isTransitioning || carouselImages.length === 0) return;
     const newSlide = (currentSlide + 1) % carouselImages.length;
     goToSlide(newSlide);
-  }, [currentSlide, goToSlide, isTransitioning]);
+  }, [currentSlide, goToSlide, isTransitioning, carouselImages.length]);
 
   useEffect(() => {
-    if (!isPlaying) return;
+    if (!isPlaying || carouselImages.length === 0) return;
     
     const timer = setInterval(() => {
       goToNext();
     }, 4000);
 
     return () => clearInterval(timer);
-  }, [goToNext, isPlaying]);
+  }, [goToNext, isPlaying, carouselImages.length]);
 
   const togglePlayPause = () => {
     setIsPlaying(!isPlaying);
   };
+
+  if (isLoading) {
+    return (
+      <div className="relative w-full h-48 md:h-80 lg:h-96 bg-gray-200 animate-pulse flex items-center justify-center">
+        <div className="text-gray-500">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error || carouselImages.length === 0) {
+    return (
+      <div className="relative w-full h-48 md:h-80 lg:h-96 bg-gray-100 flex items-center justify-center">
+        <div className="text-gray-500">{error || 'No images available'}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full group" data-carousel="slide">
@@ -72,7 +113,7 @@ export default function HeroSection() {
               }`}
             >
               <Image
-                src={image}
+                src={image.imageUrl}
                 fill
                 className="object-cover"
                 alt={`Slide ${index + 1}`}

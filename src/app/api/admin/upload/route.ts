@@ -22,9 +22,9 @@ export async function POST(request: Request) {
     }
 
     // Validate uploadType
-    const validUploadTypes = ['products', 'blog-images', 'product-images']
+    const validUploadTypes = ['products', 'blog-images', 'product-images', 'hero-carousel']
     if (!validUploadTypes.includes(uploadType)) {
-      return NextResponse.json({ error: 'Invalid uploadType. Must be "products", "blog-images", or "product-images"' }, { status: 400 })
+      return NextResponse.json({ error: 'Invalid uploadType. Must be "products", "blog-images", "product-images", or "hero-carousel"' }, { status: 400 })
     }
 
     // Generate unique filename with appropriate folder

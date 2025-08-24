@@ -151,6 +151,18 @@ model ContactSubmission {
   @@map("contact_submissions")
 }
 
+model HeroCarousel {
+  id        String    @id @default(cuid())
+  name      String
+  imageUrl  String
+  sequence  Int       @default(0)
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  @@map("hero_carousel")
+}
+
 enum ProductStatus {
   AVAILABLE
   SOLD_OUT
