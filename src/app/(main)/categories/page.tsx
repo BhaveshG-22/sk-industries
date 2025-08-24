@@ -6,24 +6,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import ProductPreviewModal from "@/components/ProductPreviewModal"
 import { Package, Tag } from 'lucide-react'
-
-interface CategoryProduct {
-  id: string
-  title: string
-  originalPrice?: number
-  salePrice: number
-  status: string
-  image: string
-  badge?: string
-}
-
-interface Category {
-  id: string
-  name: string
-  slug: string
-  description?: string
-  products: CategoryProduct[]
-}
+import { CategoryProduct, Category } from '@/types/shared'
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([])
@@ -161,13 +144,10 @@ export default function CategoriesPage() {
                               </div>
                             )}
                             <Image
-                              src={product.image}
+                              src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                               alt={product.title}
                               fill
                               className="object-contain group-hover:scale-105 transition-transform duration-300"
-                              onError={(e) => {
-                                e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image"
-                              }}
                             />
                           </div>
 

@@ -68,7 +68,7 @@ export async function POST(request: Request) {
     // Create ProductImage records if provided
     if (data.productImages && data.productImages.length > 0) {
       await prisma.productImage.createMany({
-        data: data.productImages.map((img: any) => ({
+        data: data.productImages.map((img: { url: string; altText?: string; sequence: number; isActive: boolean }) => ({
           productId: product.id,
           url: img.url,
           altText: img.altText,

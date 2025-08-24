@@ -2,6 +2,7 @@
 
 import React, { useState, useCallback } from 'react'
 import { Upload, X, Image as ImageIcon } from 'lucide-react'
+import Image from 'next/image'
 
 interface ImageUploadProps {
   onImageUpload: (imageUrl: string) => void
@@ -15,7 +16,7 @@ export function ImageUpload({ onImageUpload, currentImage, className = '', uploa
   const [preview, setPreview] = useState<string | null>(currentImage || null)
   const [dragOver, setDragOver] = useState(false)
 
-  const handleFileUpload = async (file: File) => {
+  const handleFileUpload = useCallback(async (file: File) => {
     if (!file.type.startsWith('image/')) {
       alert('Please select an image file')
       return
@@ -81,7 +82,7 @@ export function ImageUpload({ onImageUpload, currentImage, className = '', uploa
     } finally {
       setUploading(false)
     }
-  }
+  }, [uploadType, onImageUpload])
 
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
@@ -98,7 +99,7 @@ export function ImageUpload({ onImageUpload, currentImage, className = '', uploa
     if (file) {
       handleFileUpload(file)
     }
-  }, [])
+  }, [handleFileUpload])
 
   const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault()
@@ -123,9 +124,11 @@ export function ImageUpload({ onImageUpload, currentImage, className = '', uploa
       
       {preview ? (
         <div className="relative">
-          <img
+          <Image
             src={preview}
             alt="Preview"
+            width={400}
+            height={192}
             className="w-full h-48 object-cover rounded-lg border-2 border-gray-300"
           />
           <button

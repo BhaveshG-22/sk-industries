@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
+import Image from 'next/image'
 import { Calendar, User, ArrowLeft, Tag } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -36,13 +37,7 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
     })
   }, [params])
 
-  useEffect(() => {
-    if (slug) {
-      fetchBlogPost()
-    }
-  }, [slug])
-
-  const fetchBlogPost = async () => {
+  const fetchBlogPost = useCallback(async () => {
     if (!slug) return
     
     try {
@@ -63,7 +58,13 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
     } finally {
       setLoading(false)
     }
-  }
+  }, [slug])
+
+  useEffect(() => {
+    if (slug) {
+      fetchBlogPost()
+    }
+  }, [slug, fetchBlogPost])
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('en-US', {
@@ -157,13 +158,12 @@ export default function BlogDetailPage({ params }: { params: Promise<{ slug: str
         {/* Featured Image */}
         {post.featuredImage && (
           <div className="mb-8">
-            <img
+            <Image
               src={post.featuredImage}
               alt={post.title}
+              width={800}
+              height={400}
               className="w-full h-64 md:h-80 lg:h-96 object-cover rounded-lg border border-[var(--warm-tan)]"
-              onError={(e) => {
-                e.currentTarget.src = "https://via.placeholder.com/800x400/BC6C25/FEFAE0?text=Blog+Image"
-              }}
             />
           </div>
         )}

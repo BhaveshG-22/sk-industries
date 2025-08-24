@@ -36,7 +36,7 @@ export default function ProductPreviewModal({
     }
     // Fallback to just the main image
     return [product.image || "https://via.placeholder.com/400x400?text=Product+Image"];
-  }, [product, product?.images, product?.image]);
+  }, [product]);
 
   if (!product) return null;
 

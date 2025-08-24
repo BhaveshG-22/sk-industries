@@ -45,7 +45,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
         const data = await response.json()
         setError(data.error || 'Invalid credentials')
       }
-    } catch (error) {
+    } catch {
       setError('Login failed. Please try again.')
     }
   }

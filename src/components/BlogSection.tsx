@@ -1,6 +1,7 @@
 "use client"
 
 import { ArrowRight, Calendar, User } from "lucide-react"
+import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -66,13 +67,12 @@ export default function BlogSection({ posts }: BlogSectionProps) {
               {post.featuredImage ? (
                 <div className="aspect-video w-full overflow-hidden">
                   <Link href={`/blog/${post.slug}`} className="block">
-                    <img
+                    <Image
                       src={post.featuredImage}
                       alt={post.title}
+                      width={400}
+                      height={225}
                       className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                      onError={(e) => {
-                        e.currentTarget.src = "https://via.placeholder.com/400x225/DDA15E/283618?text=Blog+Image"
-                      }}
                     />
                   </Link>
                 </div>

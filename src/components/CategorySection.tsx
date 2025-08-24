@@ -11,16 +11,7 @@ import {
 } from "@/components/ui/carousel";
 import { Button } from "@/components/ui/button";
 import React, { useState } from "react";
-
-interface CategoryProduct {
-  id: string;
-  title: string;
-  originalPrice?: number;
-  salePrice: number;
-  status: "available" | "sold_out";
-  image: string;
-  badge?: string;
-}
+import { CategoryProduct } from '@/types/shared';
 
 interface Category {
   id: string;
@@ -37,7 +28,7 @@ const categories: Category[] = [
         id: "1",
         title: "2Ply Facial Tissue Box 100 Pulls - (Pack of 3)",
         salePrice: 299,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=1",
         badge: "3 BOXES"
       },
@@ -45,7 +36,7 @@ const categories: Category[] = [
         id: "2", 
         title: "Premium Face Wash Set",
         salePrice: 199,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=2"
       },
       {
@@ -53,7 +44,7 @@ const categories: Category[] = [
         title: "Hand Sanitizer Gel 500ml",
         originalPrice: 150,
         salePrice: 120,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=6",
         badge: "500ML"
       },
@@ -62,7 +53,7 @@ const categories: Category[] = [
         title: "Moisturizing Body Lotion 200ml",
         originalPrice: 180,
         salePrice: 149,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=13",
         badge: "ORGANIC"
       },
@@ -70,7 +61,7 @@ const categories: Category[] = [
         id: "14",
         title: "Anti-Bacterial Soap Bar Set",
         salePrice: 89,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=14",
         badge: "PACK OF 4"
       },
@@ -79,14 +70,14 @@ const categories: Category[] = [
         title: "Dental Care Kit Complete",
         originalPrice: 299,
         salePrice: 249,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=15"
       },
       {
         id: "16",
         title: "Shampoo & Conditioner Bundle",
         salePrice: 399,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=16",
         badge: "COMBO"
       },
@@ -95,7 +86,7 @@ const categories: Category[] = [
         title: "Face Mask Sheet Pack",
         originalPrice: 120,
         salePrice: 89,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=17",
         badge: "10 SHEETS"
       }
@@ -110,7 +101,7 @@ const categories: Category[] = [
         title: "2Ply Facial Tissue Box 200 Pulls - (Pack of 3)",
         originalPrice: 525,
         salePrice: 299,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=3",
         badge: "3 BOXES"
       },
@@ -118,7 +109,7 @@ const categories: Category[] = [
         id: "7",
         title: "Food Storage Containers Set",
         salePrice: 599,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=7",
         badge: "SET OF 5"
       },
@@ -126,7 +117,7 @@ const categories: Category[] = [
         id: "8",
         title: "Aluminum Foil Roll 30m",
         salePrice: 180,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=8"
       },
       {
@@ -134,14 +125,14 @@ const categories: Category[] = [
         title: "Cling Film Wrap 100m",
         originalPrice: 99,
         salePrice: 79,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=18"
       },
       {
         id: "19",
         title: "Parchment Paper Sheets",
         salePrice: 149,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=19",
         badge: "50 SHEETS"
       },
@@ -149,7 +140,7 @@ const categories: Category[] = [
         id: "20",
         title: "Vacuum Seal Bags Pack",
         salePrice: 299,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=20",
         badge: "PACK OF 20"
       },
@@ -158,7 +149,7 @@ const categories: Category[] = [
         title: "Food Wrap Paper Eco",
         originalPrice: 159,
         salePrice: 129,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=21",
         badge: "ECO-FRIENDLY"
       },
@@ -166,7 +157,7 @@ const categories: Category[] = [
         id: "22",
         title: "Ziplock Bags Assorted",
         salePrice: 199,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=22",
         badge: "MULTI-SIZE"
       },
@@ -174,7 +165,7 @@ const categories: Category[] = [
         id: "23",
         title: "Freezer Bags Heavy Duty",
         salePrice: 249,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=23"
       }
     ]
@@ -187,7 +178,7 @@ const categories: Category[] = [
         id: "4",
         title: "2Ply Napkin Tissue Box 50 Pulls - (Pack of 4)",
         salePrice: 250,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=4",
         badge: "4 BOXES"
       },
@@ -196,7 +187,7 @@ const categories: Category[] = [
         title: "Kitchen Cleaning Wipes",
         originalPrice: 99,
         salePrice: 79,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=9",
         badge: "80 WIPES"
       },
@@ -204,14 +195,14 @@ const categories: Category[] = [
         id: "10",
         title: "Dish Soap Liquid 500ml",
         salePrice: 145,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=10"
       },
       {
         id: "24",
         title: "Scrub Sponges Multi-Pack",
         salePrice: 89,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=24",
         badge: "PACK OF 12"
       },
@@ -220,14 +211,14 @@ const categories: Category[] = [
         title: "Degreaser Spray Kitchen",
         originalPrice: 179,
         salePrice: 149,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=25"
       },
       {
         id: "26",
         title: "Microfiber Cleaning Cloths",
         salePrice: 199,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=26",
         badge: "SET OF 6"
       },
@@ -235,7 +226,7 @@ const categories: Category[] = [
         id: "27",
         title: "Oven Cleaner Gel Strong",
         salePrice: 229,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=27"
       },
       {
@@ -243,7 +234,7 @@ const categories: Category[] = [
         title: "Dishwasher Tablets Pack",
         originalPrice: 299,
         salePrice: 249,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=28",
         badge: "30 TABLETS"
       },
@@ -251,7 +242,7 @@ const categories: Category[] = [
         id: "29",
         title: "Cutting Board Sanitizer",
         salePrice: 129,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=29"
       }
     ]
@@ -264,7 +255,7 @@ const categories: Category[] = [
         id: "5",
         title: "3 Ply Toilet Tissue Paper Rolls - (Pack Of 4)",
         salePrice: 275,
-        status: "available", 
+        status: "AVAILABLE", 
         image: "https://prd.place/400?id=5",
         badge: "3 PLY"
       },
@@ -273,7 +264,7 @@ const categories: Category[] = [
         title: "Multi-Surface Cleaner Spray",
         originalPrice: 199,
         salePrice: 159,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=11",
         badge: "750ML"
       },
@@ -281,14 +272,14 @@ const categories: Category[] = [
         id: "12",
         title: "Floor Cleaner Concentrate",
         salePrice: 220,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=12"
       },
       {
         id: "30",
         title: "Glass Cleaner Streak-Free",
         salePrice: 149,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=30"
       },
       {
@@ -296,14 +287,14 @@ const categories: Category[] = [
         title: "Bathroom Cleaner Disinfectant",
         originalPrice: 189,
         salePrice: 159,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=31"
       },
       {
         id: "32",
         title: "Laundry Detergent Pods",
         salePrice: 399,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=32",
         badge: "40 PODS"
       },
@@ -312,14 +303,14 @@ const categories: Category[] = [
         title: "Fabric Softener Liquid",
         originalPrice: 179,
         salePrice: 149,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=33"
       },
       {
         id: "34",
         title: "Air Freshener Spray Pack",
         salePrice: 199,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=34",
         badge: "PACK OF 3"
       },
@@ -327,7 +318,7 @@ const categories: Category[] = [
         id: "35",
         title: "Carpet Cleaner Foam",
         salePrice: 279,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=35"
       },
       {
@@ -335,14 +326,14 @@ const categories: Category[] = [
         title: "Wood Polish Spray",
         originalPrice: 149,
         salePrice: 119,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=36"
       },
       {
         id: "37",
         title: "Stain Remover Pen Set",
         salePrice: 89,
-        status: "available",
+        status: "AVAILABLE",
         image: "https://prd.place/400?id=37",
         badge: "SET OF 3"
       },
@@ -350,7 +341,7 @@ const categories: Category[] = [
         id: "38",
         title: "Drain Cleaner Gel",
         salePrice: 199,
-        status: "sold_out",
+        status: "SOLD_OUT",
         image: "https://prd.place/400?id=38"
       }
     ]
@@ -423,13 +414,10 @@ export default function CategorySection() {
                             </div>
                           )}
                           <Image
-                            src={product.image}
+                            src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                             alt={product.title}
                             fill
                             className="object-contain group-hover:scale-105 transition-transform"
-                            onError={(e) => {
-                              e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
-                            }}
                           />
                         </div>
 
@@ -543,13 +531,10 @@ export default function CategorySection() {
                             </div>
                           )}
                           <Image
-                            src={product.image}
+                            src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                             alt={product.title}
                             fill
                             className="object-contain group-hover:scale-105 transition-transform"
-                            onError={(e) => {
-                              e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
-                            }}
                           />
                         </div>
 

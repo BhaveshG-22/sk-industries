@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Settings, Save, RotateCcw, Globe, Phone } from 'lucide-react'
 
 interface SiteSetting {
@@ -97,11 +97,7 @@ export default function SiteSettingsManager() {
   const [saving, setSaving] = useState(false)
   const [unsavedChanges, setUnsavedChanges] = useState(false)
 
-  useEffect(() => {
-    fetchSettings()
-  }, [])
-
-  const fetchSettings = async () => {
+  const fetchSettings = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/settings')
       if (response.ok) {
@@ -114,7 +110,11 @@ export default function SiteSettingsManager() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    fetchSettings()
+  }, [fetchSettings])
 
   const groupSettingsByCategory = (settings: SiteSetting[]): SettingsGroup => {
     return settings.reduce((groups, setting) => {

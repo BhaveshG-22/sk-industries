@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
+import { ProductStatus } from '@prisma/client'
 
 // Hardcoded product data from your existing components
 const hardcodedProducts = [
@@ -293,7 +294,7 @@ export async function POST() {
         update: {
           salePrice: productData.salePrice,
           originalPrice: productData.originalPrice || null,
-          status: productData.status,
+          status: productData.status as ProductStatus,
           stock: productData.stock,
           badge: productData.badge || null,
         },
@@ -302,7 +303,7 @@ export async function POST() {
           slug: productData.slug,
           originalPrice: productData.originalPrice || null,
           salePrice: productData.salePrice,
-          status: productData.status,
+          status: productData.status as ProductStatus,
           image: productData.image,
           badge: productData.badge || null,
           sku: productData.sku,

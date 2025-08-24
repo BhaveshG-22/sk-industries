@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, FileText, Eye, EyeOff, Calendar } from 'lucide-react'
+import Image from 'next/image'
 
 interface BlogPost {
   id: string
@@ -410,13 +411,12 @@ export default function BlogPostManager() {
                   {formData.featuredImage && (
                     <div className="bg-gray-50 p-4 rounded-lg border">
                       <div className="flex items-start gap-3">
-                        <img
+                        <Image
                           src={formData.featuredImage}
                           alt="Featured image preview"
+                          width={80}
+                          height={80}
                           className="w-20 h-20 object-cover rounded-md border border-gray-200 flex-shrink-0"
-                          onError={(e) => {
-                            e.currentTarget.src = "https://via.placeholder.com/80x80/DDA15E/283618?text=IMG"
-                          }}
                         />
                         <div className="flex-1 min-w-0">
                           <p className="text-sm font-medium text-gray-700 mb-1">
@@ -592,13 +592,12 @@ export default function BlogPostManager() {
                     <td className="px-6 py-4">
                       <div className="w-16 h-12">
                         {post.featuredImage ? (
-                          <img
+                          <Image
                             src={post.featuredImage}
                             alt={post.title}
+                            width={64}
+                            height={48}
                             className="w-full h-full object-cover rounded-md border border-gray-200"
-                            onError={(e) => {
-                              e.currentTarget.src = "https://via.placeholder.com/64x48/DDA15E/283618?text=IMG"
-                            }}
                           />
                         ) : (
                           <div className="w-full h-full bg-gray-100 rounded-md border border-gray-200 flex items-center justify-center">

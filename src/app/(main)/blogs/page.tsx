@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/card"
 import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
-import { BlogPost } from '@/types/shared'
 import BlogImage from '@/components/BlogImage'
 
 async function getBlogPosts() {

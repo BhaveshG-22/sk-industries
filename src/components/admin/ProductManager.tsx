@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { Plus, Edit, Trash2, Eye, EyeOff, Package, Tags, Upload, X, GripVertical } from 'lucide-react'
-import { ImageUpload } from './ImageUpload'
 import Image from 'next/image'
 
 interface Category {
@@ -894,7 +893,7 @@ export default function ProductManager() {
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <div className="flex-shrink-0 h-12 w-12">
-                          <img className="h-12 w-12 rounded-lg object-cover" src={product.image} alt={product.title} />
+                          <Image className="h-12 w-12 rounded-lg object-cover" src={product.image || '/placeholder-image.jpg'} alt={product.title} width={48} height={48} />
                         </div>
                         <div className="ml-4">
                           <div className="flex items-center">
