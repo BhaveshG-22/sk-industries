@@ -1,4 +1,6 @@
-import { Metadata } from 'next';
+"use client";
+
+import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -14,12 +16,6 @@ import {
   Mail,
   Phone
 } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: "Careers - Join Our Team | Gavali Group",
-  description: "Join Gavali Group and build your career with a leading manufacturer of premium food packaging solutions. Explore exciting opportunities in manufacturing, sales, and more.",
-  keywords: "careers, jobs, Gavali Group, manufacturing jobs, packaging industry, employment opportunities"
-};
 
 const jobOpenings = [
   {
@@ -102,7 +98,16 @@ const companyValues = [
 ];
 
 export default function CareersPage() {
-  const handleApplyNow = (jobTitle: string) => {
+  useEffect(() => {
+    // Set document title and meta description for SEO
+    document.title = "Careers - Join Our Team | Gavali Group";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) {
+      metaDescription.setAttribute('content', 'Join Gavali Group and build your career with a leading manufacturer of premium food packaging solutions. Explore exciting opportunities in manufacturing, sales, and more.');
+    }
+  }, []);
+
+  const handleApplyNow = () => {
     scrollToContact();
     // You could also implement specific application logic here
   };
@@ -117,7 +122,7 @@ export default function CareersPage() {
           </h1>
           <p className="text-xl text-[#606C38] max-w-3xl mx-auto mb-8">
             Join our growing team of dedicated professionals in the food packaging industry. 
-            We're committed to creating innovative solutions while building meaningful careers.
+            We&apos;re committed to creating innovative solutions while building meaningful careers.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
@@ -137,7 +142,7 @@ export default function CareersPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-[#283618] mb-4">Why Choose Gavali Group?</h2>
             <p className="text-lg text-[#606C38] max-w-2xl mx-auto">
-              We believe our employees are our greatest asset. Here's what makes us a great place to work.
+              We believe our employees are our greatest asset. Here&apos;s what makes us a great place to work.
             </p>
           </div>
           
@@ -199,7 +204,7 @@ export default function CareersPage() {
                       </div>
                     </div>
                     <Button 
-                      onClick={() => handleApplyNow(job.title)}
+                      onClick={handleApplyNow}
                       className="bg-[#BC6C25] hover:bg-[#A0571C] text-white"
                     >
                       Apply Now
@@ -234,7 +239,7 @@ export default function CareersPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Values & Culture</h2>
             <p className="text-lg text-[#FEFAE0]/90 max-w-2xl mx-auto">
-              At Gavali Group, we're guided by core values that shape our workplace culture and drive our success.
+              At Gavali Group, we&apos;re guided by core values that shape our workplace culture and drive our success.
             </p>
           </div>
 

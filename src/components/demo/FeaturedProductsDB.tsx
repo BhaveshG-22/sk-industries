@@ -42,7 +42,7 @@ interface FeaturedProductsDBProps {
 }
 
 export default function FeaturedProductsDB({ products }: FeaturedProductsDBProps) {
-  const handleOrderNow = (productName: string) => {
+  const handleOrderNow = () => {
     scrollToContact();
     // You can add additional logic here to pre-fill contact form with product info
   };
@@ -150,7 +150,7 @@ export default function FeaturedProductsDB({ products }: FeaturedProductsDBProps
 
                     {/* Order Button */}
                     <Button 
-                      onClick={() => handleOrderNow(product.title)}
+                      onClick={handleOrderNow}
                       disabled={product.status === 'SOLD_OUT' || product.stock === 0}
                       className="w-full bg-[#BC6C25] hover:bg-[#A0571C] text-white font-medium py-2 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed"
                     >

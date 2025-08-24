@@ -49,7 +49,7 @@ const products = [
 ];
 
 export default function FeaturedProducts() {
-  const handleOrderNow = (productName: string) => {
+  const handleOrderNow = () => {
     scrollToContact();
     // You can add additional logic here to pre-fill contact form with product info
   };
@@ -116,7 +116,7 @@ export default function FeaturedProducts() {
 
                   {/* Order Button */}
                   <Button 
-                    onClick={() => handleOrderNow(product.name)}
+                    onClick={handleOrderNow}
                     className="w-full bg-[#BC6C25] hover:bg-[#A0571C] text-white font-medium py-2 transition-colors"
                   >
                     Contact for Order
