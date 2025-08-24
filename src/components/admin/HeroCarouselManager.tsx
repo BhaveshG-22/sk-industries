@@ -6,7 +6,7 @@ import Image from 'next/image'
 
 interface CarouselImage {
   id: string
-  name: string
+  name?: string | null
   imageUrl: string
   sequence: number
   isActive: boolean
@@ -150,7 +150,7 @@ export default function HeroCarouselManager() {
   const handleEdit = (image: CarouselImage) => {
     setEditingImage(image)
     setFormData({
-      name: image.name,
+      name: image.name || '',
       imageUrl: image.imageUrl,
       sequence: image.sequence,
       isActive: image.isActive
@@ -470,7 +470,7 @@ export default function HeroCarouselManager() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {image.name}
+                      {image.name || `Image ${image.sequence}`}
                     </div>
                   </td>
                   <td className="px-6 py-4">

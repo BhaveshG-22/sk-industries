@@ -3,17 +3,33 @@ import { prisma } from '@/lib/prisma'
 
 export async function GET() {
   try {
-    const carouselImages = await prisma.heroCarousel.findMany({
-      orderBy: {
-        sequence: 'asc'
-      }
-    })
+    console.log('Fetching hero carousel images...')
+    
+    // Use raw query to avoid Prisma schema issues with nullable name
+    const carouselImages = await prisma.$queryRaw`
+      SELECT id, "imageUrl", sequence, "isActive", "createdAt", "updatedAt"
+      FROM hero_carousel 
+      ORDER BY sequence ASC
+    ` as any[]
 
-    return NextResponse.json(carouselImages)
+    console.log('Found images:', carouselImages.length)
+
+    // Add default name and format dates
+    const imagesWithName = carouselImages.map((image, index) => ({
+      id: image.id,
+      name: `Image ${index + 1}`,
+      imageUrl: image.imageUrl,
+      sequence: image.sequence,
+      isActive: image.isActive,
+      createdAt: image.createdAt.toISOString(),
+      updatedAt: image.updatedAt ? image.updatedAt.toISOString() : null
+    }))
+
+    return NextResponse.json(imagesWithName)
   } catch (error) {
-    console.error('Error fetching carousel images:', error)
+    console.error('Detailed error fetching carousel images:', error)
     return NextResponse.json(
-      { error: 'Failed to fetch carousel images' },
+      { error: 'Failed to fetch carousel images', details: error instanceof Error ? error.message : 'Unknown error' },
       { status: 500 }
     )
   }
@@ -31,7 +47,7 @@ export async function POST(request: Request) {
 
     const carouselImage = await prisma.heroCarousel.create({
       data: {
-        name: data.name,
+        name: data.name || `Image ${(maxSequence?.sequence ?? 0) + 1}`,
         imageUrl: data.imageUrl,
         sequence: data.sequence ?? (maxSequence?.sequence ?? 0) + 1,
         isActive: data.isActive ?? true,
