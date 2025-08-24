@@ -1,6 +1,3 @@
-"use client"
-
-import { useState, useEffect } from 'react'
 import { Calendar, User, ArrowRight } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
 import {
@@ -10,52 +7,33 @@ import {
   CardHeader,
 } from "@/components/ui/card"
 import Link from 'next/link'
+import { prisma } from '@/lib/prisma'
+import { BlogPost } from '@/types/shared'
+import BlogImage from '@/components/BlogImage'
 
-interface BlogPost {
-  id: string
-  title: string
-  slug: string
-  content: string
-  excerpt: string | null
-  featuredImage: string | null
-  isPublished: boolean
-  publishedAt: string | null
-  metaTitle: string | null
-  metaDescription: string | null
-  tags: string[]
-  authorName: string | null
-  authorEmail: string | null
-  createdAt: string
-  updatedAt: string
+async function getBlogPosts() {
+  try {
+    const posts = await prisma.blogPost.findMany({
+      where: {
+        isPublished: true
+      },
+      orderBy: {
+        publishedAt: 'desc'
+      }
+    })
+    return posts
+  } catch (error) {
+    console.error('Error fetching blog posts:', error)
+    return []
+  }
 }
 
-export default function BlogsPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [loading, setLoading] = useState(true)
+export default async function BlogsPage() {
+  const posts = await getBlogPosts()
 
-  useEffect(() => {
-    fetchBlogPosts()
-  }, [])
-
-  const fetchBlogPosts = async () => {
-    try {
-      const response = await fetch('/api/blog')
-      if (response.ok) {
-        const data = await response.json()
-        const publishedPosts = data.filter((post: BlogPost) => post.isPublished)
-        setPosts(publishedPosts)
-      } else {
-        console.error('Failed to fetch blog posts')
-      }
-    } catch (error) {
-      console.error('Error fetching blog posts:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+  const formatDate = (date: Date | null) => {
+    if (!date) return ''
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
@@ -66,20 +44,6 @@ export default function BlogsPage() {
     return tags.length > 0 ? tags[0] : 'Article'
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[var(--cream-white)]">
-        <div className="bg-gradient-to-r from-[var(--dark-forest)] to-[var(--olive-green)] py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="animate-pulse">
-              <div className="h-12 bg-white/20 rounded w-64 mx-auto mb-4"></div>
-              <div className="h-6 bg-white/20 rounded w-96 mx-auto"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
 
   return (
     <div className="min-h-screen bg-[var(--cream-white)]">
@@ -117,13 +81,10 @@ export default function BlogsPage() {
                 {post.featuredImage ? (
                   <div className="aspect-video w-full overflow-hidden">
                     <Link href={`/blog/${post.slug}`} className="block">
-                      <img
+                      <BlogImage
                         src={post.featuredImage}
                         alt={post.title}
                         className="h-full w-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
-                        onError={(e) => {
-                          e.currentTarget.src = "https://via.placeholder.com/400x225/DDA15E/283618?text=Blog+Image"
-                        }}
                       />
                     </Link>
                   </div>
@@ -164,7 +125,7 @@ export default function BlogsPage() {
                     {post.publishedAt && (
                       <div className="flex items-center gap-1">
                         <Calendar className="w-3 h-3" />
-                        <span>{formatDate(post.publishedAt)}</span>
+                        <span>{formatDate(post.publishedAt || post.createdAt)}</span>
                       </div>
                     )}
                   </div>
