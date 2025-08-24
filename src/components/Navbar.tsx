@@ -24,7 +24,7 @@ export default function Navbar() {
       {/* Top Section */}
       <div className="border-b border-[#DDA15E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-28">
+          <div className="flex items-center justify-between h-16 sm:h-20 lg:h-28">
             {/* Left side - Burger Menu (mobile) + Brand */}
             <div className="flex-1 flex items-center">
               {/* Mobile Menu Button */}
@@ -39,7 +39,7 @@ export default function Navbar() {
                 )}
               </button>
               
-              <span className="text-2xl font-bold tracking-wide font-arimo text-[#283618] ml-2">
+              <span className="text-lg sm:text-xl lg:text-2xl font-bold tracking-wide font-arimo text-[#283618] ml-2">
                 GAVALI GROUP
               </span>
             </div>
@@ -52,7 +52,7 @@ export default function Navbar() {
                   alt="Gavali Group"
                   width={80}
                   height={80}
-                  className="w-20 h-20 object-contain"
+                  className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain"
                 />
               </Link>
             </div>
@@ -81,17 +81,11 @@ export default function Navbar() {
             <Link href="/categories" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               CATEGORIES
             </Link>
-            <Link href="/products" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
-              PRODUCTS
-            </Link>
             <Link href="/blogs" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               BLOGS
             </Link>
             <Link href="/about" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
               ABOUT US
-            </Link>
-            <Link href="/founders-story" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
-              FOUNDER&apos;S STORY
             </Link>
             <button 
               onClick={scrollToContact} 
@@ -137,10 +131,6 @@ export default function Navbar() {
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
                   CATEGORIES
                 </Link>
-                <Link href="/products" onClick={closeMobileMenu}
-                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
-                  PRODUCTS
-                </Link>
                 <Link href="/blogs" onClick={closeMobileMenu}
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
                   BLOGS
@@ -148,10 +138,6 @@ export default function Navbar() {
                 <Link href="/about" onClick={closeMobileMenu}
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
                   ABOUT US
-                </Link>
-                <Link href="/founders-story" onClick={closeMobileMenu}
-                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
-                  FOUNDER&apos;S STORY
                 </Link>
                 <button 
                   onClick={() => { closeMobileMenu(); scrollToContact(); }}
