@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 import { revalidateProductPages } from '@/lib/revalidate'
 
@@ -84,7 +83,7 @@ export async function PUT(
 }
 
 export async function DELETE(
-  request: Request,
+  _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
