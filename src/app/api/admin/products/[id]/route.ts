@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/prisma'
 
 export async function PUT(
@@ -68,6 +69,11 @@ export async function PUT(
       }
     })
 
+    // Revalidate pages that display products
+    revalidatePath('/')  // Homepage
+    revalidatePath('/categories')  // Categories page
+    revalidatePath('/demo')  // Demo page if it shows products
+
     return NextResponse.json(productWithImages)
   } catch (error) {
     console.error('Error updating product:', error)
@@ -87,6 +93,11 @@ export async function DELETE(
     await prisma.product.delete({
       where: { id }
     })
+
+    // Revalidate pages that display products
+    revalidatePath('/')  // Homepage
+    revalidatePath('/categories')  // Categories page
+    revalidatePath('/demo')  // Demo page if it shows products
 
     return NextResponse.json({ success: true })
   } catch (error) {
