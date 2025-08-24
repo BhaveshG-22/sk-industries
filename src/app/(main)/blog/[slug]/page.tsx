@@ -1,12 +1,10 @@
-"use client"
-
-import { useState, useEffect, useCallback } from 'react'
 import Image from 'next/image'
 import { Calendar, User, ArrowLeft, Tag } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { prisma } from '@/lib/prisma'
 
 interface BlogPost {
   id: string
@@ -16,86 +14,51 @@ interface BlogPost {
   excerpt: string | null
   featuredImage: string | null
   isPublished: boolean
-  publishedAt: string | null
+  publishedAt: Date | null
   metaTitle: string | null
   metaDescription: string | null
   tags: string[]
   authorName: string | null
   authorEmail: string | null
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
 }
 
-export default function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
-  const [post, setPost] = useState<BlogPost | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [slug, setSlug] = useState<string | null>(null)
-
-  useEffect(() => {
-    params.then(p => {
-      setSlug(p.slug)
+async function getBlogPost(slug: string): Promise<BlogPost | null> {
+  try {
+    const post = await prisma.blogPost.findUnique({
+      where: { slug }
     })
-  }, [params])
-
-  const fetchBlogPost = useCallback(async () => {
-    if (!slug) return
     
-    try {
-      const response = await fetch(`/api/blog/${slug}`)
-      if (response.ok) {
-        const data = await response.json()
-        if (data.isPublished) {
-          setPost(data)
-        } else {
-          notFound()
-        }
-      } else {
-        notFound()
-      }
-    } catch (error) {
-      console.error('Error fetching blog post:', error)
-      notFound()
-    } finally {
-      setLoading(false)
+    if (!post || !post.isPublished) {
+      return null
     }
-  }, [slug])
+    
+    return post
+  } catch (error) {
+    console.error('Error fetching blog post:', error)
+    return null
+  }
+}
 
-  useEffect(() => {
-    if (slug) {
-      fetchBlogPost()
-    }
-  }, [slug, fetchBlogPost])
+export default async function BlogDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getBlogPost(slug)
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+  if (!post) {
+    notFound()
+  }
+
+  const formatDate = (date: Date | null) => {
+    if (!date) return ''
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     })
   }
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-[var(--cream-white)]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-1/2 mb-8"></div>
-            <div className="h-64 bg-gray-200 rounded mb-8"></div>
-            <div className="space-y-4">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="h-4 bg-gray-200 rounded"></div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    )
-  }
 
-  if (!post) {
-    return null
-  }
 
   return (
     <div className="min-h-screen bg-[var(--cream-white)]">
