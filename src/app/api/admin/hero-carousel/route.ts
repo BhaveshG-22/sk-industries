@@ -1,6 +1,15 @@
 import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
+interface RawCarouselImage {
+  id: string
+  imageUrl: string
+  sequence: number
+  isActive: boolean
+  createdAt: Date
+  updatedAt: Date | null
+}
+
 export async function GET() {
   try {
     console.log('Fetching hero carousel images...')
@@ -10,7 +19,7 @@ export async function GET() {
       SELECT id, "imageUrl", sequence, "isActive", "createdAt", "updatedAt"
       FROM hero_carousel 
       ORDER BY sequence ASC
-    ` as any[]
+    ` as RawCarouselImage[]
 
     console.log('Found images:', carouselImages.length)
 

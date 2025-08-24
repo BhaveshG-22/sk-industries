@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { Menu } from 'lucide-react'
 import AdminSidebar from '@/components/admin/AdminSidebar'
 
 export default function AdminLayout({
@@ -10,6 +11,7 @@ export default function AdminLayout({
 }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   useEffect(() => {
     const checkAuth = () => {
@@ -37,12 +39,40 @@ export default function AdminLayout({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="flex">
-        {isAuthenticated && <AdminSidebar />}
-        <main className={`flex-1 p-8 min-h-screen ${isAuthenticated ? 'ml-64' : ''}`}>
-          {children}
-        </main>
-      </div>
+      {isAuthenticated && (
+        <>
+          {/* Mobile header */}
+          <header className="lg:hidden bg-white shadow-sm border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+            <button
+              onClick={() => setSidebarOpen(true)}
+              className="p-2 rounded-lg text-gray-600 hover:bg-gray-100"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-[#BC6C25] rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">GG</span>
+              </div>
+              <span className="font-bold text-lg text-gray-800">Admin Panel</span>
+            </div>
+            <div className="w-10"></div> {/* Spacer for centering */}
+          </header>
+
+          {/* Sidebar */}
+          <AdminSidebar 
+            isOpen={sidebarOpen} 
+            onClose={() => setSidebarOpen(false)} 
+          />
+        </>
+      )}
+      
+      <main className={`min-h-screen transition-all duration-300 ${
+        isAuthenticated 
+          ? 'lg:ml-64 p-4 sm:p-6 lg:p-8 pt-20 lg:pt-8' 
+          : 'p-8'
+      }`}>
+        {children}
+      </main>
     </div>
   )
 }

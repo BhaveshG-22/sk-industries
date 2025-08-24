@@ -251,17 +251,17 @@ export default function HeroCarouselManager() {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-2xl font-bold">Hero Carousel Manager</h1>
+          <h1 className="text-xl sm:text-2xl font-bold">Hero Carousel Manager</h1>
           <p className="text-gray-600 text-sm mt-1">
             Drag and drop rows to reorder images in the carousel
           </p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center gap-2"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
           Add Image
@@ -393,17 +393,17 @@ export default function HeroCarouselManager() {
               </label>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <button
                 type="submit"
-                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
+                className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 flex-1 sm:flex-none"
               >
                 {editingImage ? 'Update' : 'Add'} Image
               </button>
               <button
                 type="button"
                 onClick={resetForm}
-                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700"
+                className="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 flex-1 sm:flex-none"
               >
                 Cancel
               </button>
@@ -414,25 +414,25 @@ export default function HeroCarouselManager() {
 
       <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[640px]">
             <thead className="bg-gray-50">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Preview
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Name
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden sm:table-cell">
                   Image URL
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Sequence
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-3 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -455,10 +455,10 @@ export default function HeroCarouselManager() {
                       : 'hover:bg-gray-50'
                   } cursor-move`}
                 >
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex items-center gap-3">
-                      <GripVertical className="w-4 h-4 text-gray-400 hover:text-gray-600" />
-                      <div className="relative w-16 h-10 rounded overflow-hidden">
+                  <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <GripVertical className="w-4 h-4 text-gray-400 hover:text-gray-600 flex-shrink-0" />
+                      <div className="relative w-12 h-8 sm:w-16 sm:h-10 rounded overflow-hidden flex-shrink-0">
                         <Image
                           src={image.imageUrl}
                           alt="Preview"
@@ -468,22 +468,22 @@ export default function HeroCarouselManager() {
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
                       {image.name || `Image ${image.sequence}`}
                     </div>
                   </td>
-                  <td className="px-6 py-4">
+                  <td className="px-3 sm:px-6 py-4 hidden sm:table-cell">
                     <div className="text-sm text-gray-900 truncate max-w-xs">
                       {image.imageUrl}
                     </div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
                       {image.sequence}
                     </span>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
+                  <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <button
                       onClick={() => toggleStatus(image)}
                       className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
@@ -500,17 +500,19 @@ export default function HeroCarouselManager() {
                       {image.isActive ? 'Active' : 'Inactive'}
                     </button>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <div className="flex gap-2">
+                  <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
+                    <div className="flex gap-1 sm:gap-2">
                       <button
                         onClick={() => handleEdit(image)}
-                        className="text-blue-600 hover:text-blue-700"
+                        className="text-blue-600 hover:text-blue-700 p-1"
+                        title="Edit image"
                       >
                         <Edit className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => handleDelete(image.id)}
-                        className="text-red-600 hover:text-red-700"
+                        className="text-red-600 hover:text-red-700 p-1"
+                        title="Delete image"
                       >
                         <Trash2 className="w-4 h-4" />
                       </button>
