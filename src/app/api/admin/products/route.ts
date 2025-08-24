@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { prisma } from '@/lib/prisma'
+import { revalidateProductPages } from '@/lib/revalidate'
 
 export async function GET() {
   try {
@@ -91,9 +92,7 @@ export async function POST(request: Request) {
     })
 
     // Revalidate pages that display products
-    revalidatePath('/')  // Homepage
-    revalidatePath('/categories')  // Categories page
-    revalidatePath('/demo')  // Demo page if it shows products
+    revalidateProductPages()
 
     return NextResponse.json(productWithImages)
   } catch (error) {

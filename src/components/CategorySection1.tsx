@@ -86,24 +86,18 @@ export default function CategorySection1({ categories }: CategorySection1Props) 
                 productsToShow = [...categories[0]?.products || [], ...categories[1]?.products || []];
               }
               return productsToShow.map((product) => (
-              <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 xl:basis-1/4">
-                <div className="p-2 h-full">
-                  <Card className="group relative overflow-hidden border-gray-200 hover:shadow-lg transition-shadow h-full flex flex-col min-h-[480px]">
-                    <CardContent className="p-0 flex flex-col h-full">
+              <CarouselItem key={product.id} className="md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                <div className="p-1 h-full">
+                  <Card className="group hover:shadow-xl transition-all duration-300 border-2 border-[#DDA15E]/20 hover:border-[#BC6C25] bg-white h-full flex flex-col">
+                    <CardContent className="p-4 flex flex-col h-full">
                       {/* Product Image */}
-                      <div className="relative bg-gray-50 p-6 h-64 flex items-center justify-center">
-                        {product.badge && (
-                          <div className="absolute top-3 right-3 z-10">
-                            <span className="bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full">
-                              {product.badge}
-                            </span>
-                          </div>
-                        )}
+                      <div className="aspect-square bg-gradient-to-br from-[#FEFAE0] to-[#F8F9FA] rounded-lg mb-3 overflow-hidden flex items-center justify-center relative">
                         <Image
                           src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                           alt={product.title}
-                          fill
-                          className="object-contain group-hover:scale-105 transition-transform"
+                          width={200}
+                          height={200}
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
                           onError={(e) => {
                             e.currentTarget.src = "https://via.placeholder.com/300x300?text=Product+Image";
                           }}
@@ -111,42 +105,54 @@ export default function CategorySection1({ categories }: CategorySection1Props) 
                       </div>
 
                       {/* Product Info */}
-                      <div className="p-4 flex flex-col flex-1">
-                        <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2 min-h-[2.5rem]">
-                          {product.title}
-                        </h3>
-                        
-                        {/* Price */}
-                        <div className="mb-3 flex-1">
-                          {product.status === "SOLD_OUT" ? (
-                            <span className="text-red-600 font-semibold text-sm">
-                              Sold Out
-                            </span>
-                          ) : (
-                            <div className="flex items-center gap-2">
-                              <span className="text-lg font-bold text-gray-900">
-                                Rs. {product.salePrice}
-                              </span>
-                              {product.originalPrice && (
-                                <span className="text-sm text-gray-500 line-through">
-                                  Rs. {product.originalPrice}
-                                </span>
-                              )}
+                      <div className="space-y-3 flex-1 flex flex-col">
+                        <div className="text-center">
+                          <h3 className="text-sm font-semibold text-[#283618] mb-1 line-clamp-2">
+                            {product.title}
+                          </h3>
+                          
+                          {/* Stock info */}
+                          {product.stock && product.stock > 0 && (
+                            <div className="text-xs text-[#606C38] mb-1">
+                              In Stock: {product.stock}
                             </div>
                           )}
                         </div>
 
+                        {/* Pricing */}
+                        <div className="bg-gradient-to-r from-[#FEFAE0] to-[#F4F3EE] rounded-lg p-3 text-center">
+                          <div className="flex items-center justify-center gap-2 mb-1">
+                            {product.status === "SOLD_OUT" ? (
+                              <span className="text-red-600 font-semibold text-sm">
+                                Sold Out
+                              </span>
+                            ) : (
+                              <>
+                                <div className="text-lg font-bold text-[#BC6C25]">
+                                  ₹{product.salePrice}
+                                </div>
+                                {product.originalPrice && product.originalPrice > product.salePrice && (
+                                  <div className="text-xs text-gray-500 line-through">
+                                    ₹{product.originalPrice}
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </div>
+                          <div className="text-xs text-[#606C38]">
+                            per 100 pieces
+                          </div>
+                        </div>
+
                         {/* Action Button */}
                         <Button 
-                          className={`w-full mt-auto ${
-                            product.status === "SOLD_OUT"
-                              ? "bg-gray-400 cursor-not-allowed"
-                              : "bg-amber-800 hover:bg-amber-900"
-                          }`}
-                          disabled={product.status === "SOLD_OUT"}
+                          disabled={product.status === "SOLD_OUT" || (product.stock !== undefined && product.stock === 0)}
+                          className="w-full bg-[#BC6C25] hover:bg-[#A0571C] text-white font-medium py-1.5 text-sm transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed mt-auto"
                           onClick={() => product.status === "AVAILABLE" && handlePreviewClick(product)}
                         >
-                          {product.status === "SOLD_OUT" ? "SOLD OUT" : "PREVIEW"}
+                          {product.status === "SOLD_OUT" || (product.stock !== undefined && product.stock === 0)
+                            ? 'Out of Stock' 
+                            : 'PREVIEW'}
                         </Button>
                       </div>
                     </CardContent>

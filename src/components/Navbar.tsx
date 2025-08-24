@@ -25,7 +25,7 @@ export default function Navbar() {
       <div className="border-b border-[#DDA15E]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-28">
-            {/* Left side - Burger Menu (mobile) + Brand */}
+            {/* Left side - Burger Menu (mobile) */}
             <div className="flex-1 flex items-center">
               {/* Mobile Menu Button */}
               <button
@@ -38,21 +38,17 @@ export default function Navbar() {
                   <Menu className="w-8 h-8" strokeWidth={2} />
                 )}
               </button>
-              
-              <span className="text-lg sm:text-xl lg:text-2xl font-bold tracking-wide font-arimo text-[#283618] ml-2">
-                GAVALI GROUP
-              </span>
             </div>
             
             {/* Centered Logo */}
             <div className="flex items-center justify-center">
               <Link href="/" className="flex items-center">
                 <Image
-                  src="/images/gavali-group-logo.png"
+                  src="/main-logo-1.png"
                   alt="Gavali Group"
-                  width={80}
-                  height={80}
-                  className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain"
+                  width={180}
+                  height={180}
+                  className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
                 />
               </Link>
             </div>

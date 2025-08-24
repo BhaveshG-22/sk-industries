@@ -2,12 +2,10 @@
 
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { scrollToContact } from '@/lib/scroll';
 import { 
-  MapPin, 
-  Clock, 
   Users, 
   Award, 
   TrendingUp, 
@@ -16,54 +14,6 @@ import {
   Mail,
   Phone
 } from 'lucide-react';
-
-const jobOpenings = [
-  {
-    id: 1,
-    title: "Production Supervisor",
-    department: "Manufacturing",
-    location: "Mumbai, Maharashtra",
-    type: "Full-time",
-    experience: "3-5 years",
-    description: "Lead production teams and ensure quality standards in our aluminum container manufacturing facility.",
-    requirements: [
-      "Bachelor's degree in Engineering or related field",
-      "3+ years of manufacturing supervision experience",
-      "Knowledge of quality control processes",
-      "Strong leadership and communication skills"
-    ]
-  },
-  {
-    id: 2,
-    title: "Sales Executive",
-    department: "Sales & Marketing",
-    location: "Pan India",
-    type: "Full-time", 
-    experience: "2-4 years",
-    description: "Drive sales growth by building relationships with distributors and key accounts across India.",
-    requirements: [
-      "Bachelor's degree in Business or Marketing",
-      "2+ years of B2B sales experience",
-      "Excellent communication and negotiation skills",
-      "Willingness to travel extensively"
-    ]
-  },
-  {
-    id: 3,
-    title: "Quality Control Analyst",
-    department: "Quality Assurance",
-    location: "Mumbai, Maharashtra",
-    type: "Full-time",
-    experience: "1-3 years",
-    description: "Ensure product quality through rigorous testing and compliance with food safety standards.",
-    requirements: [
-      "Bachelor's degree in Chemistry or Food Technology",
-      "Knowledge of food safety regulations",
-      "Attention to detail and analytical skills",
-      "Laboratory testing experience preferred"
-    ]
-  }
-];
 
 const benefits = [
   {
@@ -170,65 +120,51 @@ export default function CareersPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#283618] mb-4">Current Job Openings</h2>
+            <h2 className="text-3xl font-bold text-[#283618] mb-4">Career Opportunities</h2>
             <p className="text-lg text-[#606C38]">
-              Explore exciting career opportunities across different departments
+              Join our growing team and explore exciting opportunities across different departments
             </p>
           </div>
 
-          <div className="space-y-6">
-            {jobOpenings.map((job) => (
-              <Card key={job.id} className="border-2 border-[#DDA15E]/20 hover:border-[#BC6C25] transition-colors">
-                <CardHeader>
-                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                    <div>
-                      <CardTitle className="text-2xl text-[#283618] mb-2">
-                        {job.title}
-                      </CardTitle>
-                      <div className="flex flex-wrap gap-3 text-sm">
-                        <div className="flex items-center gap-1 text-[#606C38]">
-                          <Users className="w-4 h-4" />
-                          {job.department}
-                        </div>
-                        <div className="flex items-center gap-1 text-[#606C38]">
-                          <MapPin className="w-4 h-4" />
-                          {job.location}
-                        </div>
-                        <div className="flex items-center gap-1 text-[#606C38]">
-                          <Clock className="w-4 h-4" />
-                          {job.type}
-                        </div>
-                        <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">
-                          {job.experience}
-                        </Badge>
-                      </div>
-                    </div>
-                    <Button 
-                      onClick={handleApplyNow}
-                      className="bg-[#BC6C25] hover:bg-[#A0571C] text-white"
-                    >
-                      Apply Now
-                    </Button>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-[#606C38] mb-4">
-                    {job.description}
+          <div className="max-w-4xl mx-auto">
+            <Card className="border-2 border-[#DDA15E]/20 bg-gradient-to-r from-[#FEFAE0] to-[#F4F3EE]">
+              <CardContent className="pt-8 text-center">
+                <Users className="w-16 h-16 text-[#BC6C25] mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-[#283618] mb-4">
+                  We&apos;re Always Looking for Talented Professionals
+                </h3>
+                <p className="text-lg text-[#606C38] mb-6 max-w-2xl mx-auto">
+                  While we don&apos;t have specific openings listed at the moment, we&apos;re constantly growing 
+                  and are interested in connecting with passionate individuals across various departments including 
+                  Manufacturing, Sales & Marketing, Quality Assurance, and Administration.
+                </p>
+                <div className="space-y-4">
+                  <p className="text-[#606C38]">
+                    <strong>Common roles we recruit for:</strong>
                   </p>
-                  <div>
-                    <h4 className="font-semibold text-[#283618] mb-3">Requirements:</h4>
-                    <ul className="space-y-2">
-                      {job.requirements.map((req, index) => (
-                        <li key={index} className="flex items-start gap-2 text-[#606C38]">
-                          <CheckCircle className="w-4 h-4 text-[#BC6C25] mt-0.5 flex-shrink-0" />
-                          {req}
-                        </li>
-                      ))}
-                    </ul>
+                  <div className="flex flex-wrap gap-2 justify-center">
+                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Production Supervisor</Badge>
+                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Sales Executive</Badge>
+                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Quality Control Analyst</Badge>
+                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Machine Operator</Badge>
+                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Marketing Specialist</Badge>
+                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Admin Assistant</Badge>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                </div>
+                <div className="mt-8">
+                  <p className="text-[#606C38] mb-4">
+                    Submit your details in the contact form with the subject &quot;careers&quot; to get in touch with our HR team.
+                  </p>
+                  <Button 
+                    onClick={handleApplyNow}
+                    size="lg"
+                    className="bg-[#BC6C25] hover:bg-[#A0571C] text-white px-8 py-3"
+                  >
+                    Contact Us About Careers
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
