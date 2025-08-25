@@ -493,7 +493,7 @@ export default function ProductManager() {
                   value={categoryForm.slug}
                   onChange={(e) => setCategoryForm({ ...categoryForm, slug: e.target.value })}
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
-                  placeholder="e.g., personal-hygiene"
+                  placeholder="e.g., containers"
                 />
               </div>
 

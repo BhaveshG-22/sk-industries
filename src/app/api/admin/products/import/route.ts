@@ -14,7 +14,7 @@ const hardcodedProducts = [
     badge: "3 BOXES",
     sku: "PH001",
     stock: 0,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Premium Face Wash Set",
@@ -24,7 +24,7 @@ const hardcodedProducts = [
     image: "https://prd.place/400?id=2",
     sku: "PH002",
     stock: 50,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Hand Sanitizer Gel 500ml",
@@ -36,7 +36,7 @@ const hardcodedProducts = [
     badge: "500ML",
     sku: "PH003",
     stock: 100,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Moisturizing Body Lotion 200ml",
@@ -48,7 +48,7 @@ const hardcodedProducts = [
     badge: "ORGANIC",
     sku: "PH004",
     stock: 75,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Toothbrush Set Electric",
@@ -59,7 +59,7 @@ const hardcodedProducts = [
     badge: "RECHARGEABLE",
     sku: "PH005",
     stock: 25,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Body Wash Antibacterial",
@@ -70,7 +70,7 @@ const hardcodedProducts = [
     image: "https://prd.place/400?id=19",
     sku: "PH006",
     stock: 60,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Hand Cream Moisturizing",
@@ -81,7 +81,7 @@ const hardcodedProducts = [
     badge: "VITAMIN E",
     sku: "PH007",
     stock: 0,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Nail Care Kit Complete",
@@ -93,7 +93,7 @@ const hardcodedProducts = [
     badge: "12 PIECES",
     sku: "PH008",
     stock: 30,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Deodorant Spray Set",
@@ -104,7 +104,7 @@ const hardcodedProducts = [
     badge: "PACK OF 3",
     sku: "PH009",
     stock: 40,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
   {
     title: "Lip Balm Collection",
@@ -116,7 +116,7 @@ const hardcodedProducts = [
     badge: "6 FLAVORS",
     sku: "PH010",
     stock: 80,
-    categorySlug: "personal-hygiene"
+    categorySlug: "containers"
   },
 
   // Food Wrapping Products
@@ -243,12 +243,12 @@ export async function POST() {
     // First, create categories if they don't exist
     const categories = await Promise.all([
       prisma.category.upsert({
-        where: { slug: 'personal-hygiene' },
+        where: { slug: 'containers' },
         update: {},
         create: {
-          name: 'PERSONAL HYGIENE',
-          slug: 'personal-hygiene',
-          description: 'Personal care and hygiene products',
+          name: 'CONTAINERS',
+          slug: 'containers',
+          description: 'Storage containers and packaging products',
         },
       }),
       prisma.category.upsert({

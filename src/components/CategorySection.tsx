@@ -21,8 +21,8 @@ interface Category {
 
 const categories: Category[] = [
   {
-    id: "personal-hygiene",
-    name: "PERSONAL HYGIENE",
+    id: "containers",
+    name: "CONTAINERS",
     products: [
       {
         id: "1",
@@ -349,7 +349,7 @@ const categories: Category[] = [
 ];
 
 export default function CategorySection() {
-  const [activeFirstSection, setActiveFirstSection] = useState("both"); // "both", "personal-hygiene", "food-wrapping"
+  const [activeFirstSection, setActiveFirstSection] = useState("both"); // "both", "containers", "food-wrapping"
   const [activeSecondSection, setActiveSecondSection] = useState("both"); // "both", "kitchen-hygiene", "household-cleaner"
 
 
@@ -360,9 +360,9 @@ export default function CategorySection() {
         {/* First Row Headers */}
         <div className="flex justify-center gap-8 mb-8">
           <button
-            onClick={() => setActiveFirstSection(activeFirstSection === "personal-hygiene" ? "both" : "personal-hygiene")}
+            onClick={() => setActiveFirstSection(activeFirstSection === "containers" ? "both" : "containers")}
             className={`text-2xl font-bold pb-2 border-b-2 transition-colors ${
-              activeFirstSection === "personal-hygiene"
+              activeFirstSection === "containers"
                 ? "text-[var(--burnt-orange)] border-[var(--burnt-orange)]"
                 : "text-[var(--dark-forest)] border-[var(--burnt-orange)] hover:text-[var(--olive-green)]"
             }`}
@@ -392,7 +392,7 @@ export default function CategorySection() {
             <CarouselContent>
               {(() => {
                 let productsToShow = [];
-                if (activeFirstSection === "personal-hygiene") {
+                if (activeFirstSection === "containers") {
                   productsToShow = categories[0]?.products || [];
                 } else if (activeFirstSection === "food-wrapping") {
                   productsToShow = categories[1]?.products || [];

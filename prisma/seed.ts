@@ -4,9 +4,9 @@ const prisma = new PrismaClient()
 
 const categoriesData = [
   {
-    name: "PERSONAL HYGIENE",
-    slug: "personal-hygiene",
-    description: "Personal care and hygiene products",
+    name: "CONTAINERS",
+    slug: "containers",
+    description: "Storage containers and packaging products",
     products: [
       {
         title: "2Ply Facial Tissue Box 100 Pulls - (Pack of 3)",

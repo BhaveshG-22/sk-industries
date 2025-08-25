@@ -19,9 +19,13 @@ interface CategorySection1Props {
 }
 
 export default function CategorySection1({ categories }: CategorySection1Props) {
-  const [activeSection, setActiveSection] = useState("personal-hygiene"); // "both", "personal-hygiene", "food-wrapping"
+  const [activeSection, setActiveSection] = useState("containers"); // "both", "containers", "food-wrapping"
   const [selectedProduct, setSelectedProduct] = useState<CategoryProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Find categories by slug instead of assuming array positions
+  const containersCategory = categories.find(cat => cat.slug === "containers");
+  const foodWrappingCategory = categories.find(cat => cat.slug === "food-wrapping");
 
   const handlePreviewClick = (product: CategoryProduct) => {
     setSelectedProduct(product);
@@ -44,14 +48,14 @@ export default function CategorySection1({ categories }: CategorySection1Props) 
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
         <button
-          onClick={() => setActiveSection(activeSection === "personal-hygiene" ? "both" : "personal-hygiene")}
+          onClick={() => setActiveSection(activeSection === "containers" ? "both" : "containers")}
           className={`px-6 py-3 text-sm font-medium border-b-2 transition-colors ${
-            activeSection === "personal-hygiene"
+            activeSection === "containers"
               ? "border-amber-800 text-amber-800"
               : "border-transparent text-gray-600 hover:text-gray-900"
           }`}
         >
-          {categories[0]?.name}
+          {containersCategory?.name?.toUpperCase()}
         </button>
         <button
           onClick={() => setActiveSection(activeSection === "food-wrapping" ? "both" : "food-wrapping")}
@@ -61,7 +65,7 @@ export default function CategorySection1({ categories }: CategorySection1Props) 
               : "border-transparent text-gray-600 hover:text-gray-900"
           }`}
         >
-          {categories[1]?.name}
+          {foodWrappingCategory?.name?.toUpperCase()}
         </button>
         </div>
       </div>
@@ -78,12 +82,12 @@ export default function CategorySection1({ categories }: CategorySection1Props) 
           <CarouselContent>
             {(() => {
               let productsToShow = [];
-              if (activeSection === "personal-hygiene") {
-                productsToShow = categories[0]?.products || [];
+              if (activeSection === "containers") {
+                productsToShow = containersCategory?.products || [];
               } else if (activeSection === "food-wrapping") {
-                productsToShow = categories[1]?.products || [];
+                productsToShow = foodWrappingCategory?.products || [];
               } else {
-                productsToShow = [...categories[0]?.products || [], ...categories[1]?.products || []];
+                productsToShow = [...containersCategory?.products || [], ...foodWrappingCategory?.products || []];
               }
               return productsToShow.map((product) => (
               <CarouselItem key={product.id} className="md:basis-1/3 lg:basis-1/4 xl:basis-1/5">

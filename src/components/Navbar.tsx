@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { ProductSearchBar } from "@/components/ProductSearchBar";
 import { scrollToContact } from "@/lib/scroll";
 
 export default function Navbar() {
