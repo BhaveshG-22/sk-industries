@@ -254,9 +254,9 @@ export default function HeroCarouselManager() {
     <div className="p-4 sm:p-6">
       <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6 gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl font-bold">Hero Carousel Manager</h1>
+          <h1 className="text-xl sm:text-2xl font-bold">Homepage Slideshow</h1>
           <p className="text-gray-600 text-sm mt-1">
-            Drag and drop rows to reorder images in the carousel
+            Drag and drop rows to reorder slideshow images
           </p>
         </div>
         <button
@@ -527,7 +527,7 @@ export default function HeroCarouselManager() {
         {images.length === 0 && (
           <div className="p-8 text-center text-gray-500">
             <Upload className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <p>No carousel images found. Add your first image to get started.</p>
+            <p>No slideshow images found. Add your first image to get started.</p>
           </div>
         )}
       </div>
