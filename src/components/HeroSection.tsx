@@ -1,4 +1,6 @@
-import { prisma } from '@/lib/prisma';
+"use client";
+
+import { useState, useEffect } from 'react';
 import HeroCarousel from './HeroCarousel';
 
 interface CarouselImage {
@@ -7,31 +9,35 @@ interface CarouselImage {
   sequence: number;
 }
 
-async function getCarouselImages(): Promise<CarouselImage[]> {
-  try {
-    const images = await prisma.heroCarousel.findMany({
-      where: {
-        isActive: true,
-      },
-      orderBy: {
-        sequence: 'asc',
-      },
-      select: {
-        id: true,
-        imageUrl: true,
-        sequence: true,
-      },
-    });
+export default function HeroSection() {
+  const [images, setImages] = useState<CarouselImage[]>([]);
+  const [loading, setLoading] = useState(true);
 
-    return images;
-  } catch (error) {
-    console.error('Error fetching carousel images:', error);
-    return [];
+  useEffect(() => {
+    async function fetchImages() {
+      try {
+        const response = await fetch('/api/hero-carousel');
+        if (response.ok) {
+          const data = await response.json();
+          setImages(data);
+        }
+      } catch (error) {
+        console.error('Error fetching carousel images:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchImages();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="w-full h-96 bg-gray-100 animate-pulse flex items-center justify-center">
+        <div className="text-gray-400">Loading...</div>
+      </div>
+    );
   }
-}
-
-export default async function HeroSection() {
-  const images = await getCarouselImages();
   
   return <HeroCarousel images={images} />;
 }
