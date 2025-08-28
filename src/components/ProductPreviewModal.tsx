@@ -41,9 +41,19 @@ export default function ProductPreviewModal({
   if (!product) return null;
 
   const handleContactForOrder = () => {
-    console.log("Contact for Order:", product.title);
-    // Scroll to contact section or open contact form
+    const subject = `Need to enquire about ${product.title}`;
+    const message = `Hi, I am interested in learning more about the ${product.title} (₹${product.salePrice} per 100 pieces).
+
+Please provide me with more details about availability, bulk pricing, and delivery options.
+
+Thank you!`;
+    
+    // Create URL with query parameters for prefilling the form
+    const contactUrl = `/contact?subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`;
+    
     onClose();
+    // Redirect to contact page with prefilled data
+    window.location.href = contactUrl;
   };
 
   const nextImage = () => {
