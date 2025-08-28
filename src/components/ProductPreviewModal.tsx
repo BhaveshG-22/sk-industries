@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -23,6 +24,7 @@ export default function ProductPreviewModal({
   onClose,
   product,
 }: ProductPreviewModalProps) {
+  const router = useRouter();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // Use actual product images if available, otherwise just show the main image
@@ -52,8 +54,8 @@ Thank you!`;
     const contactUrl = `/contact?subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`;
     
     onClose();
-    // Redirect to contact page with prefilled data
-    window.location.href = contactUrl;
+    // Use Next.js router for smooth client-side navigation
+    router.push(contactUrl);
   };
 
   const nextImage = () => {
