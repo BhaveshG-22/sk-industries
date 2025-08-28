@@ -22,6 +22,8 @@ export default function HeroCarouselManager() {
   const [uploadingImage, setUploadingImage] = useState(false)
   const [draggedImage, setDraggedImage] = useState<CarouselImage | null>(null)
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null)
+  const [pendingReorder, setPendingReorder] = useState(false)
+  const [savingOrder, setSavingOrder] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [formData, setFormData] = useState({
@@ -203,7 +205,7 @@ export default function HeroCarouselManager() {
     setDragOverIndex(null)
   }
 
-  const handleDrop = async (e: React.DragEvent, dropIndex: number) => {
+  const handleDrop = (e: React.DragEvent, dropIndex: number) => {
     e.preventDefault()
     setDragOverIndex(null)
 
@@ -222,23 +224,41 @@ export default function HeroCarouselManager() {
     const [removed] = newImages.splice(dragIndex, 1)
     newImages.splice(dropIndex, 0, removed)
 
-    // Update sequences
+    // Update sequences for display
+    const reorderedImages = newImages.map((img, index) => ({
+      ...img,
+      sequence: index + 1
+    }))
+
+    // Update local state to show new order immediately
+    setImages(reorderedImages)
+    setPendingReorder(true)
+    setDraggedImage(null)
+  }
+
+  const saveOrder = async () => {
+    setSavingOrder(true)
+    
     try {
-      const updatePromises = newImages.map((img, index) =>
+      const updatePromises = images.map((img) =>
         fetch(`/api/admin/hero-carousel/${img.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ...img, sequence: index + 1 })
+          body: JSON.stringify({ ...img, sequence: img.sequence })
         })
       )
 
       await Promise.all(updatePromises)
-      fetchImages()
+      setPendingReorder(false)
     } catch (error) {
-      console.error('Error reordering images:', error)
+      console.error('Error saving order:', error)
+      alert('Failed to save order. Please try again.')
+      // Refresh from server to restore correct order
+      fetchImages()
+      setPendingReorder(false)
+    } finally {
+      setSavingOrder(false)
     }
-
-    setDraggedImage(null)
   }
 
   const handleDragEnd = () => {
@@ -259,13 +279,33 @@ export default function HeroCarouselManager() {
             Drag and drop rows to reorder slideshow images
           </p>
         </div>
-        <button
-          onClick={() => setShowForm(true)}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 w-full sm:w-auto"
-        >
-          <Plus className="w-4 h-4" />
-          Add Image
-        </button>
+        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+          {pendingReorder && (
+            <button
+              onClick={saveOrder}
+              disabled={savingOrder}
+              className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            >
+              {savingOrder ? (
+                <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+              ) : (
+                <>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  Save Order
+                </>
+              )}
+            </button>
+          )}
+          <button
+            onClick={() => setShowForm(true)}
+            className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 flex items-center justify-center gap-2 w-full sm:w-auto"
+          >
+            <Plus className="w-4 h-4" />
+            Add Image
+          </button>
+        </div>
       </div>
 
       {showForm && (
@@ -441,19 +481,21 @@ export default function HeroCarouselManager() {
               {images.sort((a, b) => a.sequence - b.sequence).map((image, index) => (
                 <tr 
                   key={image.id}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, image)}
-                  onDragOver={(e) => handleDragOver(e, index)}
-                  onDragLeave={handleDragLeave}
-                  onDrop={(e) => handleDrop(e, index)}
-                  onDragEnd={handleDragEnd}
+                  draggable={!savingOrder}
+                  onDragStart={(e) => !savingOrder && handleDragStart(e, image)}
+                  onDragOver={(e) => !savingOrder && handleDragOver(e, index)}
+                  onDragLeave={!savingOrder ? handleDragLeave : undefined}
+                  onDrop={(e) => !savingOrder && handleDrop(e, index)}
+                  onDragEnd={!savingOrder ? handleDragEnd : undefined}
                   className={`transition-all duration-200 ${
                     draggedImage?.id === image.id 
                       ? 'opacity-50 bg-blue-50' 
                       : dragOverIndex === index 
                       ? 'bg-blue-100 border-t-2 border-blue-400' 
+                      : pendingReorder
+                      ? 'bg-yellow-50 border-l-4 border-yellow-400'
                       : 'hover:bg-gray-50'
-                  } cursor-move`}
+                  } ${savingOrder ? 'cursor-not-allowed opacity-60' : 'cursor-move'}`}
                 >
                   <td className="px-3 sm:px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center gap-2 sm:gap-3">
