@@ -5,6 +5,9 @@ import BlogSection from "@/components/BlogSection";
 import ContactSection from "@/components/ContactSection";
 import { prisma } from '@/lib/prisma';
 
+import { scrollToContact } from "@/lib/scroll";
+
+
 async function getCategories() {
   try {
     const categories = await prisma.category.findMany({
@@ -68,16 +71,63 @@ async function getBlogPosts() {
   }
 }
 
+
+async function getProducts() {
+  try {
+    const products = await prisma.product.findMany({
+      where: {
+        isActive: true,
+        isFeatured: true
+      },
+      include: {
+        images: {
+          where: {
+            isActive: true
+          },
+          orderBy: {
+            sequence: 'asc'
+          }
+        },
+        category: true
+      },
+      orderBy: {
+        createdAt: 'asc'
+      }
+    });
+
+    // Transform Prisma types to match our interface
+    return products.map(product => ({
+      ...product,
+      originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
+      salePrice: Number(product.salePrice),
+    }));
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
+}
+
+
 export default async function Home() {
-  const [categories, blogPosts] = await Promise.all([
+  const [categories, blogPosts, products] = await Promise.all([
     getCategories(),
-    getBlogPosts()
+    getBlogPosts(),
+    getProducts(),
+
   ]);
+
+  const handleOrderNow = () => {
+    scrollToContact();
+    // You can add additional logic here to pre-fill contact form with product info
+  };
 
   return (
     <>
       <HeroSection />
       <CategorySection1 categories={categories} />
+
+
+
       <CategorySection2 categories={categories} />
       <BlogSection posts={blogPosts} />
       <ContactSection />

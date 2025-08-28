@@ -40,13 +40,9 @@ export default function ProductPreviewModal({
 
   if (!product) return null;
 
-  const handleAddToCart = () => {
-    console.log("Add to cart:", product.title);
-    onClose();
-  };
-
-  const handleBuyNow = () => {
-    console.log("Buy now:", product.title);
+  const handleContactForOrder = () => {
+    console.log("Contact for Order:", product.title);
+    // Scroll to contact section or open contact form
     onClose();
   };
 
@@ -245,22 +241,13 @@ export default function ProductPreviewModal({
             </div>
 
             <div className="flex flex-row flex-wrap gap-4">
-              <Button
-                variant="outline"
-                size="lg"
-                className="w-full md:w-fit"
-                onClick={handleAddToCart}
-                disabled={product.status === "SOLD_OUT"}
-              >
-                Add to cart
-              </Button>
               <Button 
                 size="lg" 
-                className="w-full md:w-fit bg-amber-800 hover:bg-amber-900" 
-                onClick={handleBuyNow}
+                className="w-fit bg-[#BC6C25] hover:bg-[#A0571C] text-white font-medium px-8" 
+                onClick={handleContactForOrder}
                 disabled={product.status === "SOLD_OUT"}
               >
-                Buy now
+                {product.status === "SOLD_OUT" ? "Out of Stock" : "Contact for Order"}
               </Button>
             </div>
           </div>
