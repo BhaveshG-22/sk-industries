@@ -1,10 +1,10 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
 
-export default function ContactPage() {
+function ContactForm() {
   const searchParams = useSearchParams()
   
   const [formData, setFormData] = useState({
@@ -303,5 +303,13 @@ export default function ContactPage() {
         </div>
       </div>
     </section>
+  )
+}
+
+export default function ContactPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ContactForm />
+    </Suspense>
   )
 }
