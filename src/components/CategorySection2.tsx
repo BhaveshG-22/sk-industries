@@ -23,8 +23,8 @@ export default function CategorySection2({ categories }: CategorySection2Props) 
   const [selectedProduct, setSelectedProduct] = useState<CategoryProduct | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Find only kitchen-hygiene category
-  const kitchenHygieneCategory = categories.find(cat => cat.slug === 'kitchen-hygiene');
+  // Find only aluminium-foils category
+  const aluminiumFoilsCategory = categories.find(cat => cat.slug === 'aluminium-foils');
 
   const handlePreviewClick = (product: CategoryProduct) => {
     setSelectedProduct(product);
@@ -44,7 +44,7 @@ export default function CategorySection2({ categories }: CategorySection2Props) 
         {/* Category Tabs */}
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           <button className="px-6 py-3 text-sm font-medium border-b-2 border-amber-800 text-amber-800">
-            {kitchenHygieneCategory?.name?.toUpperCase() || 'KITCHEN HYGIENE'}
+            {aluminiumFoilsCategory?.name?.toUpperCase() || 'ALUMINIUM FOILS'}
           </button>
         </div>
       </div>
@@ -60,7 +60,7 @@ export default function CategorySection2({ categories }: CategorySection2Props) 
         >
           <CarouselContent className="-ml-8">
             {(() => {
-              const productsToShow = kitchenHygieneCategory?.products || [];
+              const productsToShow = aluminiumFoilsCategory?.products || [];
               return [...productsToShow, ...productsToShow].map((product, index) => {
                 // Get the primary image (first image or fallback to product.image)
                 const primaryImage = product.images && product.images.length > 0
@@ -123,7 +123,7 @@ export default function CategorySection2({ categories }: CategorySection2Props) 
                               )}
                             </div>
                             <div className="text-sm text-[#606C38]">
-                              per 100 pieces
+                              pack of 2
                             </div>
                           </div>
 
