@@ -15,6 +15,10 @@ export async function GET(request: Request) {
       },
       include: {
         category: true,
+        images: {
+          where: { isActive: true },
+          orderBy: { sequence: 'asc' }
+        }
       },
       orderBy: [
         { isFeatured: 'desc' },
@@ -30,8 +34,11 @@ export async function GET(request: Request) {
       salePrice: product.salePrice,
       status: product.status === 'SOLD_OUT' ? 'sold_out' : 'available',
       image: product.image,
+      images: product.images,
       badge: product.badge,
-      category: product.category.name
+      category: product.category.name,
+      categorySlug: product.category.slug,
+      description: product.description
     }))
 
     return NextResponse.json(transformedProducts)

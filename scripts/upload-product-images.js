@@ -16,27 +16,27 @@ const BUCKET_NAME = process.env.AWS_S3_BUCKET_NAME;
 // Product image mapping
 const productImages = [
   {
-    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/gavaligroup/public/250ml-gg.png',
+    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/sk-industries/public/250ml-gg.png',
     s3Key: 'products/250ml-container.png',
     description: '250ml Container'
   },
   {
-    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/gavaligroup/public/450ml-gg.png',
+    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/sk-industries/public/450ml-gg.png',
     s3Key: 'products/450ml-container.png',
     description: '450ml Container'
   },
   {
-    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/gavaligroup/public/600ml-gg.png',
+    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/sk-industries/public/600ml-gg.png',
     s3Key: 'products/600ml-container.png',
     description: '600ml Container'
   },
   {
-    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/gavaligroup/public/600ml2-gg.png',
+    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/sk-industries/public/600ml2-gg.png',
     s3Key: 'products/600ml-oval-container.png',
     description: '600ml Oval Container'
   },
   {
-    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/gavaligroup/public/750ml-gg.png',
+    localPath: '/Users/bhaveshgavali/Desktop/OpenSource/sk-industries/public/750ml-gg.png',
     s3Key: 'products/750ml-container.png',
     description: '750ml Container'
   }

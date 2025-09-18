@@ -16,7 +16,7 @@ const corsConfiguration = {
     {
       AllowedHeaders: ['*'],
       AllowedMethods: ['PUT', 'POST', 'GET', 'DELETE'],
-      AllowedOrigins: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'https://*.vercel.app', 'https://www.gavaligroup.in'],
+      AllowedOrigins: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'https://*.vercel.app', 'https://www.sk-industries.in'],
       ExposeHeaders: ['ETag'],
       MaxAgeSeconds: 3600,
     },

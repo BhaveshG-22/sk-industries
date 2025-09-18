@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import AnnouncementBanner from "@/components/AnnouncementBanner";
+import AnnouncementBanner from "@/components/AnnouncementBannerServer";
 import Footer from "@/components/Footer";
 
 export default function MainLayout({

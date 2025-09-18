@@ -37,8 +37,8 @@ export default function AnnouncementManager() {
     status: 'ACTIVE',
     isVisible: true,
     priority: 1,
-    backgroundColor: '#606C38',
-    textColor: '#FEFAE0',
+    backgroundColor: 'var(--primary-medium)',
+    textColor: 'var(--accent-cream)',
     isScrolling: true,
     showCloseButton: true,
     autoHide: false,
@@ -123,8 +123,8 @@ export default function AnnouncementManager() {
       status: announcement.status,
       isVisible: announcement.isVisible,
       priority: announcement.priority,
-      backgroundColor: announcement.backgroundColor || '#606C38',
-      textColor: announcement.textColor || '#FEFAE0',
+      backgroundColor: announcement.backgroundColor || 'var(--primary-medium)',
+      textColor: announcement.textColor || 'var(--accent-cream)',
       isScrolling: announcement.isScrolling,
       showCloseButton: announcement.showCloseButton,
       autoHide: announcement.autoHide,
@@ -147,8 +147,8 @@ export default function AnnouncementManager() {
       status: 'ACTIVE',
       isVisible: true,
       priority: 1,
-      backgroundColor: '#606C38',
-      textColor: '#FEFAE0',
+      backgroundColor: 'var(--primary-medium)',
+      textColor: 'var(--accent-cream)',
       isScrolling: true,
       showCloseButton: true,
       autoHide: false,
@@ -170,7 +170,7 @@ export default function AnnouncementManager() {
         <h1 className="text-2xl font-bold text-gray-900">Announcements</h1>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-[#BC6C25] text-white px-4 py-2 rounded-lg hover:bg-[#A55A1F] flex items-center gap-2"
+          className="bg-[var(--primary-light)] text-white px-4 py-2 rounded-lg hover:bg-[var(--primary-medium)] flex items-center gap-2"
         >
           <Plus className="w-4 h-4" />
           Add Announcement
@@ -194,7 +194,7 @@ export default function AnnouncementManager() {
                     required
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                   />
                 </div>
 
@@ -203,7 +203,7 @@ export default function AnnouncementManager() {
                   <select
                     value={formData.type}
                     onChange={(e) => setFormData({ ...formData, type: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                   >
                     <option value="GENERAL">General</option>
                     <option value="SALE">Sale</option>
@@ -221,7 +221,7 @@ export default function AnnouncementManager() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                 />
               </div>
 
@@ -231,7 +231,7 @@ export default function AnnouncementManager() {
                   <select
                     value={formData.status}
                     onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                   >
                     <option value="ACTIVE">Active</option>
                     <option value="INACTIVE">Inactive</option>
@@ -245,7 +245,7 @@ export default function AnnouncementManager() {
                     type="number"
                     value={formData.priority}
                     onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) })}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                   />
                 </div>
 
@@ -278,7 +278,7 @@ export default function AnnouncementManager() {
                     type="color"
                     value={formData.backgroundColor}
                     onChange={(e) => setFormData({ ...formData, backgroundColor: e.target.value })}
-                    className="w-full h-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                    className="w-full h-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                   />
                 </div>
 
@@ -288,7 +288,7 @@ export default function AnnouncementManager() {
                     type="color"
                     value={formData.textColor}
                     onChange={(e) => setFormData({ ...formData, textColor: e.target.value })}
-                    className="w-full h-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25]"
+                    className="w-full h-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)]"
                   />
                 </div>
               </div>
@@ -303,7 +303,7 @@ export default function AnnouncementManager() {
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#BC6C25] text-white rounded-lg hover:bg-[#A55A1F]"
+                  className="px-4 py-2 bg-[var(--primary-light)] text-white rounded-lg hover:bg-[var(--primary-medium)]"
                 >
                   {editingAnnouncement ? 'Update' : 'Create'}
                 </button>

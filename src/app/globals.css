@@ -66,12 +66,11 @@ html {
 :root {
   --radius: 0.625rem;
   
-  /* Gavali Group Color Palette */
-  --olive-green: #606C38;
-  --dark-forest: #283618;
-  --cream-white: #FEFAE0;
-  --warm-tan: #DDA15E;
-  --burnt-orange: #BC6C25;
+  /* SK Industries Color Palette */
+  --primary-dark: #3E0703;
+  --primary-medium: #660B05;
+  --primary-light: #8C1007;
+  --accent-cream: #FFF0C4;
   
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);

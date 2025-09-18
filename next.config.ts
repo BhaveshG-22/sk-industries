@@ -27,6 +27,10 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'gavali-group-products.s3.us-east-1.amazonaws.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'sk-group-products.s3.us-east-1.amazonaws.com',
+      },
     ],
   },
 };

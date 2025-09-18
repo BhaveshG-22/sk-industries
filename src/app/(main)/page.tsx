@@ -1,6 +1,5 @@
 import HeroSection from "@/components/HeroSection";
-import CategorySection1 from "@/components/CategorySection1";
-import CategorySection2 from "@/components/CategorySection2";
+import CategorySection from "@/components/CategorySection";
 import BlogSection from "@/components/BlogSection";
 import ContactSection from "@/components/ContactSection";
 import { prisma } from '@/lib/prisma';
@@ -78,11 +77,7 @@ export default async function Home() {
   return (
     <>
       <HeroSection />
-      <CategorySection1 categories={categories} />
-
-
-
-      <CategorySection2 categories={categories} />
+      <CategorySection />
       <BlogSection posts={blogPosts} />
       <ContactSection />
     </>

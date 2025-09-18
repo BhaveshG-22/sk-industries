@@ -381,7 +381,7 @@ async function main() {
       metaDescription: "Discover the best hygiene products for your home and personal care needs. Quality products for a healthier lifestyle.",
       tags: ["hygiene", "health", "lifestyle", "cleaning"],
       authorName: "Gavali Group Team",
-      authorEmail: "info@gavaligroup.com"
+      authorEmail: "info@sk-industries.com"
     },
     {
       title: "Smart Food Storage Solutions: Keep Your Kitchen Organized",
@@ -395,7 +395,7 @@ async function main() {
       metaDescription: "Discover effective food storage solutions to keep your kitchen organized and reduce waste. Professional tips and quality products.",
       tags: ["food storage", "kitchen", "organization", "sustainability"],
       authorName: "Kitchen Expert",
-      authorEmail: "kitchen@gavaligroup.com"
+      authorEmail: "kitchen@sk-industries.com"
     },
     {
       title: "The Ultimate Guide to Kitchen Hygiene and Safety",
@@ -409,7 +409,7 @@ async function main() {
       metaDescription: "Complete guide to kitchen hygiene and safety practices. Learn proper cleaning techniques and discover the best products for your kitchen.",
       tags: ["kitchen safety", "hygiene", "cleaning", "food safety"],
       authorName: "Safety Specialist",
-      authorEmail: "safety@gavaligroup.com"
+      authorEmail: "safety@sk-industries.com"
     },
     {
       title: "Creating a Healthier Home: Household Cleaning Essentials",
@@ -423,7 +423,7 @@ async function main() {
       metaDescription: "Discover essential household cleaning products for a healthier home environment. Expert tips and premium cleaning solutions.",
       tags: ["home cleaning", "household", "health", "family safety"],
       authorName: "Home Care Expert",
-      authorEmail: "homecare@gavaligroup.com"
+      authorEmail: "homecare@sk-industries.com"
     },
     {
       title: "Sustainable Living: Eco-Friendly Cleaning and Hygiene Choices",
@@ -437,7 +437,7 @@ async function main() {
       metaDescription: "Choose eco-friendly cleaning and hygiene products for sustainable living. Protect your family and environment with green solutions.",
       tags: ["sustainability", "eco-friendly", "green cleaning", "environment"],
       authorName: "Sustainability Expert",
-      authorEmail: "green@gavaligroup.com"
+      authorEmail: "green@sk-industries.com"
     }
   ]
 

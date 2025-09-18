@@ -58,8 +58,8 @@ export default function AnnouncementBannerClient({
   }
 
   // Use custom colors or defaults
-  const bgColor = currentAnnouncement.backgroundColor || "#606C38";
-  const txtColor = currentAnnouncement.textColor || "#FEFAE0";
+  const bgColor = currentAnnouncement.backgroundColor || "var(--primary-medium)";
+  const txtColor = currentAnnouncement.textColor || "var(--accent-cream)";
 
   const MessageContent = () => (
     <>

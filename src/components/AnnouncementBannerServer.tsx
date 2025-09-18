@@ -3,7 +3,7 @@ import AnnouncementBannerClient from './AnnouncementBannerClient'
 
 export default async function AnnouncementBanner() {
   // During build time, skip database calls
-  if (process.env.NODE_ENV === 'development' || process.env.NEXT_PHASE === 'phase-production-build') {
+  if (process.env.NEXT_PHASE === 'phase-production-build') {
     return null
   }
 

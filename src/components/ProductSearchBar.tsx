@@ -299,43 +299,43 @@ export function ProductSearchBar({
           role="combobox"
           aria-expanded={open}
           className={cn(
-            "w-full justify-between border-[#BC6C25] bg-[#FEFAE0] hover:bg-[#DDA15E] text-[#283618] hover:text-[#FEFAE0] transition-colors",
+            "w-full justify-between border-[var(--primary-light)] bg-[var(--accent-cream)] hover:bg-[var(--primary-light)] text-[var(--primary-dark)] hover:text-[var(--accent-cream)] transition-colors",
             className
           )}
         >
           {selectedProduct ? (
             <span className="truncate">{selectedProduct.title}</span>
           ) : (
-            <span className="text-[#606C38]">{placeholder}</span>
+            <span className="text-[var(--primary-medium)]">{placeholder}</span>
           )}
-          <Search className="ml-2 h-4 w-4 shrink-0 text-[#BC6C25]" />
+          <Search className="ml-2 h-4 w-4 shrink-0 text-[var(--primary-light)]" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0 bg-[#FEFAE0] border-[#BC6C25]" align="start">
-        <Command className="bg-[#FEFAE0]">
+      <PopoverContent className="w-full p-0 bg-[var(--accent-cream)] border-[var(--primary-light)]" align="start">
+        <Command className="bg-[var(--accent-cream)]">
           <CommandInput 
             placeholder={placeholder}
-            className="h-9 border-b border-[#DDA15E] text-[#283618] placeholder:text-[#8B7355] font-medium"
+            className="h-9 border-b border-[var(--primary-light)] text-[var(--primary-dark)] placeholder:text-[var(--primary-medium)] font-medium"
           />
-          <CommandList className="bg-[#FEFAE0]">
-            <CommandEmpty className="text-[#606C38]">No products found.</CommandEmpty>
+          <CommandList className="bg-[var(--accent-cream)]">
+            <CommandEmpty className="text-[var(--primary-medium)]">No products found.</CommandEmpty>
             <CommandGroup>
               {allProducts.map((product) => (
                 <CommandItem
                   key={product.id}
                   value={product.title}
                   onSelect={() => handleSelect(product.id)}
-                  className="cursor-pointer hover:bg-[#DDA15E] text-[#283618] hover:text-[#FEFAE0] aria-selected:bg-[#BC6C25] aria-selected:text-[#FEFAE0] font-medium"
+                  className="cursor-pointer hover:bg-[var(--primary-light)] text-[var(--primary-dark)] hover:text-[var(--accent-cream)] aria-selected:bg-[var(--primary-light)] aria-selected:text-[var(--accent-cream)] font-medium"
                 >
                   <div className="flex items-center justify-between w-full">
                     <div className="flex-1 min-w-0">
-                      <div className="truncate font-semibold text-[#283618]">{product.title}</div>
+                      <div className="truncate font-semibold text-[var(--primary-dark)]">{product.title}</div>
                       <div className="flex items-center gap-2 mt-1">
-                        <span className="text-sm font-bold text-[#BC6C25]">
+                        <span className="text-sm font-bold text-[var(--primary-light)]">
                           Rs. {product.salePrice}
                         </span>
                         {product.originalPrice && (
-                          <span className="text-xs text-[#8B7355] line-through font-medium">
+                          <span className="text-xs text-[var(--primary-medium)] line-through font-medium">
                             Rs. {product.originalPrice}
                           </span>
                         )}
@@ -345,7 +345,7 @@ export function ProductSearchBar({
                           </span>
                         )}
                         {product.badge && (
-                          <span className="text-xs bg-[#BC6C25] text-[#FEFAE0] px-2 py-0.5 rounded">
+                          <span className="text-xs bg-[var(--primary-light)] text-[var(--accent-cream)] px-2 py-0.5 rounded">
                             {product.badge}
                           </span>
                         )}
@@ -353,7 +353,7 @@ export function ProductSearchBar({
                     </div>
                     <Check
                       className={cn(
-                        "ml-2 h-4 w-4 shrink-0 text-[#BC6C25]",
+                        "ml-2 h-4 w-4 shrink-0 text-[var(--primary-light)]",
                         value === product.id ? "opacity-100" : "opacity-0"
                       )}
                     />

@@ -174,7 +174,7 @@ Thank you!`;
                   onClick={() => setCurrentImageIndex(index)}
                   className={`flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all duration-300 transform ${
                     index === currentImageIndex 
-                      ? 'border-2 border-[var(--burnt-orange)] scale-105 shadow-md' 
+                      ? 'border-2 border-[var(--primary-light)] scale-105 shadow-md' 
                       : 'border border-gray-200 hover:border-gray-300 hover:scale-102'
                   }`}
                 >
@@ -255,7 +255,7 @@ Thank you!`;
             <div className="flex flex-row flex-wrap gap-4">
               <Button 
                 size="lg" 
-                className="w-fit bg-[#BC6C25] hover:bg-[#A0571C] text-white font-medium px-8" 
+                className="w-fit bg-[var(--primary-light)] hover:bg-[var(--primary-medium)] text-white font-medium px-8" 
                 onClick={handleContactForOrder}
                 disabled={product.status === "SOLD_OUT"}
               >

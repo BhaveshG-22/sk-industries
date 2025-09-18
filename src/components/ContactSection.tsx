@@ -106,8 +106,8 @@ export default function ContactSection() {
                       Email
                     </h4>
                     <p className="text-[var(--cream-white)]/80">
-                      <a href="mailto:info@gavaligroup.com" className="hover:text-[var(--cream-white)] transition-colors">
-                        info@gavaligroup.com
+                      <a href="mailto:info@sk-industries.com" className="hover:text-[var(--cream-white)] transition-colors">
+                        info@sk-industries.com
                       </a>
                     </p>
                   </div>

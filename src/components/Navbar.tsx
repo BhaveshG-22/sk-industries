@@ -18,10 +18,10 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="w-full bg-[#FEFAE0] sticky top-0 z-40">
+    <nav className="w-full bg-[var(--accent-cream)] sticky top-0 z-40">
 
       {/* Top Section */}
-      <div className="border-b border-[#DDA15E]">
+      <div className="border-b border-[var(--primary-light)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 sm:h-20 lg:h-28">
             {/* Left side - Burger Menu (mobile) */}
@@ -67,24 +67,27 @@ export default function Navbar() {
       </div>
 
       {/* Bottom Navigation - Hidden when burger menu is active */}
-      <div className="bg-[#BC6C25] hidden xl:block">
+      <div className="bg-[var(--primary-light)] hidden xl:block">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <nav className="flex items-center justify-center space-x-12 h-12">
-            <Link href="/" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
+            <Link href="/" className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium">
               HOME
             </Link>
-            <Link href="/categories" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
+            <Link href="/categories" className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium">
               CATEGORIES
             </Link>
-            <Link href="/blogs" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
+            <Link href="/products" className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium">
+              PRODUCTS
+            </Link>
+            <Link href="/blogs" className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium">
               BLOGS
             </Link>
-            <Link href="/about" className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium">
+            <Link href="/about" className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium">
               ABOUT US
             </Link>
             <button 
               onClick={scrollToContact} 
-              className="text-[#FEFAE0] hover:text-[#DDA15E] transition-colors font-medium cursor-pointer"
+              className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium cursor-pointer"
             >
               CONTACT US
             </button>
@@ -125,6 +128,10 @@ export default function Navbar() {
                 <Link href="/categories" onClick={closeMobileMenu}
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
                   CATEGORIES
+                </Link>
+                <Link href="/products" onClick={closeMobileMenu}
+                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
+                  PRODUCTS
                 </Link>
                 <Link href="/blogs" onClick={closeMobileMenu}
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">

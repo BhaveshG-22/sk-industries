@@ -26,7 +26,7 @@ export default function Footer() {
               
               <div>
                 <p className="font-semibold">Email:</p>
-                <p className="text-sm">info@gavaligroup.com</p>
+                <p className="text-sm">info@sk-industries.com</p>
               </div>
             </div>
           </div>
@@ -54,7 +54,7 @@ export default function Footer() {
       <div className="bg-[var(--cream-white)] text-[var(--dark-forest)] py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-sm text-center">
-            © Copyright {new Date().getFullYear()} gavaligroup
+            © Copyright {new Date().getFullYear()} sk-industries
           </p>
         </div>
       </div>

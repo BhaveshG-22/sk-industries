@@ -17,22 +17,22 @@ import {
 
 const benefits = [
   {
-    icon: <Award className="w-8 h-8 text-[#BC6C25]" />,
+    icon: <Award className="w-8 h-8 text-[var(--primary-light)]" />,
     title: "Competitive Compensation",
     description: "Attractive salary packages with performance-based incentives and annual reviews."
   },
   {
-    icon: <Heart className="w-8 h-8 text-[#BC6C25]" />,
+    icon: <Heart className="w-8 h-8 text-[var(--primary-light)]" />,
     title: "Health & Wellness",
     description: "Comprehensive medical insurance for employees and their families, plus wellness programs."
   },
   {
-    icon: <TrendingUp className="w-8 h-8 text-[#BC6C25]" />,
+    icon: <TrendingUp className="w-8 h-8 text-[var(--primary-light)]" />,
     title: "Career Growth",
     description: "Clear advancement paths with skill development programs and leadership training opportunities."
   },
   {
-    icon: <Users className="w-8 h-8 text-[#BC6C25]" />,
+    icon: <Users className="w-8 h-8 text-[var(--primary-light)]" />,
     title: "Team Environment",
     description: "Collaborative work culture that values innovation, teamwork, and employee contributions."
   }
@@ -63,14 +63,14 @@ export default function CareersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#FEFAE0] to-white">
+    <div className="min-h-screen bg-gradient-to-b from-[var(--accent-cream)] to-white">
       {/* Hero Section */}
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-[#283618] mb-6 font-arimo">
+          <h1 className="text-4xl md:text-5xl font-bold text-[var(--primary-dark)] mb-6 font-arimo">
             Build Your Career with Gavali Group
           </h1>
-          <p className="text-xl text-[#606C38] max-w-3xl mx-auto mb-8">
+          <p className="text-xl text-[var(--primary-medium)] max-w-3xl mx-auto mb-8">
             Join our growing team of dedicated professionals in the food packaging industry. 
             We&apos;re committed to creating innovative solutions while building meaningful careers.
           </p>
@@ -78,7 +78,7 @@ export default function CareersPage() {
             <Button 
               onClick={() => scrollToContact()}
               size="lg"
-              className="bg-[#BC6C25] hover:bg-[#A0571C] text-white px-8 py-3"
+              className="bg-[var(--primary-light)] hover:bg-[var(--primary-medium)] text-white px-8 py-3"
             >
               Contact HR Team
             </Button>
@@ -90,23 +90,23 @@ export default function CareersPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#283618] mb-4">Why Choose Gavali Group?</h2>
-            <p className="text-lg text-[#606C38] max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold text-[var(--primary-dark)] mb-4">Why Choose Gavali Group?</h2>
+            <p className="text-lg text-[var(--primary-medium)] max-w-2xl mx-auto">
               We believe our employees are our greatest asset. Here&apos;s what makes us a great place to work.
             </p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="text-center border-2 border-[#DDA15E]/20 hover:border-[#BC6C25] transition-colors">
+              <Card key={index} className="text-center border-2 border-[var(--primary-light)]/20 hover:border-[var(--primary-light)] transition-colors">
                 <CardContent className="pt-6">
                   <div className="flex justify-center mb-4">
                     {benefit.icon}
                   </div>
-                  <h3 className="text-xl font-semibold text-[#283618] mb-3">
+                  <h3 className="text-xl font-semibold text-[var(--primary-dark)] mb-3">
                     {benefit.title}
                   </h3>
-                  <p className="text-[#606C38]">
+                  <p className="text-[var(--primary-medium)]">
                     {benefit.description}
                   </p>
                 </CardContent>
@@ -120,45 +120,45 @@ export default function CareersPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[#283618] mb-4">Career Opportunities</h2>
-            <p className="text-lg text-[#606C38]">
+            <h2 className="text-3xl font-bold text-[var(--primary-dark)] mb-4">Career Opportunities</h2>
+            <p className="text-lg text-[var(--primary-medium)]">
               Join our growing team and explore exciting opportunities across different departments
             </p>
           </div>
 
           <div className="max-w-4xl mx-auto">
-            <Card className="border-2 border-[#DDA15E]/20 bg-gradient-to-r from-[#FEFAE0] to-[#F4F3EE]">
+            <Card className="border-2 border-[var(--primary-light)]/20 bg-gradient-to-r from-[var(--accent-cream)] to-[#F4F3EE]">
               <CardContent className="pt-8 text-center">
-                <Users className="w-16 h-16 text-[#BC6C25] mx-auto mb-6" />
-                <h3 className="text-2xl font-bold text-[#283618] mb-4">
+                <Users className="w-16 h-16 text-[var(--primary-light)] mx-auto mb-6" />
+                <h3 className="text-2xl font-bold text-[var(--primary-dark)] mb-4">
                   We&apos;re Always Looking for Talented Professionals
                 </h3>
-                <p className="text-lg text-[#606C38] mb-6 max-w-2xl mx-auto">
+                <p className="text-lg text-[var(--primary-medium)] mb-6 max-w-2xl mx-auto">
                   While we don&apos;t have specific openings listed at the moment, we&apos;re constantly growing 
                   and are interested in connecting with passionate individuals across various departments including 
                   Manufacturing, Sales & Marketing, Quality Assurance, and Administration.
                 </p>
                 <div className="space-y-4">
-                  <p className="text-[#606C38]">
+                  <p className="text-[var(--primary-medium)]">
                     <strong>Common roles we recruit for:</strong>
                   </p>
                   <div className="flex flex-wrap gap-2 justify-center">
-                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Production Supervisor</Badge>
-                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Sales Executive</Badge>
-                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Quality Control Analyst</Badge>
-                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Machine Operator</Badge>
-                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Marketing Specialist</Badge>
-                    <Badge variant="outline" className="border-[#BC6C25] text-[#BC6C25]">Admin Assistant</Badge>
+                    <Badge variant="outline" className="border-[var(--primary-light)] text-[var(--primary-light)]">Production Supervisor</Badge>
+                    <Badge variant="outline" className="border-[var(--primary-light)] text-[var(--primary-light)]">Sales Executive</Badge>
+                    <Badge variant="outline" className="border-[var(--primary-light)] text-[var(--primary-light)]">Quality Control Analyst</Badge>
+                    <Badge variant="outline" className="border-[var(--primary-light)] text-[var(--primary-light)]">Machine Operator</Badge>
+                    <Badge variant="outline" className="border-[var(--primary-light)] text-[var(--primary-light)]">Marketing Specialist</Badge>
+                    <Badge variant="outline" className="border-[var(--primary-light)] text-[var(--primary-light)]">Admin Assistant</Badge>
                   </div>
                 </div>
                 <div className="mt-8">
-                  <p className="text-[#606C38] mb-4">
+                  <p className="text-[var(--primary-medium)] mb-4">
                     Submit your details in the contact form with the subject &quot;careers&quot; to get in touch with our HR team.
                   </p>
                   <Button 
                     onClick={handleApplyNow}
                     size="lg"
-                    className="bg-[#BC6C25] hover:bg-[#A0571C] text-white px-8 py-3"
+                    className="bg-[var(--primary-light)] hover:bg-[var(--primary-medium)] text-white px-8 py-3"
                   >
                     Contact Us About Careers
                   </Button>
@@ -170,20 +170,20 @@ export default function CareersPage() {
       </section>
 
       {/* Company Values */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#283618] text-white">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--primary-dark)] text-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Values & Culture</h2>
-            <p className="text-lg text-[#FEFAE0]/90 max-w-2xl mx-auto">
+            <p className="text-lg text-[var(--accent-cream)]/90 max-w-2xl mx-auto">
               At Gavali Group, we&apos;re guided by core values that shape our workplace culture and drive our success.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {companyValues.map((value, index) => (
-              <div key={index} className="flex items-start gap-3 p-4 bg-[#FEFAE0]/10 rounded-lg">
-                <CheckCircle className="w-5 h-5 text-[#BC6C25] mt-1 flex-shrink-0" />
-                <p className="text-[#FEFAE0]">{value}</p>
+              <div key={index} className="flex items-start gap-3 p-4 bg-[var(--accent-cream)]/10 rounded-lg">
+                <CheckCircle className="w-5 h-5 text-[var(--primary-light)] mt-1 flex-shrink-0" />
+                <p className="text-[var(--accent-cream)]">{value}</p>
               </div>
             ))}
           </div>
@@ -193,18 +193,18 @@ export default function CareersPage() {
       {/* Application Process */}
       <section className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-[#283618] mb-8">Ready to Join Our Team?</h2>
-          <div className="bg-gradient-to-r from-[#FEFAE0] to-[#F4F3EE] rounded-2xl p-8">
-            <p className="text-lg text-[#606C38] mb-6">
+          <h2 className="text-3xl font-bold text-[var(--primary-dark)] mb-8">Ready to Join Our Team?</h2>
+          <div className="bg-gradient-to-r from-[var(--accent-cream)] to-[#F4F3EE] rounded-2xl p-8">
+            <p className="text-lg text-[var(--primary-medium)] mb-6">
               To apply for any of our open positions, please contact our HR team with your resume and cover letter. 
               We review applications carefully and will reach out to qualified candidates within 5-7 business days.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <div className="flex items-center gap-2 text-[#283618]">
+              <div className="flex items-center gap-2 text-[var(--primary-dark)]">
                 <Mail className="w-5 h-5" />
-                <span>hr@gavaligroup.com</span>
+                <span>hr@sk-industries.com</span>
               </div>
-              <div className="flex items-center gap-2 text-[#283618]">
+              <div className="flex items-center gap-2 text-[var(--primary-dark)]">
                 <Phone className="w-5 h-5" />
                 <span>+91-XXXX-XXXXXX</span>
               </div>
@@ -213,7 +213,7 @@ export default function CareersPage() {
               <Button 
                 onClick={() => scrollToContact()}
                 size="lg"
-                className="bg-[#BC6C25] hover:bg-[#A0571C] text-white px-8 py-3"
+                className="bg-[var(--primary-light)] hover:bg-[var(--primary-medium)] text-white px-8 py-3"
               >
                 Contact Us About Careers
               </Button>

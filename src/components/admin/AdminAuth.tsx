@@ -61,7 +61,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#BC6C25]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-light)]"></div>
       </div>
     )
   }
@@ -71,7 +71,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-[#BC6C25] rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-[var(--primary-light)] rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-white font-bold text-2xl">GG</span>
             </div>
             <h1 className="text-2xl font-bold text-gray-900">Admin Login</h1>
@@ -88,7 +88,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
                 required
                 value={credentials.username}
                 onChange={(e) => setCredentials({ ...credentials, username: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 placeholder="Enter username"
               />
             </div>
@@ -103,7 +103,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
                   required
                   value={credentials.password}
                   onChange={(e) => setCredentials({ ...credentials, password: e.target.value })}
-                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-4 py-3 pr-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                   placeholder="Enter password"
                 />
                 <button
@@ -124,7 +124,7 @@ export default function AdminAuth({ children }: AdminAuthProps) {
 
             <button
               type="submit"
-              className="w-full bg-[#BC6C25] text-white py-3 px-4 rounded-lg font-medium hover:bg-[#A55A1F] transition-colors"
+              className="w-full bg-[var(--primary-light)] text-white py-3 px-4 rounded-lg font-medium hover:bg-[var(--primary-medium)] transition-colors"
             >
               Sign In
             </button>

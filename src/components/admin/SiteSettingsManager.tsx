@@ -35,14 +35,14 @@ const defaultSettings = [
   },
   {
     key: 'site_url',
-    value: 'https://gavaligroup.com',
+    value: 'https://sk-industries.com',
     description: 'Your website URL',
     category: 'general',
     type: 'text'
   },
   {
     key: 'contact_email',
-    value: 'info@gavaligroup.com',
+    value: 'info@sk-industries.com',
     description: 'Main contact email address',
     category: 'contact',
     type: 'text'
