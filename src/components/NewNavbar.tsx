@@ -25,7 +25,7 @@ export default function NewNavbar() {
             <Link href="/" className="flex items-center group">
               <div className="bg-gradient-to-r from-[var(--accent-cream)] to-yellow-100 px-4 py-2 rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:scale-105">
                 <span className="text-xl font-bold bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-medium)] bg-clip-text text-transparent">
-                  SK GROUP
+                  SK INDUSTRIES
                 </span>
               </div>
             </Link>

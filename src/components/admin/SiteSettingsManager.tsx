@@ -21,7 +21,7 @@ interface SettingsGroup {
 const defaultSettings = [
   {
     key: 'site_name',
-    value: 'Gavali Group',
+    value: 'SK Industries',
     description: 'The name of your website',
     category: 'general',
     type: 'text'
@@ -63,14 +63,14 @@ const defaultSettings = [
   },
   {
     key: 'meta_title',
-    value: 'Gavali Group - Quality Products for Home & Business',
+    value: 'SK Industries - Quality Products for Home & Business',
     description: 'Default meta title for SEO',
     category: 'seo',
     type: 'text'
   },
   {
     key: 'meta_description',
-    value: 'Discover quality personal hygiene, food wrapping, kitchen hygiene, and household cleaning products at Gavali Group.',
+    value: 'Discover quality personal hygiene, food wrapping, kitchen hygiene, and household cleaning products at SK Industries.',
     description: 'Default meta description for SEO',
     category: 'seo',
     type: 'text'
@@ -91,7 +91,7 @@ const defaultSettings = [
   },
   {
     key: 'footer_company_name',
-    value: 'SK Group',
+    value: 'SK Industries',
     description: 'Company name displayed in footer',
     category: 'footer',
     type: 'text'
@@ -119,7 +119,7 @@ const defaultSettings = [
   },
   {
     key: 'footer_company_full_name',
-    value: 'SK Group Industries',
+    value: 'SK Industries',
     description: 'Full company name for address section',
     category: 'footer',
     type: 'text'

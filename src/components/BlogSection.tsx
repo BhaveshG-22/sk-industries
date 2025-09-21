@@ -80,7 +80,7 @@ export default function BlogSection({ posts }: BlogSectionProps) {
                 <div className="aspect-video w-full bg-gradient-to-br from-[var(--warm-tan)] to-[var(--burnt-orange)] flex items-center justify-center">
                   <div className="text-center text-[var(--dark-forest)]">
                     <div className="text-4xl font-bold mb-2">GG</div>
-                    <div className="text-sm">GAVALI GROUP</div>
+                    <div className="text-sm">SK INDUSTRIES</div>
                   </div>
                 </div>
               )}

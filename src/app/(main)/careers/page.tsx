@@ -50,10 +50,10 @@ const companyValues = [
 export default function CareersPage() {
   useEffect(() => {
     // Set document title and meta description for SEO
-    document.title = "Careers - Join Our Team | Gavali Group";
+    document.title = "Careers - Join Our Team | SK Industries";
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) {
-      metaDescription.setAttribute('content', 'Join Gavali Group and build your career with a leading manufacturer of premium food packaging solutions. Explore exciting opportunities in manufacturing, sales, and more.');
+      metaDescription.setAttribute('content', 'Join SK Industries and build your career with a leading manufacturer of premium food packaging solutions. Explore exciting opportunities in manufacturing, sales, and more.');
     }
   }, []);
 
@@ -68,7 +68,7 @@ export default function CareersPage() {
       <section className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold text-[var(--primary-dark)] mb-6 font-arimo">
-            Build Your Career with Gavali Group
+            Build Your Career with SK Industries
           </h1>
           <p className="text-xl text-[var(--primary-medium)] max-w-3xl mx-auto mb-8">
             Join our growing team of dedicated professionals in the food packaging industry. 
@@ -90,7 +90,7 @@ export default function CareersPage() {
       <section className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-[var(--primary-dark)] mb-4">Why Choose Gavali Group?</h2>
+            <h2 className="text-3xl font-bold text-[var(--primary-dark)] mb-4">Why Choose SK Industries?</h2>
             <p className="text-lg text-[var(--primary-medium)] max-w-2xl mx-auto">
               We believe our employees are our greatest asset. Here&apos;s what makes us a great place to work.
             </p>
@@ -175,7 +175,7 @@ export default function CareersPage() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Values & Culture</h2>
             <p className="text-lg text-[var(--accent-cream)]/90 max-w-2xl mx-auto">
-              At Gavali Group, we&apos;re guided by core values that shape our workplace culture and drive our success.
+              At SK Industries, we&apos;re guided by core values that shape our workplace culture and drive our success.
             </p>
           </div>
 

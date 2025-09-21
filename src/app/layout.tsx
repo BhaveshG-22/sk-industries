@@ -40,17 +40,17 @@ async function getSiteSettings() {
     }, {} as Record<string, string>);
 
     return {
-      siteName: settingsMap.site_name || 'SK Group Industries',
+      siteName: settingsMap.site_name || 'SK Industries',
       siteDescription: settingsMap.site_description || 'Quality products for your home and business',
-      metaTitle: settingsMap.meta_title || settingsMap.site_name || 'SK Group Industries',
+      metaTitle: settingsMap.meta_title || settingsMap.site_name || 'SK Industries',
       metaDescription: settingsMap.meta_description || settingsMap.site_description || 'Quality products for your home and business'
     };
   } catch (error) {
     console.error('Error fetching site settings:', error);
     return {
-      siteName: 'SK Group Industries',
+      siteName: 'SK Industries',
       siteDescription: 'Quality products for your home and business',
-      metaTitle: 'SK Group Industries',
+      metaTitle: 'SK Industries',
       metaDescription: 'Quality products for your home and business'
     };
   }

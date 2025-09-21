@@ -42,11 +42,11 @@ async function getFooterSettings(): Promise<FooterSettings> {
 
     // Return with fallback values
     return {
-      footer_company_name: settingsMap.footer_company_name || 'SK Group',
+      footer_company_name: settingsMap.footer_company_name || 'SK Industries',
       footer_company_description: settingsMap.footer_company_description || 'Leading manufacturer of eco-friendly paper products including cups, plates, bowls, and aluminum foil. Committed to quality and sustainability for over a decade.',
       footer_phone: settingsMap.footer_phone || '+91 98765 43210',
       footer_email: settingsMap.footer_email || 'info@sk-industries.com',
-      footer_company_full_name: settingsMap.footer_company_full_name || 'SK Group Industries',
+      footer_company_full_name: settingsMap.footer_company_full_name || 'SK Industries',
       footer_address_line1: settingsMap.footer_address_line1 || '123 Business Street',
       footer_address_line2: settingsMap.footer_address_line2 || 'Commercial District',
       footer_city_state_zip: settingsMap.footer_city_state_zip || 'Mumbai, Maharashtra 400001',
@@ -57,11 +57,11 @@ async function getFooterSettings(): Promise<FooterSettings> {
     console.error('Error fetching footer settings:', error);
     // Return fallback values
     return {
-      footer_company_name: 'SK Group',
+      footer_company_name: 'SK Industries',
       footer_company_description: 'Leading manufacturer of eco-friendly paper products including cups, plates, bowls, and aluminum foil. Committed to quality and sustainability for over a decade.',
       footer_phone: '+91 98765 43210',
       footer_email: 'info@sk-industries.com',
-      footer_company_full_name: 'SK Group Industries',
+      footer_company_full_name: 'SK Industries',
       footer_address_line1: '123 Business Street',
       footer_address_line2: 'Commercial District',
       footer_city_state_zip: 'Mumbai, Maharashtra 400001',

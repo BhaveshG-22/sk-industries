@@ -43,7 +43,7 @@ export default function Navbar() {
               <Link href="/" className="flex items-center">
                 <Image
                   src="/main-logo-1.png"
-                  alt="Gavali Group"
+                  alt="SK Industries"
                   width={180}
                   height={180}
                   className="w-20 h-20 sm:w-28 sm:h-28 lg:w-36 lg:h-36 object-contain"
