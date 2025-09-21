@@ -25,12 +25,12 @@ export default function NotFound() {
             Oops! Page Not Found
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Looks like this page got recycled! Don't worry, our eco-friendly navigation will help you find what you're looking for.
+            Looks like this page got recycled! Don&apos;t worry, our eco-friendly navigation will help you find what you&apos;re looking for.
           </p>
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 max-w-md mx-auto border border-[var(--primary-light)]/20 shadow-lg">
             <Package className="w-12 h-12 text-[var(--primary-light)] mx-auto mb-3" />
             <p className="text-sm text-gray-500">
-              The page you're looking for might have been moved, deleted, or never existed.
+              The page you&apos;re looking for might have been moved, deleted, or never existed.
             </p>
           </div>
         </div>
@@ -113,7 +113,7 @@ export default function NotFound() {
               <h3 className="text-lg font-semibold text-[var(--primary-dark)]">Eco-Friendly Tip</h3>
             </div>
             <p className="text-sm text-gray-600">
-              While you're here, remember that every small step towards sustainability counts!
+              While you&apos;re here, remember that every small step towards sustainability counts!
               Choose eco-friendly paper products for your next event.
             </p>
           </div>
