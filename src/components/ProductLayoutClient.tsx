@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import ProductPreviewModal from "@/components/ProductPreviewModal";
 import { scrollToContact } from "@/lib/scroll";
 
 interface ProductImage {
@@ -17,12 +19,16 @@ interface ProductItem {
   id: string;
   title: string;
   salePrice: number;
+  originalPrice?: number | null;
   description: string | null;
   image: string | null;
   images: ProductImage[];
   category: string;
   categorySlug: string;
   isFeatured: boolean;
+  status: "AVAILABLE" | "SOLD_OUT" | "DISCONTINUED" | "COMING_SOON";
+  stock?: number;
+  showStockCount?: boolean;
 }
 
 interface ProductLayoutClientProps {
@@ -30,9 +36,22 @@ interface ProductLayoutClientProps {
 }
 
 // Product Card Component
-function ProductCard({ product }: { product: ProductItem }) {
+function ProductCard({ product, onPreviewClick }: { product: ProductItem; onPreviewClick: (product: ProductItem) => void }) {
+  const router = useRouter();
   const primaryImage = product.images.length > 0 ? product.images[0] : null;
   const imageUrl = primaryImage?.url || product.image || '/placeholder.jpg';
+
+  const handleContactForOrder = () => {
+    const subject = `Need to enquire about ${product.title}`;
+    const message = `Hi, I am interested in learning more about the ${product.title} (₹${product.salePrice} per 100 pieces).
+
+Please provide me with more details about availability, bulk pricing, and delivery options.
+
+Thank you!`;
+
+    const contactUrl = `/contact?subject=${encodeURIComponent(subject)}&message=${encodeURIComponent(message)}`;
+    router.push(contactUrl);
+  };
 
   return (
     <Card className="group relative overflow-hidden border border-gray-200 hover:border-[var(--primary-light)] transition-all duration-300 hover:shadow-xl bg-white rounded-xl">
@@ -90,13 +109,22 @@ function ProductCard({ product }: { product: ProductItem }) {
             </span>
           </div>
 
-          {/* CTA Button */}
-          <Button
-            className="w-full bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white font-semibold py-3 text-base transition-all duration-200 shadow-md hover:shadow-lg rounded-lg"
-            onClick={scrollToContact}
-          >
-            Get Quote
-          </Button>
+          {/* CTA Buttons */}
+          <div className="flex flex-col gap-2">
+            <Button
+              className="w-full bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white font-semibold py-3 text-base transition-all duration-200 shadow-md hover:shadow-lg rounded-lg"
+              onClick={() => onPreviewClick(product)}
+            >
+              Preview
+            </Button>
+            <Button
+              variant="outline"
+              className="w-full border-[var(--primary-light)] text-[var(--primary-light)] hover:bg-[var(--primary-light)] hover:text-white font-semibold py-2 text-sm transition-all duration-200 rounded-lg"
+              onClick={handleContactForOrder}
+            >
+              Contact for Order
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
@@ -106,6 +134,18 @@ function ProductCard({ product }: { product: ProductItem }) {
 export default function ProductLayoutClient({ productsByCategory }: ProductLayoutClientProps) {
   const categories = Object.keys(productsByCategory);
   const [activeCategory, setActiveCategory] = useState<string>(categories[0] || '');
+  const [selectedProduct, setSelectedProduct] = useState<ProductItem | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePreviewClick = (product: ProductItem) => {
+    setSelectedProduct(product);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
 
   if (categories.length === 0) {
     return (
@@ -173,7 +213,7 @@ export default function ProductLayoutClient({ productsByCategory }: ProductLayou
             className="animate-in fade-in-0 slide-in-from-bottom-4"
             style={{ animationDelay: `${index * 100}ms`, animationDuration: '400ms' }}
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} onPreviewClick={handlePreviewClick} />
           </div>
         ))}
       </div>
@@ -201,6 +241,13 @@ export default function ProductLayoutClient({ productsByCategory }: ProductLayou
           </Button>
         </div>
       </div>
+
+      {/* Product Preview Modal */}
+      <ProductPreviewModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        product={selectedProduct}
+      />
     </>
   );
 }

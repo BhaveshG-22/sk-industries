@@ -12,12 +12,16 @@ interface ProductItem {
   id: string;
   title: string;
   salePrice: number;
+  originalPrice?: number | null;
   description: string | null;
   image: string | null;
   images: ProductImage[];
   category: string;
   categorySlug: string;
   isFeatured: boolean;
+  status: "AVAILABLE" | "SOLD_OUT" | "DISCONTINUED" | "COMING_SOON";
+  stock?: number;
+  showStockCount?: boolean;
 }
 
 interface ProductLayoutProps {
@@ -45,12 +49,16 @@ async function getProducts() {
     id: product.id,
     title: product.title,
     salePrice: Number(product.salePrice),
+    originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
     description: product.description,
     image: product.image,
     images: product.images,
     category: product.category.name,
     categorySlug: product.category.slug,
-    isFeatured: product.isFeatured
+    isFeatured: product.isFeatured,
+    status: "AVAILABLE" as const,
+    stock: undefined,
+    showStockCount: false
   }));
 }
 
