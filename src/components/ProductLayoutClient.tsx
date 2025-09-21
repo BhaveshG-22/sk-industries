@@ -36,59 +36,64 @@ function ProductCard({ product }: { product: ProductItem }) {
   const imageUrl = primaryImage?.url || product.image || '/placeholder.jpg';
 
   return (
-    <Card className="group relative overflow-hidden border-2 border-gray-100 hover:border-[var(--primary-light)] transition-all duration-300 hover:shadow-lg bg-white">
+    <Card className="group relative overflow-hidden border border-gray-200 hover:border-[var(--primary-light)] transition-all duration-300 hover:shadow-xl bg-white rounded-xl">
       {/* Featured Badge */}
       {product.isFeatured && (
-        <div className="absolute top-3 right-3 z-10">
-          <span className="bg-orange-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
+        <div className="absolute top-4 right-4 z-20">
+          <span className="bg-orange-500 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg">
             Featured
           </span>
         </div>
       )}
 
-      <CardContent className="p-0">
+      <CardContent className="p-0 h-full flex flex-col">
         {/* Image Section */}
-        <div className="relative aspect-square bg-gradient-to-br from-gray-50 to-[var(--accent-cream)] overflow-hidden">
-          <div className="absolute top-3 left-3 z-10">
-            <span className="text-xs bg-white/90 text-[var(--primary-dark)] px-2 py-1 rounded-full font-medium border">
+        <div className="relative w-full aspect-square bg-gradient-to-br from-gray-50 via-white to-gray-100 overflow-hidden rounded-t-xl">
+          {/* Price Badge */}
+          <div className="absolute top-3 left-3 z-20">
+            <span className="text-sm bg-white text-[var(--primary-dark)] px-3 py-1.5 rounded-full font-semibold border border-gray-200 shadow-sm">
               ₹{product.salePrice}
             </span>
           </div>
 
-          <div className="h-full flex items-center justify-center p-6 transition-transform duration-300 group-hover:scale-105">
+          {/* Image Container - Full Size */}
+          <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-105">
             <Image
               src={imageUrl}
               alt={primaryImage?.altText || product.title}
-              width={160}
-              height={160}
-              className="object-contain w-full h-full max-h-32"
+              fill
+              className="object-cover"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
           </div>
         </div>
 
         {/* Content Section */}
-        <div className="p-4">
-          <h3 className="text-lg font-semibold text-[var(--primary-dark)] mb-2 line-clamp-1">
-            {product.title}
-          </h3>
-          {product.description && (
-            <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-              {product.description}
-            </p>
-          )}
+        <div className="p-5 flex-1 flex flex-col">
+          <div className="flex-1">
+            <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-1">
+              {product.title}
+            </h3>
+            {product.description && (
+              <p className="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">
+                {product.description}
+              </p>
+            )}
+          </div>
 
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
+          {/* Features & Status */}
+          <div className="flex items-center justify-between mb-4 pt-2 border-t border-gray-100">
+            <span className="text-xs text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full font-medium">
               Eco-friendly
             </span>
-            <span className="text-xs font-medium text-[var(--primary-light)]">
-              Available
+            <span className="text-xs font-semibold text-green-600 bg-green-50 px-2.5 py-1 rounded-full">
+              In Stock
             </span>
           </div>
 
+          {/* CTA Button */}
           <Button
-            className="w-full bg-[var(--primary-light)] hover:bg-[var(--primary-medium)] text-white font-medium transition-colors"
-            size="sm"
+            className="w-full bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white font-semibold py-3 text-base transition-all duration-200 shadow-md hover:shadow-lg rounded-lg"
             onClick={scrollToContact}
           >
             Get Quote
