@@ -275,7 +275,7 @@ export default function BlogPostManager() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#BC6C25]"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[var(--primary-light)]"></div>
       </div>
     )
   }
@@ -286,7 +286,7 @@ export default function BlogPostManager() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <FileText className="w-7 h-7 text-[#BC6C25]" />
+            <FileText className="w-7 h-7 text-[var(--primary-light)]" />
             Blog Posts Management
           </h1>
           <p className="text-gray-600 mt-1">
@@ -295,7 +295,7 @@ export default function BlogPostManager() {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-[#BC6C25] hover:bg-[#A0561F] text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add Blog Post
@@ -318,7 +318,7 @@ export default function BlogPostManager() {
                   type="text"
                   value={formData.title}
                   onChange={(e) => handleTitleChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                   required
                 />
               </div>
@@ -330,7 +330,7 @@ export default function BlogPostManager() {
                   type="text"
                   value={formData.slug}
                   onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                   required
                 />
               </div>
@@ -344,7 +344,7 @@ export default function BlogPostManager() {
                 value={formData.content}
                 onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                 rows={8}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 required
               />
             </div>
@@ -357,7 +357,7 @@ export default function BlogPostManager() {
                 value={formData.excerpt}
                 onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 placeholder="Short summary of the blog post"
               />
             </div>
@@ -380,12 +380,12 @@ export default function BlogPostManager() {
                     />
                     <div className={`border-2 border-dashed rounded-lg p-6 text-center transition-colors ${
                       imageUploading 
-                        ? 'border-[#BC6C25] bg-[#BC6C25]/5' 
-                        : 'border-gray-300 hover:border-[#BC6C25] hover:bg-gray-50'
+                        ? 'border-[var(--primary-light)] bg-[var(--primary-light)]/5' 
+                        : 'border-gray-300 hover:border-[var(--primary-light)] hover:bg-gray-50'
                     }`}>
                       <div className="space-y-2">
-                        <div className="w-12 h-12 mx-auto bg-[#BC6C25]/10 rounded-lg flex items-center justify-center">
-                          <svg className="w-6 h-6 text-[#BC6C25]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div className="w-12 h-12 mx-auto bg-[var(--primary-light)]/10 rounded-lg flex items-center justify-center">
+                          <svg className="w-6 h-6 text-[var(--primary-light)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                           </svg>
                         </div>
@@ -402,8 +402,8 @@ export default function BlogPostManager() {
                   </div>
 
                   {imageUploading && (
-                    <div className="flex items-center justify-center gap-2 text-sm text-[#BC6C25] bg-[#BC6C25]/5 p-3 rounded-md">
-                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[#BC6C25]"></div>
+                    <div className="flex items-center justify-center gap-2 text-sm text-[var(--primary-light)] bg-[var(--primary-light)]/5 p-3 rounded-md">
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-[var(--primary-light)]"></div>
                       Uploading image to S3...
                     </div>
                   )}
@@ -446,7 +446,7 @@ export default function BlogPostManager() {
                   type="text"
                   value={formData.tags.join(', ')}
                   onChange={(e) => handleTagsChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                   placeholder="technology, tutorial, guide"
                 />
               </div>
@@ -461,7 +461,7 @@ export default function BlogPostManager() {
                   type="text"
                   value={formData.authorName}
                   onChange={(e) => setFormData(prev => ({ ...prev, authorName: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 />
               </div>
               <div>
@@ -472,7 +472,7 @@ export default function BlogPostManager() {
                   type="email"
                   value={formData.authorEmail}
                   onChange={(e) => setFormData(prev => ({ ...prev, authorEmail: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 />
               </div>
             </div>
@@ -486,7 +486,7 @@ export default function BlogPostManager() {
                   type="text"
                   value={formData.metaTitle}
                   onChange={(e) => setFormData(prev => ({ ...prev, metaTitle: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 />
               </div>
               <div>
@@ -497,7 +497,7 @@ export default function BlogPostManager() {
                   type="date"
                   value={formData.publishedAt}
                   onChange={(e) => setFormData(prev => ({ ...prev, publishedAt: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                 />
               </div>
             </div>
@@ -510,7 +510,7 @@ export default function BlogPostManager() {
                 value={formData.metaDescription}
                 onChange={(e) => setFormData(prev => ({ ...prev, metaDescription: e.target.value }))}
                 rows={2}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
               />
             </div>
 
@@ -520,7 +520,7 @@ export default function BlogPostManager() {
                 id="isPublished"
                 checked={formData.isPublished}
                 onChange={(e) => setFormData(prev => ({ ...prev, isPublished: e.target.checked }))}
-                className="h-4 w-4 text-[#BC6C25] focus:ring-[#BC6C25] border-gray-300 rounded"
+                className="h-4 w-4 text-[var(--primary-light)] focus:ring-[var(--primary-light)] border-gray-300 rounded"
               />
               <label htmlFor="isPublished" className="ml-2 block text-sm text-gray-700">
                 Published
@@ -530,7 +530,7 @@ export default function BlogPostManager() {
             <div className="flex gap-2">
               <button
                 type="submit"
-                className="bg-[#BC6C25] hover:bg-[#A0561F] text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white px-4 py-2 rounded-lg transition-colors"
               >
                 {editingPost ? 'Update Post' : 'Create Post'}
               </button>
@@ -668,7 +668,7 @@ export default function BlogPostManager() {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleEdit(post)}
-                          className="text-[#BC6C25] hover:text-[#A0561F] transition-colors"
+                          className="text-[var(--primary-light)] hover:text-[var(--primary-dark)] transition-colors"
                           title="Edit Post"
                         >
                           <Edit className="w-4 h-4" />

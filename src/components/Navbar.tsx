@@ -4,7 +4,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
-import { scrollToContact } from "@/lib/scroll";
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -85,12 +84,6 @@ export default function Navbar() {
             <Link href="/about" className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium">
               ABOUT US
             </Link>
-            <button 
-              onClick={scrollToContact} 
-              className="text-[var(--accent-cream)] hover:text-[var(--primary-medium)] transition-colors font-medium cursor-pointer"
-            >
-              CONTACT US
-            </button>
           </nav>
         </div>
       </div>
@@ -141,12 +134,6 @@ export default function Navbar() {
                   className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium">
                   ABOUT US
                 </Link>
-                <button 
-                  onClick={() => { closeMobileMenu(); scrollToContact(); }}
-                  className="block text-[var(--cream-white)] hover:text-[var(--warm-tan)] text-lg font-medium w-full text-left cursor-pointer"
-                >
-                  CONTACT US
-                </button>
               </nav>
 
               <hr className="border-[var(--warm-tan)] my-8" />

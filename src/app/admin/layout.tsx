@@ -32,7 +32,7 @@ export default function AdminLayout({
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-light)]"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[var(--primary-medium)]"></div>
       </div>
     )
   }
@@ -50,8 +50,8 @@ export default function AdminLayout({
               <Menu className="w-6 h-6" />
             </button>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[var(--primary-light)] rounded flex items-center justify-center">
-                <span className="text-white font-bold text-sm">GG</span>
+              <div className="w-8 h-8 bg-[var(--primary-medium)] rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">SK</span>
               </div>
               <span className="font-bold text-lg text-gray-800">Admin Panel</span>
             </div>

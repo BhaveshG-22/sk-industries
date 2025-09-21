@@ -12,5 +12,12 @@ export const scrollToSection = (sectionId: string) => {
 }
 
 export const scrollToContact = () => {
-  scrollToSection('contact')
+  const contactSection = document.getElementById('contact')
+  if (contactSection) {
+    // Contact section exists, scroll to it
+    scrollToSection('contact')
+  } else {
+    // Contact section doesn't exist, redirect to home page with hash
+    window.location.href = '/#contact'
+  }
 }

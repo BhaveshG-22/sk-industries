@@ -53,23 +53,23 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
       
       {/* Sidebar */}
       <div
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[#283618] text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+        className={`fixed inset-y-0 left-0 z-50 w-64 bg-[var(--primary-dark)] text-white transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         }`}
       >
         <div className="flex h-full flex-col">
           {/* Header with close button for mobile */}
-          <div className="flex items-center justify-between gap-2 px-6 py-4 border-b border-[#606C38]">
+          <div className="flex items-center justify-between gap-2 px-6 py-4 border-b border-[var(--primary-medium)]">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-[#BC6C25] rounded flex items-center justify-center">
-                <span className="text-white font-bold text-sm">GG</span>
+              <div className="w-8 h-8 bg-[var(--primary-light)] rounded flex items-center justify-center">
+                <span className="text-white font-bold text-sm">SK</span>
               </div>
               <span className="font-bold text-lg">Admin Panel</span>
             </div>
             {/* Close button - only visible on mobile */}
             <button
               onClick={onClose}
-              className="lg:hidden p-1 rounded-lg hover:bg-[#606C38] transition-colors"
+              className="lg:hidden p-1 rounded-lg hover:bg-[var(--primary-medium)] transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -86,8 +86,8 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
                   onClick={handleLinkClick}
                   className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${
                     isActive
-                      ? 'bg-[#BC6C25] text-white'
-                      : 'text-gray-300 hover:bg-[#606C38] hover:text-white'
+                      ? 'bg-[var(--primary-light)] text-white'
+                      : 'text-gray-300 hover:bg-[var(--primary-medium)] hover:text-white'
                   }`}
                 >
                   <item.icon className="w-5 h-5" />
@@ -98,11 +98,11 @@ export default function AdminSidebar({ isOpen = true, onClose }: AdminSidebarPro
           </nav>
 
           {/* Back to Site */}
-          <div className="p-4 border-t border-[#606C38]">
+          <div className="p-4 border-t border-[var(--primary-medium)]">
             <Link
               href="/"
               onClick={handleLinkClick}
-              className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-300 hover:bg-[#606C38] hover:text-white rounded-lg transition-colors"
+              className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-300 hover:bg-[var(--primary-medium)] hover:text-white rounded-lg transition-colors"
             >
               <Home className="w-5 h-5" />
               Back to Site

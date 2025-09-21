@@ -89,11 +89,11 @@ export default async function CategorySection({ className = "" }: CategorySectio
         <CategoryTabs productsByCategory={productsByCategory} />
 
         {/* Call-to-Action Section */}
-        <div className="mt-20 text-center bg-gradient-to-r from-red-800 to-red-600 rounded-2xl p-8 md:p-12 text-white">
+        <div className="mt-20 text-center bg-[var(--primary-light)] rounded-2xl p-8 md:p-12 text-white">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Ready to Order?</h2>
           <p className="text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-90">
             Get in touch with us for bulk orders, custom designs, and competitive pricing. 
-            We're here to help with all your paper product needs.
+            We&apos;re here to help with all your paper product needs.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
@@ -105,7 +105,7 @@ export default async function CategorySection({ className = "" }: CategorySectio
             <Button
               size="lg"
               variant="outline"
-              className="border-white text-white px-8 py-3 text-lg hover:bg-white hover:text-red-800 font-medium transition-colors"
+              className="border-2 border-white text-white px-8 py-3 text-lg hover:bg-white hover:text-red-800 font-medium transition-colors bg-transparent"
             >
               Contact Us
             </Button>

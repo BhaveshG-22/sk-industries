@@ -136,13 +136,6 @@ export default function CategoriesPage() {
                         <CardContent className="p-0 h-full flex flex-col">
                           {/* Product Image */}
                           <div className="relative bg-[var(--accent-cream)] p-6 h-64 flex items-center justify-center">
-                            {product.badge && (
-                              <div className="absolute top-3 right-3 z-10">
-                                <span className="bg-[var(--primary-medium)] text-[var(--accent-cream)] text-xs font-bold px-2 py-1 rounded-full">
-                                  {product.badge}
-                                </span>
-                              </div>
-                            )}
                             <Image
                               src={product.image || "https://via.placeholder.com/300x300?text=Product+Image"}
                               alt={product.title}

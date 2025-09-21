@@ -30,7 +30,6 @@ model Product {
   salePrice       Decimal          @db.Decimal(10, 2)
   status          ProductStatus    @default(AVAILABLE)
   image           String?
-  badge           String?
   sku             String?          @unique
   stock           Int              @default(0)
   isActive        Boolean          @default(true)

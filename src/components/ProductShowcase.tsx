@@ -66,31 +66,72 @@ export default function ProductShowcase({ categories }: ProductShowcaseProps) {
         {/* Product Tabs */}
         <div className="w-full">
           {/* Tab Navigation */}
-          <div className="sticky top-0 z-[60] left-0 right-0 bg-white backdrop-blur-md shadow-sm mb-8">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative flex items-center justify-center h-16 lg:h-18">
+          <div className="mb-12">
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`flex items-center justify-center gap-1 sm:gap-2 px-3 sm:px-6 py-2 sm:py-3 rounded-lg font-medium transition-all flex-1 sm:flex-none sm:mx-1 ${
+                    className={`group relative h-36 w-full p-6 rounded-2xl border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg overflow-hidden ${
                       activeTab === tab.id
-                        ? 'bg-[var(--dark-red)] text-white shadow-md'
-                        : 'text-[var(--olive-green)] hover:bg-[var(--light-gray)] hover:text-[var(--dark-forest)]'
+                        ? 'bg-gradient-to-br from-[var(--dark-red)] to-[var(--burnt-orange)] text-white border-[var(--dark-red)] shadow-xl'
+                        : 'bg-white text-[var(--dark-forest)] border-[var(--soft-gray)] hover:border-[var(--dark-red)]'
                     }`}
+                    style={{
+                      backgroundColor: activeTab === tab.id 
+                        ? 'var(--dark-red)' 
+                        : 'white'
+                    }}
                   >
-                    <span className="text-lg">{tab.icon}</span>
-                    <span className="text-sm sm:text-base">
-                      <span className="sm:hidden">{tab.label.replace('Paper ', '')}</span>
-                      <span className="hidden sm:inline">{tab.label}</span>
-                    </span>
-                    <span className={`text-xs px-2 py-1 rounded-full ${
-                      activeTab === tab.id 
-                        ? 'bg-white/20 text-white' 
-                        : 'bg-[var(--soft-gray)] text-[var(--olive-green)]'
-                    }`}>
-                      {tab.count}
-                    </span>
+                    {/* Background decoration */}
+                    <div className={`absolute top-0 right-0 w-20 h-20 rounded-bl-3xl opacity-10 ${
+                      activeTab === tab.id ? 'bg-white' : 'bg-[var(--dark-red)]'
+                    }`}></div>
+                    
+                    {/* Gradient overlay for active state */}
+                    {activeTab === tab.id && (
+                      <div 
+                        className="absolute inset-0 rounded-2xl"
+                        style={{
+                          background: 'linear-gradient(135deg, var(--dark-red) 0%, var(--burnt-orange) 100%)'
+                        }}
+                      ></div>
+                    )}
+                    
+                    <div className="relative z-10 h-full flex flex-col justify-between">
+                      <div className="flex items-center justify-between">
+                        <span className="text-3xl">{tab.icon}</span>
+                        <span className={`inline-flex items-center justify-center min-w-[28px] h-7 px-2 rounded-full text-sm font-bold ${
+                          activeTab === tab.id 
+                            ? 'bg-white/20 text-white' 
+                            : 'bg-[var(--dark-red)] text-white'
+                        }`}>
+                          {tab.count}
+                        </span>
+                      </div>
+                      
+                      <div className="text-center">
+                        <h3 className={`text-lg font-bold mb-1 ${
+                          activeTab === tab.id ? 'text-white' : 'text-[var(--dark-forest)]'
+                        }`}>
+                          {tab.label}
+                        </h3>
+                        
+                        <p className={`text-sm ${
+                          activeTab === tab.id ? 'text-white/80' : 'text-[var(--olive-green)]'
+                        }`}>
+                          {tab.count} items available
+                        </p>
+                      </div>
+                      
+                      <div></div>
+                    </div>
+                    
+                    {/* Active indicator */}
+                    {activeTab === tab.id && (
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-white rounded-full shadow-lg z-20"></div>
+                    )}
                   </button>
                 ))}
               </div>

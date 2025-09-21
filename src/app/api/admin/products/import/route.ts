@@ -11,7 +11,6 @@ const hardcodedProducts = [
     salePrice: 299,
     status: "SOLD_OUT",
     image: "https://prd.place/400?id=1",
-    badge: "3 BOXES",
     sku: "PH001",
     stock: 0,
     categorySlug: "containers"
@@ -33,7 +32,6 @@ const hardcodedProducts = [
     salePrice: 120,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=6",
-    badge: "500ML",
     sku: "PH003",
     stock: 100,
     categorySlug: "containers"
@@ -45,7 +43,6 @@ const hardcodedProducts = [
     salePrice: 149,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=13",
-    badge: "ORGANIC",
     sku: "PH004",
     stock: 75,
     categorySlug: "containers"
@@ -56,7 +53,6 @@ const hardcodedProducts = [
     salePrice: 899,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=18",
-    badge: "RECHARGEABLE",
     sku: "PH005",
     stock: 25,
     categorySlug: "containers"
@@ -78,7 +74,6 @@ const hardcodedProducts = [
     salePrice: 129,
     status: "SOLD_OUT",
     image: "https://prd.place/400?id=20",
-    badge: "VITAMIN E",
     sku: "PH007",
     stock: 0,
     categorySlug: "containers"
@@ -90,7 +85,6 @@ const hardcodedProducts = [
     salePrice: 299,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=21",
-    badge: "12 PIECES",
     sku: "PH008",
     stock: 30,
     categorySlug: "containers"
@@ -101,7 +95,6 @@ const hardcodedProducts = [
     salePrice: 449,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=22",
-    badge: "PACK OF 3",
     sku: "PH009",
     stock: 40,
     categorySlug: "containers"
@@ -113,7 +106,6 @@ const hardcodedProducts = [
     salePrice: 149,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=23",
-    badge: "6 FLAVORS",
     sku: "PH010",
     stock: 80,
     categorySlug: "containers"
@@ -126,7 +118,6 @@ const hardcodedProducts = [
     salePrice: 245,
     status: "SOLD_OUT",
     image: "https://prd.place/400?id=24",
-    badge: "21 METERS",
     sku: "FW001",
     stock: 0,
     categorySlug: "food-wrapping"
@@ -148,7 +139,6 @@ const hardcodedProducts = [
     salePrice: 245,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=26",
-    badge: "100 SHEETS",
     sku: "FW003",
     stock: 120,
     categorySlug: "food-wrapping"
@@ -160,7 +150,6 @@ const hardcodedProducts = [
     salePrice: 299,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=27",
-    badge: "3 BOXES",
     sku: "FW004",
     stock: 45,
     categorySlug: "food-wrapping"
@@ -171,7 +160,6 @@ const hardcodedProducts = [
     salePrice: 179,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=28",
-    badge: "500M",
     sku: "FW005",
     stock: 90,
     categorySlug: "food-wrapping"
@@ -195,7 +183,6 @@ const hardcodedProducts = [
     salePrice: 99,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=19",
-    badge: "1L",
     sku: "KH002",
     stock: 150,
     categorySlug: "kitchen-hygiene"
@@ -207,7 +194,6 @@ const hardcodedProducts = [
     salePrice: 199,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=20",
-    badge: "SET OF 5",
     sku: "KH003",
     stock: 55,
     categorySlug: "kitchen-hygiene"
@@ -221,7 +207,6 @@ const hardcodedProducts = [
     salePrice: 199,
     status: "AVAILABLE",
     image: "https://prd.place/400?id=32",
-    badge: "1L",
     sku: "HC001",
     stock: 80,
     categorySlug: "household-cleaner"
@@ -296,7 +281,6 @@ export async function POST() {
           originalPrice: productData.originalPrice || null,
           status: productData.status as ProductStatus,
           stock: productData.stock,
-          badge: productData.badge || null,
         },
         create: {
           title: productData.title,
@@ -305,7 +289,6 @@ export async function POST() {
           salePrice: productData.salePrice,
           status: productData.status as ProductStatus,
           image: productData.image,
-          badge: productData.badge || null,
           sku: productData.sku,
           stock: productData.stock,
           isActive: true,

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react'
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
+import { Send, CheckCircle } from 'lucide-react'
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -58,131 +58,62 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-16 bg-[var(--cream-white)]">
+    <section id="contact" className="py-20 bg-gradient-to-br from-[var(--cream-white)] to-[var(--warm-tan)]/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold text-[var(--dark-forest)] mb-4">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-[var(--burnt-orange)] rounded-full mb-6">
+            <Send className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-4xl md:text-5xl font-bold text-[var(--dark-forest)] mb-6">
             Get In Touch
           </h2>
-          <p className="text-lg text-[var(--olive-green)] max-w-2xl mx-auto">
-            Have questions about our products or need assistance? We&apos;d love to hear from you.
+          <p className="text-xl text-[var(--olive-green)] max-w-3xl mx-auto leading-relaxed">
+            Ready to elevate your business with our premium eco-friendly products? 
+            Let&apos;s start a conversation about your needs and how we can help.
           </p>
+          <div className="w-24 h-1 bg-gradient-to-r from-[var(--burnt-orange)] to-[var(--dark-forest)] mx-auto mt-8 rounded-full"></div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div className="bg-[var(--warm-tan)] p-8 rounded-lg shadow-lg space-y-8">
-            <div>
-              <h3 className="text-2xl font-semibold text-[var(--cream-white)] mb-6">
-                Contact Information
-              </h3>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-[var(--burnt-orange)] rounded-lg flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-[var(--cream-white)] mb-1">
-                      Phone
-                    </h4>
-                    <p className="text-[var(--cream-white)]/80">
-                      <a href="tel:+1-555-123-4567" className="hover:text-[var(--cream-white)] transition-colors">
-                        +1 (555) 123-4567
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-[var(--burnt-orange)] rounded-lg flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-[var(--cream-white)] mb-1">
-                      Email
-                    </h4>
-                    <p className="text-[var(--cream-white)]/80">
-                      <a href="mailto:info@sk-industries.com" className="hover:text-[var(--cream-white)] transition-colors">
-                        info@sk-industries.com
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-[var(--burnt-orange)] rounded-lg flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-lg font-medium text-[var(--cream-white)] mb-1">
-                      Address
-                    </h4>
-                    <p className="text-[var(--cream-white)]/80">
-                      123 Business Street<br />
-                      City, State 12345
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[var(--cream-white)]/90 backdrop-blur-sm p-6 rounded-lg border border-[var(--dark-forest)]/20 shadow-lg">
-              <h4 className="text-lg font-medium text-[var(--dark-forest)] mb-3">
-                Business Hours
-              </h4>
-              <div className="space-y-2 text-[var(--olive-green)]">
-                <div className="flex justify-between">
-                  <span>Monday - Friday:</span>
-                  <span className="font-medium text-[var(--dark-forest)]">9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday:</span>
-                  <span className="font-medium text-[var(--dark-forest)]">10:00 AM - 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday:</span>
-                  <span className="font-medium text-red-600">Closed</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
+        <div className="max-w-4xl mx-auto">
           {/* Contact Form */}
-          <div className="bg-white p-8 rounded-lg shadow-lg border border-[var(--warm-tan)]">
+          <div className="bg-white/95 backdrop-blur-sm p-10 rounded-2xl shadow-2xl border border-[var(--warm-tan)]/20 relative overflow-hidden">
+            {/* Decorative elements */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-[var(--burnt-orange)]/10 to-transparent rounded-full transform translate-x-16 -translate-y-16"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-[var(--warm-tan)]/20 to-transparent rounded-full transform -translate-x-12 translate-y-12"></div>
+            
             {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <CheckCircle className="w-8 h-8 text-green-600" />
+              <div className="text-center py-12 relative z-10">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <CheckCircle className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="text-xl font-semibold text-[var(--dark-forest)] mb-2">
+                <h3 className="text-2xl font-bold text-[var(--dark-forest)] mb-4">
                   Message Sent Successfully!
                 </h3>
-                <p className="text-[var(--olive-green)] mb-6">
-                  Thank you for contacting us. We&apos;ll get back to you within 24 hours.
+                <p className="text-lg text-[var(--olive-green)] mb-8 max-w-md mx-auto">
+                  Thank you for reaching out! Our team will get back to you within 24 hours.
                 </p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="bg-[var(--burnt-orange)] text-white px-6 py-2 rounded-lg hover:bg-[var(--dark-forest)] transition-colors"
+                  className="bg-gradient-to-r from-[var(--burnt-orange)] to-[var(--dark-forest)] text-white px-8 py-3 rounded-xl font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
                 >
                   Send Another Message
                 </button>
               </div>
             ) : (
-              <>
-                <h3 className="text-2xl font-semibold text-[var(--dark-forest)] mb-6">
-                  Send us a Message
-                </h3>
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <h3 className="text-3xl font-bold text-[var(--dark-forest)] mb-3">
+                    Send us a Message
+                  </h3>
+                  <p className="text-[var(--olive-green)] text-lg">
+                    Fill out the form below and we&apos;ll respond promptly
+                  </p>
+                </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-[var(--dark-forest)] mb-2">
+                <form onSubmit={handleSubmit} className="space-y-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label htmlFor="name" className="block text-sm font-semibold text-[var(--dark-forest)] mb-3">
                         Full Name *
                       </label>
                       <input
@@ -192,12 +123,12 @@ export default function ContactSection() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-[var(--warm-tan)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-transparent"
-                        placeholder="Your full name"
+                        className="w-full px-5 py-4 border-2 border-[var(--warm-tan)]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-[var(--burnt-orange)] transition-all duration-200 group-hover:border-[var(--warm-tan)] bg-[var(--cream-white)]/50"
+                        placeholder="Enter your full name"
                       />
                     </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-[var(--dark-forest)] mb-2">
+                    <div className="group">
+                      <label htmlFor="email" className="block text-sm font-semibold text-[var(--dark-forest)] mb-3">
                         Email Address *
                       </label>
                       <input
@@ -207,15 +138,15 @@ export default function ContactSection() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-[var(--warm-tan)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-transparent"
+                        className="w-full px-5 py-4 border-2 border-[var(--warm-tan)]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-[var(--burnt-orange)] transition-all duration-200 group-hover:border-[var(--warm-tan)] bg-[var(--cream-white)]/50"
                         placeholder="your.email@example.com"
                       />
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-[var(--dark-forest)] mb-2">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="group">
+                      <label htmlFor="phone" className="block text-sm font-semibold text-[var(--dark-forest)] mb-3">
                         Phone Number
                       </label>
                       <input
@@ -224,12 +155,12 @@ export default function ContactSection() {
                         name="phone"
                         value={formData.phone}
                         onChange={handleChange}
-                        className="w-full px-4 py-3 border border-[var(--warm-tan)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-transparent"
-                        placeholder="(555) 123-4567"
+                        className="w-full px-5 py-4 border-2 border-[var(--warm-tan)]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-[var(--burnt-orange)] transition-all duration-200 group-hover:border-[var(--warm-tan)] bg-[var(--cream-white)]/50"
+                        placeholder="+91 98765 43210"
                       />
                     </div>
-                    <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-[var(--dark-forest)] mb-2">
+                    <div className="group">
+                      <label htmlFor="subject" className="block text-sm font-semibold text-[var(--dark-forest)] mb-3">
                         Subject *
                       </label>
                       <input
@@ -239,14 +170,14 @@ export default function ContactSection() {
                         value={formData.subject}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 border border-[var(--warm-tan)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-transparent"
-                        placeholder="How can we help?"
+                        className="w-full px-5 py-4 border-2 border-[var(--warm-tan)]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-[var(--burnt-orange)] transition-all duration-200 group-hover:border-[var(--warm-tan)] bg-[var(--cream-white)]/50"
+                        placeholder="How can we help you?"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-[var(--dark-forest)] mb-2">
+                  <div className="group">
+                    <label htmlFor="message" className="block text-sm font-semibold text-[var(--dark-forest)] mb-3">
                       Message *
                     </label>
                     <textarea
@@ -255,32 +186,41 @@ export default function ContactSection() {
                       value={formData.message}
                       onChange={handleChange}
                       required
-                      rows={5}
-                      className="w-full px-4 py-3 border border-[var(--warm-tan)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-transparent resize-none"
-                      placeholder="Tell us more about your inquiry..."
+                      rows={6}
+                      className="w-full px-5 py-4 border-2 border-[var(--warm-tan)]/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-[var(--burnt-orange)] focus:border-[var(--burnt-orange)] transition-all duration-200 group-hover:border-[var(--warm-tan)] bg-[var(--cream-white)]/50 resize-none"
+                      placeholder="Tell us about your project needs, quantity requirements, or any questions you have..."
                     />
                   </div>
 
                   {error && (
-                    <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                      {error}
+                    <div className="bg-red-50 border-l-4 border-red-400 text-red-700 p-4 rounded-lg">
+                      <div className="flex">
+                        <div className="ml-3">
+                          <p className="text-sm">{error}</p>
+                        </div>
+                      </div>
                     </div>
                   )}
 
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-[var(--burnt-orange)] text-white py-3 px-6 rounded-lg font-medium hover:bg-[var(--dark-forest)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
-                  >
-                    {isSubmitting ? (
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    ) : (
-                      <Send className="w-5 h-5 mr-2" />
-                    )}
-                    {isSubmitting ? 'Sending...' : 'Send Message'}
-                  </button>
+                  <div className="text-center">
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="group relative bg-gradient-to-r from-[var(--burnt-orange)] to-[var(--dark-forest)] text-white py-4 px-12 rounded-xl font-semibold text-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden"
+                    >
+                      <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                      <div className="relative flex items-center justify-center">
+                        {isSubmitting ? (
+                          <div className="animate-spin rounded-full h-6 w-6 border-2 border-white border-t-transparent mr-3"></div>
+                        ) : (
+                          <Send className="w-6 h-6 mr-3 group-hover:translate-x-1 transition-transform duration-200" />
+                        )}
+                        {isSubmitting ? 'Sending Message...' : 'Send Message'}
+                      </div>
+                    </button>
+                  </div>
                 </form>
-              </>
+              </div>
             )}
           </div>
         </div>

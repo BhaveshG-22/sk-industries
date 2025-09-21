@@ -54,7 +54,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
 
   if (images.length === 0) {
     return (
-      <div className="relative w-full h-48 md:h-80 lg:h-96 bg-gray-100 flex items-center justify-center">
+      <div className="relative w-full h-64 md:h-96 lg:h-[32rem] xl:h-[36rem] bg-gray-100 flex items-center justify-center">
         <div className="text-gray-500">No images available</div>
       </div>
     );
@@ -62,7 +62,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
 
   return (
     <div className="relative w-full group" data-carousel="slide">
-      <div className="relative h-48 overflow-hidden md:h-80 lg:h-96">
+      <div className="relative h-64 overflow-hidden md:h-96 lg:h-[32rem] xl:h-[36rem]">
         {images.map((image, index) => {
           const isActive = index === currentSlide;
           const isPrev = index === (currentSlide - 1 + images.length) % images.length;

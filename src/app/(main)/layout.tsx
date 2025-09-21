@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar";
+import Navbar from "@/components/NewNavbar";
 import AnnouncementBanner from "@/components/AnnouncementBannerServer";
 import Footer from "@/components/Footer";
 

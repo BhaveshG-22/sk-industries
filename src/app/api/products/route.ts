@@ -35,7 +35,6 @@ export async function GET(request: Request) {
       status: product.status === 'SOLD_OUT' ? 'sold_out' : 'available',
       image: product.image,
       images: product.images,
-      badge: product.badge,
       category: product.category.name,
       categorySlug: product.category.slug,
       description: product.description

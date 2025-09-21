@@ -96,7 +96,7 @@ export default function ContactFormManager() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#BC6C25]"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[var(--primary-light)]"></div>
       </div>
     )
   }
@@ -107,7 +107,7 @@ export default function ContactFormManager() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Mail className="w-7 h-7 text-[#BC6C25]" />
+            <Mail className="w-7 h-7 text-[var(--primary-light)]" />
             Contact Form Submissions
             {unreadCount > 0 && (
               <span className="bg-red-500 text-white text-xs font-medium px-2 py-1 rounded-full">
@@ -126,7 +126,7 @@ export default function ContactFormManager() {
             onClick={() => setFilterStatus('all')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filterStatus === 'all'
-                ? 'bg-[#BC6C25] text-white'
+                ? 'bg-[var(--primary-light)] text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -136,7 +136,7 @@ export default function ContactFormManager() {
             onClick={() => setFilterStatus('unread')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filterStatus === 'unread'
-                ? 'bg-[#BC6C25] text-white'
+                ? 'bg-[var(--primary-light)] text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -146,7 +146,7 @@ export default function ContactFormManager() {
             onClick={() => setFilterStatus('read')}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filterStatus === 'read'
-                ? 'bg-[#BC6C25] text-white'
+                ? 'bg-[var(--primary-light)] text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
@@ -257,7 +257,7 @@ export default function ContactFormManager() {
                   <p className="text-gray-900">
                     <a 
                       href={`mailto:${selectedSubmission.email}`}
-                      className="text-[#BC6C25] hover:underline"
+                      className="text-[var(--primary-light)] hover:underline"
                     >
                       {selectedSubmission.email}
                     </a>
@@ -273,7 +273,7 @@ export default function ContactFormManager() {
                     <p className="text-gray-900">
                       <a 
                         href={`tel:${selectedSubmission.phone}`}
-                        className="text-[#BC6C25] hover:underline"
+                        className="text-[var(--primary-light)] hover:underline"
                       >
                         {selectedSubmission.phone}
                       </a>

@@ -31,26 +31,42 @@ export async function PUT(request: Request) {
       )
     }
 
-    // Update each setting
-    const updatePromises = settings.map(async (setting: { key: string; value: string; description?: string; category?: string; type?: string }) => {
-      return prisma.siteSetting.upsert({
-        where: { key: setting.key },
-        update: { value: setting.value },
-        create: {
-          key: setting.key,
-          value: setting.value,
-          description: setting.description || null,
-          category: setting.category || 'general',
-          type: setting.type || 'text',
-        },
+    // Use transaction for better reliability
+    const result = await prisma.$transaction(async (tx) => {
+      const updatePromises = settings.map(async (setting: { key: string; value: string; description?: string; category?: string; type?: string }) => {
+        return tx.siteSetting.upsert({
+          where: { key: setting.key },
+          update: { 
+            value: setting.value,
+            updatedAt: new Date()
+          },
+          create: {
+            key: setting.key,
+            value: setting.value,
+            description: setting.description || null,
+            category: setting.category || 'general',
+            type: setting.type || 'text',
+          },
+        })
       })
+      
+      return await Promise.all(updatePromises)
+    }, {
+      timeout: 30000, // 30 second timeout
     })
 
-    await Promise.all(updatePromises)
-
-    return NextResponse.json({ success: true })
-  } catch (error) {
+    return NextResponse.json({ success: true, updated: result.length })
+  } catch (error: unknown) {
     console.error('Error updating site settings:', error)
+    
+    // Check if it's a connection error
+    if (error && typeof error === 'object' && 'code' in error && error.code === 'P1001') {
+      return NextResponse.json(
+        { error: 'Database connection failed. Please check your database connection and try again.' },
+        { status: 503 }
+      )
+    }
+    
     return NextResponse.json(
       { error: 'Failed to update site settings' },
       { status: 500 }

@@ -13,7 +13,6 @@ export interface CategoryProduct {
   status: "AVAILABLE" | "SOLD_OUT" | "DISCONTINUED" | "COMING_SOON";
   image: string | null;
   images?: ProductImage[];
-  badge?: string | null;
   stock?: number;
   showStockCount?: boolean;
 }

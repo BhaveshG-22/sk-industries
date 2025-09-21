@@ -367,11 +367,11 @@ export default function ProductCatalog({ className = "" }: ProductCatalogProps) 
       </Tabs>
 
       {/* Call-to-Action Section */}
-      <section className="mt-16 text-center bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-medium)] rounded-2xl p-8 text-white">
+      <section className="mt-16 text-center bg-[var(--primary-light)] rounded-2xl p-8 text-white">
         <h2 className="text-3xl font-bold mb-4">Ready to Order?</h2>
         <p className="text-lg mb-8 max-w-2xl mx-auto opacity-90">
           Get in touch with us for bulk orders, custom designs, and competitive pricing. 
-          We're here to help with all your paper product needs.
+          We&apos;re here to help with all your paper product needs.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button

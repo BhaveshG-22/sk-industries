@@ -89,11 +89,6 @@ Thank you!`;
                   <p className="text-xs font-semibold text-white">{discount}</p>
                 </div>
               )}
-              {product.badge && (
-                <div className="absolute top-2 right-2 z-20 w-fit rounded-lg bg-green-600/80 p-2">
-                  <p className="text-xs font-semibold text-white">{product.badge}</p>
-                </div>
-              )}
 
               {/* Main Image with Animation */}
               <div className="relative w-full h-full">

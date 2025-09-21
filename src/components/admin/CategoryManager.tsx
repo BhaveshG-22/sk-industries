@@ -133,7 +133,7 @@ export default function CategoryManager() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#BC6C25]"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[var(--primary-light)]"></div>
       </div>
     )
   }
@@ -144,7 +144,7 @@ export default function CategoryManager() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <FolderOpen className="w-7 h-7 text-[#BC6C25]" />
+            <FolderOpen className="w-7 h-7 text-[var(--primary-light)]" />
             Categories Management
           </h1>
           <p className="text-gray-600 mt-1">
@@ -153,7 +153,7 @@ export default function CategoryManager() {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="bg-[#BC6C25] hover:bg-[#A0561F] text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+          className="bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add Category
@@ -176,7 +176,7 @@ export default function CategoryManager() {
                   type="text"
                   value={formData.name}
                   onChange={(e) => handleNameChange(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                   required
                 />
               </div>
@@ -188,7 +188,7 @@ export default function CategoryManager() {
                   type="text"
                   value={formData.slug}
                   onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
                   required
                 />
               </div>
@@ -202,7 +202,7 @@ export default function CategoryManager() {
                 value={formData.description}
                 onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                 rows={3}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#BC6C25] focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[var(--primary-light)] focus:border-transparent"
               />
             </div>
 
@@ -212,7 +212,7 @@ export default function CategoryManager() {
                 id="isActive"
                 checked={formData.isActive}
                 onChange={(e) => setFormData(prev => ({ ...prev, isActive: e.target.checked }))}
-                className="h-4 w-4 text-[#BC6C25] focus:ring-[#BC6C25] border-gray-300 rounded"
+                className="h-4 w-4 text-[var(--primary-light)] focus:ring-[var(--primary-light)] border-gray-300 rounded"
               />
               <label htmlFor="isActive" className="ml-2 block text-sm text-gray-700">
                 Active
@@ -222,7 +222,7 @@ export default function CategoryManager() {
             <div className="flex gap-2">
               <button
                 type="submit"
-                className="bg-[#BC6C25] hover:bg-[#A0561F] text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-[var(--primary-light)] hover:bg-[var(--primary-dark)] text-white px-4 py-2 rounded-lg transition-colors"
               >
                 {editingCategory ? 'Update Category' : 'Create Category'}
               </button>
@@ -317,7 +317,7 @@ export default function CategoryManager() {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleEdit(category)}
-                          className="text-[#BC6C25] hover:text-[#A0561F] transition-colors"
+                          className="text-[var(--primary-light)] hover:text-[var(--primary-dark)] transition-colors"
                           title="Edit Category"
                         >
                           <Edit className="w-4 h-4" />

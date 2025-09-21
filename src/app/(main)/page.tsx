@@ -1,54 +1,9 @@
 import HeroSection from "@/components/HeroSection";
-import CategorySection from "@/components/CategorySection";
+import ProductLayout from "@/components/ProductLayout";
 import BlogSection from "@/components/BlogSection";
 import ContactSection from "@/components/ContactSection";
 import { prisma } from '@/lib/prisma';
-
-async function getCategories() {
-  try {
-    const categories = await prisma.category.findMany({
-      where: {
-        isActive: true
-      },
-      include: {
-        products: {
-          where: {
-            isActive: true
-          },
-          include: {
-            images: {
-              where: {
-                isActive: true
-              },
-              orderBy: {
-                sequence: 'asc'
-              }
-            }
-          },
-          orderBy: {
-            createdAt: 'desc'
-          }
-        }
-      },
-      orderBy: {
-        createdAt: 'asc'
-      }
-    });
-    // Transform Prisma types to match our interface
-    return categories.map(category => ({
-      ...category,
-      products: category.products.map(product => ({
-        ...product,
-        originalPrice: product.originalPrice ? Number(product.originalPrice) : null,
-        salePrice: Number(product.salePrice),
-      }))
-    }));
-  } catch (error) {
-    console.error('Error fetching categories:', error);
-    return [];
-  }
-}
-
+ 
 async function getBlogPosts() {
   try {
     const posts = await prisma.blogPost.findMany({
@@ -67,17 +22,38 @@ async function getBlogPosts() {
   }
 }
 
+async function getHeroCarouselImages() {
+  try {
+    const carouselImages = await prisma.heroCarousel.findMany({
+      where: {
+        isActive: true,
+      },
+      orderBy: {
+        sequence: 'asc',
+      },
+      select: {
+        id: true,
+        imageUrl: true,
+        sequence: true,
+      },
+    });
+    return carouselImages;
+  } catch (error) {
+    console.error('Error fetching hero carousel images:', error);
+    return [];
+  }
+}
 
 export default async function Home() {
-  const [categories, blogPosts] = await Promise.all([
-    getCategories(),
+  const [blogPosts, heroImages] = await Promise.all([
     getBlogPosts(),
+    getHeroCarouselImages()
   ]);
 
   return (
     <>
-      <HeroSection />
-      <CategorySection />
+      <HeroSection images={heroImages} />
+      <ProductLayout />
       <BlogSection posts={blogPosts} />
       <ContactSection />
     </>

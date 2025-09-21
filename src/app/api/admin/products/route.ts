@@ -47,7 +47,6 @@ export async function POST(request: Request) {
         salePrice: data.salePrice,
         status: data.status,
         image: data.image || null,
-        badge: data.badge,
         sku: data.sku,
         stock: data.stock,
         showStockCount: data.showStockCount,

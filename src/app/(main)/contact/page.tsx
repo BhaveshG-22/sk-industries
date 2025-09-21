@@ -2,7 +2,7 @@
 
 import { useState, useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
-import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react'
+import { Send, CheckCircle } from 'lucide-react'
 
 function ContactForm() {
   const searchParams = useSearchParams()
@@ -86,7 +86,7 @@ function ContactForm() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-12">
+        <div className="max-w-4xl mx-auto">
           {/* Contact Form */}
           <div className="bg-white p-8 rounded-lg shadow-lg border border-[var(--warm-tan)]">
             {isSubmitted ? (
@@ -218,88 +218,6 @@ function ContactForm() {
             )}
           </div>
 
-          {/* Contact Information */}
-          <div className="bg-[var(--warm-tan)] p-8 rounded-lg shadow-lg space-y-8">
-            <div>
-              <h2 className="text-2xl font-semibold text-[var(--cream-white)] mb-6">
-                Contact Information
-              </h2>
-              <div className="space-y-6">
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-[var(--burnt-orange)] rounded-lg flex items-center justify-center">
-                      <Phone className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-[var(--cream-white)] mb-1">
-                      Phone
-                    </h3>
-                    <p className="text-[var(--cream-white)]/80">
-                      <a href="tel:+1-555-123-4567" className="hover:text-[var(--cream-white)] transition-colors">
-                        +1 (555) 123-4567
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-[var(--burnt-orange)] rounded-lg flex items-center justify-center">
-                      <Mail className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-[var(--cream-white)] mb-1">
-                      Email
-                    </h3>
-                    <p className="text-[var(--cream-white)]/80">
-                      <a href="mailto:info@sk-industries.com" className="hover:text-[var(--cream-white)] transition-colors">
-                        info@sk-industries.com
-                      </a>
-                    </p>
-                  </div>
-                </div>
-
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0">
-                    <div className="w-12 h-12 bg-[var(--burnt-orange)] rounded-lg flex items-center justify-center">
-                      <MapPin className="w-6 h-6 text-white" />
-                    </div>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-medium text-[var(--cream-white)] mb-1">
-                      Address
-                    </h3>
-                    <p className="text-[var(--cream-white)]/80">
-                      123 Business Street<br />
-                      City, State 12345
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-[var(--cream-white)]/90 backdrop-blur-sm p-6 rounded-lg border border-[var(--dark-forest)]/20 shadow-lg">
-              <h3 className="text-lg font-medium text-[var(--dark-forest)] mb-3">
-                Business Hours
-              </h3>
-              <div className="space-y-2 text-[var(--olive-green)]">
-                <div className="flex justify-between">
-                  <span>Monday - Friday:</span>
-                  <span className="font-medium text-[var(--dark-forest)]">9:00 AM - 6:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Saturday:</span>
-                  <span className="font-medium text-[var(--dark-forest)]">10:00 AM - 4:00 PM</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Sunday:</span>
-                  <span className="font-medium text-red-600">Closed</span>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
