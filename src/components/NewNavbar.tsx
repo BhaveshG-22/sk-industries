@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState } from 'react';
 import { Menu, X, ChevronRight } from 'lucide-react';
 
@@ -19,15 +20,17 @@ export default function NewNavbar() {
   return (
     <nav className="bg-gradient-to-r from-[var(--primary-dark)] via-[var(--primary-medium)] to-[var(--primary-light)] shadow-xl sticky top-0 z-50 border-b-2 border-[var(--accent-cream)]/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center group">
-              <div className="bg-gradient-to-r from-[var(--accent-cream)] to-yellow-100 px-4 py-2 rounded-lg shadow-md group-hover:shadow-lg transition-all duration-300 transform group-hover:scale-105">
-                <span className="text-xl font-bold bg-gradient-to-r from-[var(--primary-dark)] to-[var(--primary-medium)] bg-clip-text text-transparent">
-                  SK INDUSTRIES
-                </span>
-              </div>
+              <Image
+                src="/main-logo-1.png"
+                alt="SK Industries"
+                width={500}
+                height={150}
+                className="h-18 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+              />
             </Link>
           </div>
 
