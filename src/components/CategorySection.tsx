@@ -18,7 +18,6 @@ interface ProductItem {
   images: ProductImage[];
   category: string;
   categorySlug: string;
-  badge: string | null;
 }
 
 interface CategorySectionProps {
@@ -50,8 +49,7 @@ async function getProducts() {
     image: product.image,
     images: product.images,
     category: product.category.name,
-    categorySlug: product.category.slug,
-    badge: product.badge
+    categorySlug: product.category.slug
   }));
 }
 
@@ -59,15 +57,6 @@ async function getProducts() {
 export default async function CategorySection({ className = "" }: CategorySectionProps) {
   const allProducts = await getProducts();
   
-  // Group products by category
-  const productsByCategory = allProducts.reduce((acc, product) => {
-    const categorySlug = product.categorySlug;
-    if (!acc[categorySlug]) {
-      acc[categorySlug] = [];
-    }
-    acc[categorySlug].push(product);
-    return acc;
-  }, {} as Record<string, ProductItem[]>);
 
   
   return (
@@ -86,7 +75,7 @@ export default async function CategorySection({ className = "" }: CategorySectio
         </div>
 
         {/* Product Categories */}
-        <CategoryTabs productsByCategory={productsByCategory} />
+        <CategoryTabs />
 
         {/* Call-to-Action Section */}
         <div className="mt-20 text-center bg-[var(--primary-light)] rounded-2xl p-8 md:p-12 text-white">

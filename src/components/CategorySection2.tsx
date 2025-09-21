@@ -93,14 +93,6 @@ export default function CategorySection2({ categories }: CategorySection2Props) 
                               {product.title}
                             </h3>
 
-                            {/* Badge if available */}
-                            {product.badge && (
-                              <div className="flex justify-center mb-4">
-                                <span className="text-xs bg-[var(--primary-light)]/20 text-[var(--primary-light)] px-2 py-1 rounded-full">
-                                  {product.badge}
-                                </span>
-                              </div>
-                            )}
 
                             {/* Stock info */}
                             {product.stock && product.stock > 0 && (

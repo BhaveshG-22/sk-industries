@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,29 +25,29 @@ interface ProductItem {
   categorySlug: string;
 }
 
-interface CategoryTabsProps {
-  productsByCategory: Record<string, ProductItem[]>;
-}
 
 // Product Card Component
 function ProductCard({ product }: { product: ProductItem }) {
   const primaryImage = product.images.length > 0 ? product.images[0] : null;
-  const imageUrl = primaryImage?.url || product.image || '/placeholder.jpg';
+  const imageUrl = primaryImage?.url || product.image || '/images/placeholder.jpg';
   
   return (
     <Card className="group hover:shadow-lg transition-all duration-300 border border-gray-200 hover:border-red-500 bg-white overflow-hidden h-full">
       <CardContent className="p-0 h-full flex flex-col">
         {/* Image Section */}
         <div className="relative aspect-square bg-gradient-to-br from-yellow-50 to-white overflow-hidden">
-          
           {/* Product Image */}
-          <div className="transition-transform duration-300 group-hover:scale-105 w-full h-full">
+          <div className="relative w-full h-full transition-transform duration-300 group-hover:scale-105 p-4 flex items-center justify-center">
             <Image
               src={imageUrl}
               alt={primaryImage?.altText || product.title}
-              fill
-              className="object-cover"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              width={200}
+              height={200}
+              className="object-contain w-full h-full"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = '/images/placeholder.jpg';
+              }}
             />
           </div>
         </div>
@@ -96,7 +97,7 @@ function SectionHeader({ title, count }: { title: string; count?: number }) {
   );
 }
 
-export default function CategoryTabs({ productsByCategory }: CategoryTabsProps) {
+export default function CategoryTabs() {
   // Hardcoded product data
   const hardcodedProducts: Record<string, ProductItem[]> = {
     'paper-bowls': [

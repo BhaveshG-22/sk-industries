@@ -27,7 +27,6 @@ interface ProductItem {
 
 interface ProductLayoutClientProps {
   productsByCategory: Record<string, ProductItem[]>;
-  featuredProducts: ProductItem[];
 }
 
 // Product Card Component
@@ -104,7 +103,7 @@ function ProductCard({ product }: { product: ProductItem }) {
   );
 }
 
-export default function ProductLayoutClient({ productsByCategory, featuredProducts }: ProductLayoutClientProps) {
+export default function ProductLayoutClient({ productsByCategory }: ProductLayoutClientProps) {
   const categories = Object.keys(productsByCategory);
   const [activeCategory, setActiveCategory] = useState<string>(categories[0] || '');
 

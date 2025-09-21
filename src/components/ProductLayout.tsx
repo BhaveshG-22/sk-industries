@@ -1,6 +1,3 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { prisma } from "@/lib/prisma";
 import ProductLayoutClient from "./ProductLayoutClient";
 
@@ -70,10 +67,6 @@ export default async function ProductLayout({ className = "" }: ProductLayoutPro
     return acc;
   }, {} as Record<string, ProductItem[]>);
 
-  // Get featured products from each category (max 6 products total)
-  const featuredProducts = Object.entries(productsByCategory)
-    .flatMap(([_, products]) => products.filter(p => p.isFeatured).slice(0, 2))
-    .slice(0, 6);
 
   return (
     <section className={`py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white ${className}`}>
@@ -88,7 +81,7 @@ export default async function ProductLayout({ className = "" }: ProductLayoutPro
           </p>
         </div>
 
-        <ProductLayoutClient productsByCategory={productsByCategory} featuredProducts={featuredProducts} />
+        <ProductLayoutClient productsByCategory={productsByCategory} />
       </div>
     </section>
   );

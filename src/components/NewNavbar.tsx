@@ -34,7 +34,7 @@ export default function NewNavbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:block">
             <div className="flex items-center space-x-6">
-              {navItems.map((item, index) => (
+              {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
