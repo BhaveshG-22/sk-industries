@@ -167,7 +167,7 @@ export default function ProductLayoutClient({ productsByCategory }: ProductLayou
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-        {activeProducts.slice(0, 6).map((product, index) => (
+        {activeProducts.map((product, index) => (
           <div
             key={product.id}
             className="animate-in fade-in-0 slide-in-from-bottom-4"
@@ -177,18 +177,6 @@ export default function ProductLayoutClient({ productsByCategory }: ProductLayou
           </div>
         ))}
       </div>
-
-      {/* Show more products hint if there are more than 6 */}
-      {activeProducts.length > 6 && (
-        <div className="text-center mb-12">
-          <p className="text-gray-600 mb-4">
-            Showing {Math.min(6, activeProducts.length)} of {activeProducts.length} products in {getCategoryInfo(activeCategory).name}
-          </p>
-          <Button variant="outline" className="text-[var(--primary-light)] border-[var(--primary-light)] hover:bg-[var(--primary-light)] hover:text-white">
-            View All {getCategoryInfo(activeCategory).name}
-          </Button>
-        </div>
-      )}
 
       {/* Call to Action */}
       <div className="text-center bg-gradient-to-r from-[var(--primary-light)] to-[var(--primary-medium)] rounded-2xl p-8 text-white">

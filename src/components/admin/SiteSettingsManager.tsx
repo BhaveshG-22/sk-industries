@@ -56,7 +56,7 @@ const defaultSettings = [
   },
   {
     key: 'contact_address',
-    value: '123 Business Street, City, State 12345',
+    value: 'Gat No 107.108, Near Hotel Pandurang Krupa, Jyotiba Nagar, Talawade, Pune - 411062',
     description: 'Business address',
     category: 'contact',
     type: 'text'
@@ -126,21 +126,21 @@ const defaultSettings = [
   },
   {
     key: 'footer_address_line1',
-    value: '123 Business Street',
+    value: 'Gat No 107.108, Near Hotel Pandurang Krupa',
     description: 'Address line 1',
     category: 'footer',
     type: 'text'
   },
   {
     key: 'footer_address_line2',
-    value: 'Commercial District',
+    value: 'Jyotiba Nagar, Talawade',
     description: 'Address line 2',
     category: 'footer',
     type: 'text'
   },
   {
     key: 'footer_city_state_zip',
-    value: 'Mumbai, Maharashtra 400001',
+    value: 'Pune, Maharashtra 411062',
     description: 'City, state and zip code',
     category: 'footer',
     type: 'text'

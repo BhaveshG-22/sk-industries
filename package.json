@@ -7,7 +7,8 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "update-address": "node scripts/update-address.js"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
