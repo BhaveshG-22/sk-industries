@@ -54,7 +54,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
 
   if (images.length === 0) {
     return (
-      <div className="relative w-full h-64 md:h-96 lg:h-[32rem] xl:h-[36rem] bg-gray-100 flex items-center justify-center">
+      <div className="relative w-full h-[160px] xs:h-[180px] sm:h-[280px] md:h-[320px] lg:h-[420px] xl:h-[520px] 2xl:h-[600px] bg-gray-100 flex items-center justify-center">
         <div className="text-gray-500">No images available</div>
       </div>
     );
@@ -62,7 +62,7 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
 
   return (
     <div className="relative w-full group" data-carousel="slide">
-      <div className="relative h-64 overflow-hidden md:h-96 lg:h-[32rem] xl:h-[36rem]">
+      <div className="relative h-[160px] overflow-hidden xs:h-[180px] sm:h-[280px] md:h-[320px] lg:h-[420px] xl:h-[520px] 2xl:h-[600px]">
         {images.map((image, index) => {
           const isActive = index === currentSlide;
           const isPrev = index === (currentSlide - 1 + images.length) % images.length;
@@ -84,26 +84,26 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
               <Image
                 src={image.imageUrl}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 alt={`Slide ${index + 1}`}
                 priority={index === 0}
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 100vw, 100vw"
               />
-              <div className="absolute inset-0 bg-black/20"></div>
             </div>
           );
         })}
       </div>
 
       {/* Enhanced Indicators */}
-      <div className="absolute z-30 flex -translate-x-1/2 bottom-6 left-1/2 space-x-2">
+      <div className="absolute z-30 flex -translate-x-1/2 bottom-3 md:bottom-6 left-1/2 space-x-2">
         {images.map((_, index) => (
           <button
             key={index}
             type="button"
             className={`relative overflow-hidden rounded-full transition-all duration-300 ${
-              index === currentSlide 
-                ? "w-8 h-3 bg-white" 
-                : "w-3 h-3 bg-white/60 hover:bg-white/80"
+              index === currentSlide
+                ? "w-6 h-2 md:w-8 md:h-3 bg-white"
+                : "w-2 h-2 md:w-3 md:h-3 bg-white/60 hover:bg-white/80"
             }`}
             aria-current={index === currentSlide}
             aria-label={`Go to slide ${index + 1}`}
@@ -124,24 +124,24 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
       {/* Enhanced Navigation Arrows */}
       <button
         type="button"
-        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group/nav focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute top-0 left-0 z-30 flex items-center justify-center h-full px-2 md:px-4 cursor-pointer group/nav focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         onClick={goToPrevious}
         disabled={isTransitioning}
       >
-        <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm group-hover/nav:bg-white/30 group-focus/nav:ring-4 group-focus/nav:ring-white/50 transition-all duration-200 hover:scale-110">
-          <ChevronLeft className="w-6 h-6 text-white drop-shadow-lg" />
+        <span className="inline-flex items-center justify-center w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-sm group-hover/nav:bg-white/30 group-focus/nav:ring-4 group-focus/nav:ring-white/50 transition-all duration-200 hover:scale-110">
+          <ChevronLeft className="w-4 h-4 md:w-6 md:h-6 text-white drop-shadow-lg" />
           <span className="sr-only">Previous</span>
         </span>
       </button>
 
       <button
         type="button"
-        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group/nav focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-2 md:px-4 cursor-pointer group/nav focus:outline-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         onClick={goToNext}
         disabled={isTransitioning}
       >
-        <span className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/20 backdrop-blur-sm group-hover/nav:bg-white/30 group-focus/nav:ring-4 group-focus/nav:ring-white/50 transition-all duration-200 hover:scale-110">
-          <ChevronRight className="w-6 h-6 text-white drop-shadow-lg" />
+        <span className="inline-flex items-center justify-center w-8 h-8 md:w-12 md:h-12 rounded-full bg-white/20 backdrop-blur-sm group-hover/nav:bg-white/30 group-focus/nav:ring-4 group-focus/nav:ring-white/50 transition-all duration-200 hover:scale-110">
+          <ChevronRight className="w-4 h-4 md:w-6 md:h-6 text-white drop-shadow-lg" />
           <span className="sr-only">Next</span>
         </span>
       </button>
@@ -149,13 +149,13 @@ export default function HeroCarousel({ images }: HeroCarouselProps) {
       {/* Play/Pause Button */}
       <button
         type="button"
-        className="absolute top-4 right-4 z-30 flex items-center justify-center w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 opacity-0 group-hover:opacity-100"
+        className="absolute top-2 right-2 md:top-4 md:right-4 z-30 flex items-center justify-center w-8 h-8 md:w-10 md:h-10 rounded-full bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all duration-200 opacity-0 group-hover:opacity-100"
         onClick={togglePlayPause}
       >
         {isPlaying ? (
-          <Pause className="w-4 h-4 text-white" />
+          <Pause className="w-3 h-3 md:w-4 md:h-4 text-white" />
         ) : (
-          <Play className="w-4 h-4 text-white ml-0.5" />
+          <Play className="w-3 h-3 md:w-4 md:h-4 text-white ml-0.5" />
         )}
         <span className="sr-only">{isPlaying ? 'Pause' : 'Play'} slideshow</span>
       </button>
