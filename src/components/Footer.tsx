@@ -103,9 +103,6 @@ export default async function Footer() {
               <Link href="/" className="block text-sm hover:text-[var(--accent-cream)] transition-colors">
                 Home
               </Link>
-              <Link href="/categories" className="block text-sm hover:text-[var(--accent-cream)] transition-colors">
-                Categories
-              </Link>
               <Link href="/products" className="block text-sm hover:text-[var(--accent-cream)] transition-colors">
                 Products
               </Link>

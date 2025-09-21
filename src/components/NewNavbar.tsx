@@ -10,7 +10,6 @@ export default function NewNavbar() {
 
   const navItems = [
     { name: 'HOME', href: '/' },
-    { name: 'CATEGORIES', href: '/categories' },
     { name: 'PRODUCTS', href: '/products' },
     { name: 'BLOGS', href: '/blogs' },
     { name: 'ABOUT US', href: '/about' },
