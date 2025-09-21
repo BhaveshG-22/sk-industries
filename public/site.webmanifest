@@ -1,7 +1,6 @@
 {
-  "name": "Gavali Group",
-  "short_name": "Gavali Group",
-  "description": "Quality products for your home and business",
+  "name": "SK Industries",
+  "short_name": "SK",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -16,9 +15,7 @@
       "purpose": "maskable"
     }
   ],
-  "theme_color": "#ffffff",
+  "theme_color": "#8b2635",
   "background_color": "#ffffff",
-  "display": "standalone",
-  "start_url": "/",
-  "scope": "/"
+  "display": "standalone"
 }
