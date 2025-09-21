@@ -160,7 +160,7 @@ export default function CategoryTabs() {
 
   return (
     <Tabs defaultValue={categories[0]} className="w-full">
-      <TabsList className={`grid w-full mb-12 max-w-4xl mx-auto bg-gray-100 rounded-xl p-2`} style={{ gridTemplateColumns: `repeat(${categories.length}, 1fr)` }}>
+      <TabsList className={`flex flex-col md:flex-row w-full mb-12 max-w-4xl mx-auto bg-gray-100 rounded-xl p-2 gap-2`}>
         {categories.map((categorySlug) => {
           const { name, emoji } = getCategoryInfo(categorySlug);
           const count = hardcodedProducts[categorySlug].length;
@@ -168,7 +168,7 @@ export default function CategoryTabs() {
             <TabsTrigger 
               key={categorySlug} 
               value={categorySlug}
-              className="!flex !flex-col !items-center !justify-center !whitespace-normal data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-red-600 hover:bg-white/50 rounded-lg py-2 px-3 gap-1 !h-auto min-h-[70px] text-center"
+              className="!flex !flex-col !items-center !justify-center !whitespace-normal data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-red-600 hover:bg-white/50 hover:text-[var(--accent-cream)] rounded-lg py-2 px-3 gap-1 !h-auto min-h-[70px] text-center flex-1 md:flex-1"
             >
               <span className="text-xl">
                 {emoji}

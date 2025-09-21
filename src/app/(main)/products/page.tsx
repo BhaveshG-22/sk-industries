@@ -81,7 +81,7 @@ export default function CategoriesPage() {
             className={`px-6 py-3 rounded-lg font-medium transition-colors ${
               selectedCategory === 'all'
                 ? 'bg-[var(--primary-light)] text-white'
-                : 'bg-white text-[var(--primary-dark)] border border-[var(--primary-light)] hover:bg-[var(--primary-light)]'
+                : 'bg-white text-[var(--primary-dark)] border border-[var(--primary-light)] hover:bg-[var(--primary-light)] hover:text-[var(--accent-cream)]'
             }`}
           >
             All Categories ({allProducts.length} products)
@@ -93,7 +93,7 @@ export default function CategoriesPage() {
               className={`px-6 py-3 rounded-lg font-medium transition-colors ${
                 selectedCategory === category.slug
                   ? 'bg-[var(--primary-light)] text-white'
-                  : 'bg-white text-[var(--primary-dark)] border border-[var(--primary-light)] hover:bg-[var(--primary-light)]'
+                  : 'bg-white text-[var(--primary-dark)] border border-[var(--primary-light)] hover:bg-[var(--primary-light)] hover:text-[var(--accent-cream)]'
               }`}
             >
               {category.name} ({category.products.length})

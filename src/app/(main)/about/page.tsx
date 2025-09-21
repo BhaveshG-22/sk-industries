@@ -187,14 +187,14 @@ export default function AboutPage() {
       </section>
 
       {/* Mission Statement */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[var(--near-black)] text-white">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gray-900 text-white">
         <div className="max-w-7xl mx-auto text-center">
           <div className="flex justify-center mb-8">
-            <Factory className="w-16 h-16 text-[var(--dark-red)]" />
+            <Factory className="w-16 h-16 text-red-500" />
           </div>
-          <h2 className="text-3xl font-bold mb-8">Our Promise to You</h2>
+          <h2 className="text-3xl font-bold mb-8 text-white">Our Promise to You</h2>
           <div className="max-w-4xl mx-auto">
-            <p className="text-xl text-[var(--light-gray)] leading-relaxed">
+            <p className="text-xl text-gray-200 leading-relaxed">
               Backed by experience, reliability, and strong values, SK Industries is more than just a manufacturer – we are a partner in your growth. Whether you are a business looking for bulk supply or an individual seeking customized solutions, we are here to serve you with excellence.
             </p>
           </div>
@@ -202,25 +202,33 @@ export default function AboutPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-gradient-to-r from-[var(--light-gray)] to-[#F4F3EE]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-[var(--near-black)] mb-6">Ready to Partner With Us?</h2>
-          <p className="text-lg text-[var(--gray)] mb-8 max-w-2xl mx-auto">
-            Experience the SK Industries difference. Contact us today to discuss your requirements and discover how we can support your business goals.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              className="bg-gradient-to-r from-[var(--dark-red)] to-red-600 text-white px-10 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:from-red-400 hover:to-red-500 transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
-            >
-              Get In Touch
-            </a>
-            <a
-              href="/categories"
-              className="border-2 border-[var(--dark-red)] text-[var(--dark-red)] px-10 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:bg-gradient-to-r hover:from-[var(--dark-red)] hover:to-red-600 hover:text-white transform hover:scale-105 transition-all duration-300 inline-flex items-center justify-center"
-            >
-              View Our Products
-            </a>
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-gray-50 via-white to-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-8 leading-tight">
+              Ready to Partner With Us?
+            </h2>
+
+            <div className="w-24 h-1 bg-[var(--primary-light)] mx-auto mb-8"></div>
+
+            <p className="text-xl md:text-2xl text-gray-700 mb-12 leading-relaxed max-w-3xl mx-auto font-light">
+              Experience the SK Industries difference. Contact us today to discuss your requirements and discover how we can support your business goals.
+            </p>
+
+            <div className="flex flex-col md:flex-row gap-6 justify-center items-center">
+              <a
+                href="/contact?subject=Partnership Inquiry&message=Hello! I'm interested in learning more about SK Industries and would like to discuss potential partnership opportunities. Please contact me to explore how we can work together."
+                className="bg-[var(--primary-light)] hover:bg-[var(--primary-medium)] text-white font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
+              >
+                Get In Touch
+              </a>
+              <a
+                href="/products"
+                className="border-3 border-[var(--primary-light)] text-[var(--primary-light)] hover:bg-[var(--primary-light)] hover:text-white font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300 text-lg"
+              >
+                View Our Products
+              </a>
+            </div>
           </div>
         </div>
       </section>
